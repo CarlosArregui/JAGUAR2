@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent I = new Intent(contexto,MapsActivity.class);
                 startActivity(I);
+                finish();
             }
         });
     }
