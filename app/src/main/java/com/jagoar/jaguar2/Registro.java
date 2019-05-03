@@ -156,9 +156,9 @@ public class Registro extends AppCompatActivity {
     private void snackbar(String message){
         final Snackbar snackbar = Snackbar
                 .make(layoutSnack, message, Snackbar.LENGTH_LONG);
-        View snackView=snackbar.getView();
-       // TextView textView=snackView.findViewById(com.google.android.material.R.id.snackbar_text);
-      //  textView.setTextColor(Color.YELLOW);
+//        View snackView=snackbar.getView();
+//        TextView textView=snackView.findViewById(com.google.android.material.R.id.snackbar_text);
+//        textView.setTextColor(Color.YELLOW);
         snackbar.show();
     }
 }

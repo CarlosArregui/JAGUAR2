@@ -40,7 +40,6 @@ public class ActivityLogin extends AppCompatActivity {
     private TextView passforget;
     private LinearLayout layoutSnack;
     private FirebaseAuth mAuth;
-    private  String idCliente;
     private static final int RC_SIGN_IN = 9001;
     private SharedPreferences mPrefs;
     private static final String prefs_name="PrefsFile";
@@ -73,8 +72,6 @@ public class ActivityLogin extends AppCompatActivity {
          */
 
         mAuth = FirebaseAuth.getInstance();
-        idCliente="309577478544-ap1gfufh3aqa6k7m7lb1sl5lcdce531q.apps.googleusercontent.com";
-
         final Intent I = new Intent(this,Registro.class);
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,11 +221,10 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     private void snackbar(String message){
-//        final Snackbar snackbar = Snackbar
-//                .make(layoutSnack, message, Snackbar.LENGTH_LONG);
-//        View snackView=snackbar.getView();
-//
-//        snackbar.show();
+        final Snackbar snackbar = Snackbar
+               .make(layoutSnack, message, Snackbar.LENGTH_LONG);
+
+       snackbar.show();
     }
 
     private void alertDialog(){
