@@ -5,14 +5,14 @@ import java.util.ArrayList;
 public class Usuario {
     String correo,nombre;
     ArrayList<String> eventos_creados;
-    ArrayList<String> eventos_guardados;
 
 
-    public Usuario(String correo, String nombre, ArrayList<String> eventos_creados, ArrayList<String> eventos_guardados) {
+
+    public Usuario(String correo, String nombre, ArrayList<String> eventos_creados) {
         this.correo = correo;
         this.nombre = nombre;
         this.eventos_creados = eventos_creados;
-        this.eventos_guardados = eventos_guardados;
+
     }
 
     public Usuario() {
@@ -42,11 +42,4 @@ public class Usuario {
         this.eventos_creados = eventos_creados;
     }
 
-    public ArrayList<String> getEventos_guardados() {
-        return eventos_guardados;
-    }
-
-    public void setEventos_guardados(ArrayList<String> eventos_guardados) {
-        this.eventos_guardados = eventos_guardados;
-    }
 }
