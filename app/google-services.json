@@ -44,6 +44,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "635736286223-tgremcm0960at2j8u7c1kpsmfhivh46i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jagoar.jaguar2",
+            "certificate_hash": "01f0d70fc6a2e43eac701a15d6bd1caccb6016d7"
+          }
+        },
+        {
+          "client_id": "635736286223-dpuiq0rd2hqmpd2ldtp6d335b70up93c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jagoar.jaguar2",
+            "certificate_hash": "297e9e50da3569bf3ffa580b4395e5e0ea4f9e01"
+          }
+        },
+        {
           "client_id": "635736286223-qha8jsji2kqu2997ual0trn925ajqou1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

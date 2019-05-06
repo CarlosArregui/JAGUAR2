@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
         FirebaseDatabase firebase = FirebaseDatabase.getInstance();
 
 
-        firebase.getReference().child("eventos").addValueEventListener(new ValueEventListener() {
+        firebase.getReference().child("puntos").addValueEventListener(new ValueEventListener() {
             @Override
             //saca datos y los catualiza en la vista
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
