@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/principal"
+            android:icon="@drawable/principal"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/creados"
+            android:icon="@drawable/created"
+            android:title="Creados" />
+        <item
+            android:id="@+id/guardados"
+            android:icon="@drawable/saved"
+            android:title="Asistencia" />
+    </group>
+
+</menu>

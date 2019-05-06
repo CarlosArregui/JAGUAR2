@@ -187,7 +187,7 @@ public class ActivityLogin extends AppCompatActivity {
                                 snackbar("No has verificado el correo");
                             }else{
                                 if (task.isSuccessful()) {
-                                    Intent I = new Intent(context,MainActivity.class);
+                                    Intent I = new Intent(context,Main2Activity.class);
                                     startActivity(I);
                                     snackbar("Logeado");
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/principal"
+        android:icon="@drawable/gaviota"
+        android:title="Principal" />
+
+    <item
+        android:id="@+id/creados"
+        android:icon="@drawable/created"
+        android:title="Creados" />
+
+    <item
+        android:id="@+id/asistencia"
+        android:icon="@drawable/saved"
+        android:title="Guardados" />
+
+
+
+</menu>
