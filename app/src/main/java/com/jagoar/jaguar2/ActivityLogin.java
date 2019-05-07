@@ -184,7 +184,7 @@ public class ActivityLogin extends AppCompatActivity {
                         try{
                             FirebaseUser user=mAuth.getCurrentUser();
                             if (!user.isEmailVerified()) {
-                                snackbar("No has verificado el correo");
+                                snackbar("No has verificado el correo"); 
                             }else{
                                 if (task.isSuccessful()) {
                                     Intent I = new Intent(context,MainActivity.class);
