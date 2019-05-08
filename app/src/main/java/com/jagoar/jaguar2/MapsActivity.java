@@ -272,7 +272,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                mProgress.dismiss(); 
+                mProgress.dismiss();
 
             }
         });

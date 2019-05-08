@@ -100,10 +100,10 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         final View vista=inflador.inflate(R.layout.alert_di_recy,null);
         constructor.setView(vista);
 
-        TextView tv_creador= vista.findViewById(R.id.tv_creador);
+        TextView tv_creador= vista.findViewById(R.id.tv_titulo);
 
-        TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha_hora);
-        TextView tv_descripcion= vista.findViewById(R.id.tv_desc);
+        TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha);
+        TextView tv_descripcion= vista.findViewById(R.id.tv_autor);
 
 
         tv_creador.setText(punto.getCreador());
