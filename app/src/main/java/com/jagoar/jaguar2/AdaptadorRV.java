@@ -76,7 +76,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             super(itemView);
             tv_titulo_re=itemView.findViewById(R.id.tv_titulo);
             tv_fecha=itemView.findViewById(R.id.tv_fecha);
-            imagen=itemView.findViewById(R.id.imagen);
+
             const_lay=(ConstraintLayout)itemView.findViewById(R.id.constraint_lay);
             itemView.setOnClickListener(this);
         }
@@ -95,19 +95,19 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
         Log.v("clicado","Clase:"+ v.getClass());
         AlertDialog.Builder constructor= new AlertDialog.Builder(v.getContext());
-        constructor.setTitle(punto.getTitulo());
+
         LayoutInflater inflador=LayoutInflater.from(v.getContext());
         final View vista=inflador.inflate(R.layout.alert_di_recy,null);
         constructor.setView(vista);
 
-        TextView tv_creador= vista.findViewById(R.id.tv_titulo);
+        TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
 
         TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha);
         TextView tv_descripcion= vista.findViewById(R.id.tv_autor);
 
 
-        tv_creador.setText(punto.getCreador());
-
+        tv_titulo.setText(punto.getTitulo());
+        tv_descripcion.setText(punto.getCreador());
 
         tv_fecha_hora.setText(punto.getFecha());
 

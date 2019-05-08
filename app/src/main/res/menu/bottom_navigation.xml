@@ -2,12 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/principal"
-        android:icon="@drawable/gaviota"
+        android:icon="@drawable/jaguar"
         android:title="Principal" />
 
     <item
         android:id="@+id/creados"
         android:icon="@drawable/created"
+
         android:title="Creados" />
 
     <item
