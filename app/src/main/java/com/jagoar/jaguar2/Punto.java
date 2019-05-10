@@ -6,16 +6,18 @@ public class Punto {
     String creador;
     String fecha;
     String coord;
+    String countryName;
 
     public Punto() {
     }
 
-    public Punto(String id, String titulo, String creador, String fecha, String coord) {
+    public Punto(String id, String titulo, String creador, String fecha, String coord, String countryName) {
         this.id = id;
         this.titulo = titulo;
         this.creador = creador;
         this.fecha = fecha;
         this.coord = coord;
+        this.countryName = countryName;
     }
 
     public String getId() {
@@ -56,5 +58,13 @@ public class Punto {
 
     public void setCoord(String coord) {
         this.coord = coord;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 }

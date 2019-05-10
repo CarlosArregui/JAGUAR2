@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -44,6 +46,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private ProgressDialog mProgress;
@@ -61,6 +65,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ImageButton imagen;
     EditText et_titulo,et_fecha,et_hora,et_descripcion;
     Context contexto;
+    String countryName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,27 +132,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //creamos nuestro objeto punto y le asignamos su clave
-                EditText et_nombre=vista.findViewById(R.id.et_titulo);
+                EditText et_nombre = vista.findViewById(R.id.et_titulo);
                 DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
-                String id=bbdd.push().getKey();
+                String id = bbdd.push().getKey();
                 Date c = Calendar.getInstance().getTime();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                 String fecha = df.format(c);
-                String titulo=et_nombre.getText().toString();
-                String creador="pepe";
-                String coord=punto.getPosition().toString().replace("lat/lng: (","").replace(")","");
-                Punto p=new Punto(id,titulo,creador,fecha,coord);
+                String titulo = et_nombre.getText().toString();
+                String creador = "pepe";
+                String coord = punto.getPosition().toString().replace("lat/lng: (", "").replace(")", "");
+
+                String latlon[] = coord.split(",");
+                String lat = latlon[0];
+                String lon = latlon[1];
+                Double double_lat = Double.parseDouble(lat);
+                Double double_lon = Double.parseDouble(lon);
+                Log.v("latlon",lat+","+lon);
+                Geocoder gcd = new Geocoder(contexto, Locale.getDefault());
+                List<Address> addresses = null;
+                try {
+                    addresses = gcd.getFromLocation(double_lat, double_lon, 1);
+                    if (addresses.size() > 0) {
+                        countryName = addresses.get(0).getCountryName();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                Punto p = new Punto(id, titulo, creador, fecha, coord, countryName);
 
                 //insertamos nuestro objeto
                 bbdd.child(id).setValue(p);
 
                 //cambiamos de activity y cerramos este
 
-                Intent I = new Intent(contexto,MainActivity.class);
+                Intent I = new Intent(contexto, MainActivity.class);
                 startActivity(I);
                 finish();
-
-
 
 
             }
