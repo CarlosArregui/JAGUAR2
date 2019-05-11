@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -43,6 +50,7 @@ public class ActivityLogin extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
     private SharedPreferences mPrefs;
     private static final String prefs_name="PrefsFile";
+    String correo,contra;
     /*
      * En el onCreate inicializamos los atributos, añadimos los listener de los botones y otras cosas
      * de firebase.
@@ -136,8 +144,8 @@ public class ActivityLogin extends AppCompatActivity {
 
         // El .trim es para eliminar espacios al principio y al final de la palabra
 
-        String correo=emailLog.getText().toString().trim();
-        String contra=passLog.getText().toString().trim();
+         correo=emailLog.getText().toString().trim();
+         contra=passLog.getText().toString().trim();
 
 
         /*
@@ -187,12 +195,37 @@ public class ActivityLogin extends AppCompatActivity {
                                 snackbar("No has verificado el correo");
                             }else{
                                 if (task.isSuccessful()) {
-                                    Intent I = new Intent(context,MainActivity.class);
-                                    startActivity(I);
-                                    snackbar("Logeado");
+                                    DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
+                                    Query q=bbdd.orderByChild("correo").equalTo(correo);
+                                    q.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot d: dataSnapshot.getChildren()) {
+
+                                                // cogemos el id del usuario, su nombre
+                                                String current_user =d.getKey();
+                                                Log.v("jeje","cogemos el usuario en el login: "+current_user);
+                                                //
+
+                                                Intent I = new Intent(context,Main2Activity.class);
+                                                I.putExtra("currentUser",current_user);
+                                                startActivity(I);
+                                                snackbar("Logeado");
+                                                finish();
 
 
-                                } else{
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+
+
+                                }else{
                                     snackbar("No has ingresado los datos correctamente.");
                                 }
                             }

@@ -78,6 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent login_inent=getIntent();
         if (login_inent.getStringExtra("currentUser")!=null){
             current_user=login_inent.getStringExtra("currentUser");
+            Log.v("jeje","mapsActivity: "+current_user);
         }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.

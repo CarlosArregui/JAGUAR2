@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class Main2Activity extends AppCompatActivity {
@@ -18,9 +19,10 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         contexto = this;
-        Intent login_inent=getIntent();
 
+        Intent login_inent=getIntent();
         current_user=login_inent.getStringExtra("currentUser");
+        Log.v("jeje ","estamos en Main activity2: "+current_user);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -36,9 +38,8 @@ public class Main2Activity extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("currentUser", current_user);
                     Fragment selectedFragment = null;
+
 
 
 
@@ -47,13 +48,15 @@ public class Main2Activity extends AppCompatActivity {
                         case R.id.principal:
 
                             selectedFragment = new HomeFragment();
-                            selectedFragment.setArguments(bundle);
+
+                            Log.v("jeje","home fragment selected: "+current_user);
 
 
                             break;
                         case R.id.creados:
                             selectedFragment = new CreadosFragment();
-                            selectedFragment.setArguments(bundle);
+
+                            Log.v("jeje","home fragment Creados");
 
                             break;
                         case R.id.asistencia:
