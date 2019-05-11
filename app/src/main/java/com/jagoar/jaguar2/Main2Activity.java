@@ -12,11 +12,16 @@ import android.view.MenuItem;
 
 public class Main2Activity extends AppCompatActivity {
     Context contexto;
+    String current_user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         contexto = this;
+        Intent login_inent=getIntent();
+
+        current_user=login_inent.getStringExtra("currentUser");
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -31,18 +36,29 @@ public class Main2Activity extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("currentUser", current_user);
                     Fragment selectedFragment = null;
+
+
+
 
                     switch (item.getItemId()) {
                         case R.id.principal:
+
                             selectedFragment = new HomeFragment();
+                            selectedFragment.setArguments(bundle);
+
                             break;
                         case R.id.creados:
                             selectedFragment = new CreadosFragment();
+                            selectedFragment.setArguments(bundle);
                             break;
                         case R.id.asistencia:
                             selectedFragment = null;
-                            startActivity(new Intent(Main2Activity.this,MapsActivity.class));
+                            Intent I = new Intent(contexto,MapsActivity.class);
+                            I.putExtra("currentUser",current_user);
+                            startActivity(I);
                             break;
                     }
 

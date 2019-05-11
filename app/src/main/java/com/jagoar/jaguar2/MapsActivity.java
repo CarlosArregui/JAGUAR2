@@ -66,6 +66,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     EditText et_titulo,et_fecha,et_hora,et_descripcion;
     Context contexto;
     String countryName;
+    String current_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         mSorage= FirebaseStorage.getInstance().getReference();
         contexto=this;
+
+        Intent login_inent=getIntent();
+        if (login_inent.getStringExtra("currentUser")!=null){
+            current_user=login_inent.getStringExtra("currentUser");
+        }
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -139,7 +146,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                 String fecha = df.format(c);
                 String titulo = et_nombre.getText().toString();
-                String creador = "pepe";
+                String creador = current_user;
                 String coord = punto.getPosition().toString().replace("lat/lng: (", "").replace(")", "");
 
                 String latlon[] = coord.split(",");
