@@ -49,16 +49,19 @@ public class Main2Activity extends AppCompatActivity {
                             selectedFragment = new HomeFragment();
                             selectedFragment.setArguments(bundle);
 
+
                             break;
                         case R.id.creados:
                             selectedFragment = new CreadosFragment();
                             selectedFragment.setArguments(bundle);
+
                             break;
                         case R.id.asistencia:
                             selectedFragment = null;
                             Intent I = new Intent(contexto,MapsActivity.class);
                             I.putExtra("currentUser",current_user);
                             startActivity(I);
+
                             break;
                     }
 
