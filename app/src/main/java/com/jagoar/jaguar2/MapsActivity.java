@@ -21,9 +21,12 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -52,7 +55,10 @@ import java.util.Locale;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private ProgressDialog mProgress;
     private StorageReference mSorage;
+    private EditText et_nAudio;
     private static final String LOG_TAG="Record_log";
+    private Button recordBtn;
+    private TextView recordLabel;
     private String fileName;
     private MediaRecorder  recorder;
     private GoogleMap mMap;
@@ -125,13 +131,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void sacarAlertDialog(final String latLng) {
         //metodo para llamar a nuestro alert dialog, crear puntos y subirlos a firebase.
-
         AlertDialog.Builder constructor = new AlertDialog.Builder(this);
         constructor.setTitle("Inserccion");
         constructor.setMessage("Insertar el nuevo contacto");
         LayoutInflater inflador=LayoutInflater.from(this);
         final View vista=inflador.inflate(R.layout.add_punto,null);
         constructor.setView(vista);
+        recordLabel=(TextView)vista.findViewById(R.id.tvGrabar);
+        recordBtn =(Button)vista.findViewById(R.id.btn_grabacion);
+        et_nAudio=(EditText)vista.findViewById(R.id.et_nAudio);
+        recordBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                if (event.getAction()==MotionEvent.ACTION_DOWN){
+                    recordLabel.setText("Grabación iniciada");
+                    startRecording();
+                }else if (event.getAction()==MotionEvent.ACTION_UP){
+                    stopRecording();
+                    recordLabel.setText("Grabación finalizada");
+                }
+                return false;
+            }
+        });
 
 
         constructor.setPositiveButton("Insertar", new DialogInterface.OnClickListener() {
@@ -140,6 +162,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(DialogInterface dialog, int which) {
                 //creamos nuestro objeto punto y le asignamos su clave
                 EditText et_nombre = vista.findViewById(R.id.et_titulo);
+                uploadAudio();
                 DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
                 String id = bbdd.push().getKey();
                 Date c = Calendar.getInstance().getTime();
@@ -290,19 +313,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         recorder.stop();
         recorder.release();
         recorder = null;
-
-        uploadAudio();
     }
 
     private void uploadAudio() {
+
+        String nombre=et_nAudio.getText().toString().trim();
         mProgress.setMessage("Subiendo archivo...");
         mProgress.show();
-        StorageReference filepath=mSorage.child("Audio").child("new_audio.3gp");
+        StorageReference filepath=mSorage.child("Audio").child(nombre+".3gp");
         Uri uri= Uri.fromFile(new File(fileName));
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                mProgress.dismiss();
+                //mProgress.dismiss();
 
             }
         });
