@@ -34,7 +34,7 @@ public class BuscarFragment extends Fragment {
     Context contexto;
     String current_user;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.home, container, false);
+        return inflater.inflate(R.layout.fragment_buscar, container, false);
 
     }
     @Override
@@ -45,13 +45,13 @@ public class BuscarFragment extends Fragment {
             current_user = getArguments().getString("currentUser");
             Log.v("jeje",current_user);
         }
-        rv = getView().findViewById(R.id.recycler_home);
+        rv = getView().findViewById(R.id.rv_usuarios);
         rv.setLayoutManager(new LinearLayoutManager(contexto));
         usuarios = new ArrayList<>();
 
 
         FirebaseDatabase firebase = FirebaseDatabase.getInstance();
-        DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
+        DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
         Query q=bbdd.orderByChild("creador").equalTo(current_user);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
