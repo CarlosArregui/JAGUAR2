@@ -63,6 +63,11 @@ public class Main2Activity extends AppCompatActivity {
                             startActivity(I);
 
                             break;
+                        case R.id.anadir:
+                            selectedFragment = new AnadirFragment();
+                            selectedFragment.setArguments(bundle);
+
+                            break;
                     }
 
                     if (selectedFragment != null){

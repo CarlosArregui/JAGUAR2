@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/creados"
-        android:icon="@drawable/created"
+        android:icon="@drawable/principal"
 
         android:title="Creados" />
 
@@ -15,7 +15,10 @@
         android:id="@+id/asistencia"
         android:icon="@drawable/saved"
         android:title="Guardados" />
-
+    <item
+        android:id="@+id/anadir"
+        android:icon="@drawable/created"
+        android:title="Guardados" />
 
 
 </menu>

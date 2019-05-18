@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
     AdaptadorRV adapter;
     Context contexto;
     String current_user;
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.home, container, false);
 
@@ -46,6 +47,7 @@ public class HomeFragment extends Fragment {
             current_user = getArguments().getString("currentUser");
             Log.v("jeje",current_user);
         }
+
         rv = getView().findViewById(R.id.recycler_home);
         rv.setLayoutManager(new LinearLayoutManager(contexto));
         puntos = new ArrayList<>();
