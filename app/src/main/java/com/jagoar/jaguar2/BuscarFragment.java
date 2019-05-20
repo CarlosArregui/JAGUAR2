@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,7 @@ import java.util.List;
 
 
 
-public class BuscarFragment extends Fragment {
+public class BuscarFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     RecyclerView rv;
     List<Usuario> usuarios;
@@ -62,7 +63,7 @@ public class BuscarFragment extends Fragment {
                     Usuario user = snapshot.getValue(Usuario.class);
                     usuarios.add(user);
                 }
-                adapter = new AdaptadorRV(usuarios);
+                adapter = new AdaptadorRvUsuarios(usuarios);
                 adapter.notifyDataSetChanged();
                 rv.setAdapter(adapter);
             }
@@ -72,5 +73,15 @@ public class BuscarFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
     }
 }

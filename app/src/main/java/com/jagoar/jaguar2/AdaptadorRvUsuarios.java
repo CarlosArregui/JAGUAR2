@@ -32,7 +32,7 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
         View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_add,viewGroup, false);
 
         // viewGroup.setOnClickListener(this);
-        AdaptadorRV.ListaPuntosHolder usuarios = new AdaptadorRV.ListaPuntosHolder(v);
+        AdaptadorRvUsuarios.ListaUsuariosHolder usuarios = new AdaptadorRvUsuarios.ListaUsuariosHolder(v);
         return usuarios;
     }
     View.OnClickListener oyente=new View.OnClickListener() {
@@ -44,8 +44,7 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
     @Override
     public void onBindViewHolder(@NonNull AdaptadorRvUsuarios.ListaUsuariosHolder listaUsuariosHolder, int i) {
         Usuario usuario =lista_usuarios_recy.get(i);
-        listaUsuariosHolder.tv_titulo_re.setText(punto.getTitulo());
-        listaUsuariosHolder.tv_fecha.setText(punto.getFecha());
+
         listaUsuariosHolder.i=i;
         // listaPuntosHolder.const_lay.setOnClickListener(oyente);
 
@@ -84,7 +83,7 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
 
         }
     }
-    public static void sacarAlertDialog(Punto punto, View v)
+    public static void sacarAlertDialog(Usuario punto, View v)
     {
         // Log.v("clicado", "posciion:"+position);
 
@@ -103,10 +102,7 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
         TextView tv_descripcion= vista.findViewById(R.id.tv_autor);
 
 
-        tv_titulo.setText(punto.getTitulo());
-        tv_descripcion.setText(punto.getCreador());
 
-        tv_fecha_hora.setText(punto.getFecha());
 
         constructor.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override

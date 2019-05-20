@@ -10,10 +10,11 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_home"
-        android:layout_width="395dp"
-        android:layout_height="715dp"
+        android:layout_width="419dp"
+        android:layout_height="652dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
