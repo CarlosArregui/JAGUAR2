@@ -43,6 +43,11 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
     @Override
     public void onBindViewHolder(@NonNull AdaptadorRvUsuarios.ListaUsuariosHolder listaUsuariosHolder, int i) {
         Usuario usuario =lista_usuarios_recy.get(i);
+        listaUsuariosHolder.tv_usuario.setText(usuario.getNombre());
+        List audios_list= usuario.getEventos_creados();
+
+        for(i=0;i<=audios_list.size().)
+        listaUsuariosHolder.tv_audios_creados.setText(audios);
 
         listaUsuariosHolder.i=i;
         // listaPuntosHolder.const_lay.setOnClickListener(oyente);
@@ -69,7 +74,7 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
         ConstraintLayout const_lay_user;
         public ListaUsuariosHolder(@NonNull View itemView) {
             super(itemView);
-            tv_usuario=itemView.findViewById(R.id.tv_autor);
+            tv_usuario=itemView.findViewById(R.id.tv_titulo);
             tv_audios_creados=itemView.findViewById(R.id.tv_audios_creados);
 
             const_lay_user=(ConstraintLayout)itemView.findViewById(R.id.const_lay_user);
@@ -92,13 +97,13 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
         AlertDialog.Builder constructor= new AlertDialog.Builder(v.getContext());
 
         LayoutInflater inflador=LayoutInflater.from(v.getContext());
-        final View vista=inflador.inflate(R.layout.alert_di_recy,null);
+        final View vista=inflador.inflate(R.layout.alert_di_recy_user,null);
         constructor.setView(vista);
 
-        TextView tv_titulo= vista.findViewById(R.id.tv_autor);
+        TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
 
-        TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha);
-        TextView tv_descripcion= vista.findViewById(R.id.tv_autor);
+        TextView tv_fecha_hora= vista.findViewById(R.id.tv_audios_creados);
+        TextView tv_descripcion= vista.findViewById(R.id.tv_titulo);
 
 
 

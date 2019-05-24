@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_autor"
+            android:id="@+id/tv_titulo"
             android:layout_width="109dp"
             android:layout_height="37dp"
             android:layout_marginStart="32dp"

@@ -53,7 +53,7 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
 
 
         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
-        Query q=bbdd.orderByChild("nombre").equalTo(current_user);
+        Query q=bbdd.orderByChild("nombre");
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             //saca datos y los catualiza en la vista
