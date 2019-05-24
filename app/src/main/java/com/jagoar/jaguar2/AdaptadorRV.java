@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -74,7 +73,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         ConstraintLayout const_lay;
         public ListaPuntosHolder(@NonNull View itemView) {
             super(itemView);
-            tv_titulo_re=itemView.findViewById(R.id.tv_titulo);
+            tv_titulo_re=itemView.findViewById(R.id.tv_autor);
             tv_fecha=itemView.findViewById(R.id.tv_fecha);
 
             const_lay=(ConstraintLayout)itemView.findViewById(R.id.constraint_lay);
@@ -100,7 +99,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         final View vista=inflador.inflate(R.layout.alert_di_recy,null);
         constructor.setView(vista);
 
-        TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
+        TextView tv_titulo= vista.findViewById(R.id.tv_autor);
 
         TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha);
         TextView tv_descripcion= vista.findViewById(R.id.tv_autor);

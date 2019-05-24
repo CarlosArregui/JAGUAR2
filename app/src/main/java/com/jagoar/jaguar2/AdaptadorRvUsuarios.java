@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
 
     @Override
     public AdaptadorRvUsuarios.ListaUsuariosHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_add,viewGroup, false);
+        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_user,viewGroup, false);
 
         // viewGroup.setOnClickListener(this);
         AdaptadorRvUsuarios.ListaUsuariosHolder usuarios = new AdaptadorRvUsuarios.ListaUsuariosHolder(v);
@@ -62,18 +61,18 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
 
 
     public static class ListaUsuariosHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView tv_titulo_re, tv_fecha;
-        ImageView imagen;
+        TextView tv_usuario, tv_audios_creados;
+
         int i;
 
         Button btn_abrir;
-        ConstraintLayout const_lay;
+        ConstraintLayout const_lay_user;
         public ListaUsuariosHolder(@NonNull View itemView) {
             super(itemView);
-            tv_titulo_re=itemView.findViewById(R.id.tv_titulo);
-            tv_fecha=itemView.findViewById(R.id.tv_fecha);
+            tv_usuario=itemView.findViewById(R.id.tv_autor);
+            tv_audios_creados=itemView.findViewById(R.id.tv_audios_creados);
 
-            const_lay=(ConstraintLayout)itemView.findViewById(R.id.constraint_lay);
+            const_lay_user=(ConstraintLayout)itemView.findViewById(R.id.const_lay_user);
             itemView.setOnClickListener(this);
         }
 
@@ -83,7 +82,7 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
 
         }
     }
-    public static void sacarAlertDialog(Usuario punto, View v)
+    public static void sacarAlertDialog(Usuario user, View v)
     {
         // Log.v("clicado", "posciion:"+position);
 
@@ -96,7 +95,7 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
         final View vista=inflador.inflate(R.layout.alert_di_recy,null);
         constructor.setView(vista);
 
-        TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
+        TextView tv_titulo= vista.findViewById(R.id.tv_autor);
 
         TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha);
         TextView tv_descripcion= vista.findViewById(R.id.tv_autor);

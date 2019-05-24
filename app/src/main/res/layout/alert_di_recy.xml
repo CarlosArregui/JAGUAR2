@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_titulo"
+            android:id="@+id/tv_autor"
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
@@ -41,9 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="88dp"
-            android:background="@color/colorAccent2"
             android:text="Autor"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryLight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,7 +53,7 @@
             android:layout_marginStart="84dp"
             android:layout_marginTop="84dp"
             android:text="TextView"
-            android:textColor="@color/colorAccent1"
+            android:textColor="@color/colorPrimaryLight"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -66,9 +65,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="140dp"
             android:layout_marginBottom="8dp"
-            android:background="@color/colorAccent2"
             android:text="Fecha"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryLight"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -82,7 +80,7 @@
             android:layout_marginTop="136dp"
             android:layout_marginBottom="8dp"
             android:text="TextView"
-            android:textColor="@color/colorAccent1"
+            android:textColor="@color/colorPrimaryLight"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
