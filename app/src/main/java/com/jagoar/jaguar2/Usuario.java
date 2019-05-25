@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Usuario {
     String correo,nombre;
     ArrayList<String> eventos_creados;
-
+ 
 
 
     public Usuario(String correo, String nombre, ArrayList<String> eventos_creados) {
