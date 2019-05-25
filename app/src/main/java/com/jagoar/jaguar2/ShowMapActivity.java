@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,12 +26,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallback {
+import static java.lang.Thread.sleep;
+
+public class ShowMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private String current_user;
-    private List<Punto> lista_puntos;
-    private ArrayList<Marker> lista_marker;
+    public ArrayList<Marker> lista_marker;
+    Button btn_autoplay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,27 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
         if (login_inent.getStringExtra("currentUser")!=null){
             current_user=login_inent.getStringExtra("currentUser");
             Log.v("jeje","showmapActivity: "+current_user);
+        }
+
+        btn_autoplay=findViewById(R.id.btn_autolpay);
+        btn_autoplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autoPlay();
+            }
+        });
+    }
+
+    private void autoPlay() {
+        for(Marker m:lista_marker){
+
+            try {
+                Log.v("jeje",m.getTitle());
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(m.getPosition()));
+                sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -66,7 +92,7 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
             @Override
             //saca datos y los catualiza en la vista
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                ArrayList<Marker> lista_markerFirebase =new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Punto p = snapshot.getValue(Punto.class);
                     String coord =p.getCoord();
@@ -75,9 +101,10 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
                     double longitude = Double.parseDouble(latlong[1]);
                     LatLng location = new LatLng(latitude, longitude);
                     Marker marker=mMap.addMarker(new MarkerOptions().position(location).title(p.getTitulo()));
-                    
+                    lista_markerFirebase.add(marker);
 
                 }
+                lista_marker=lista_markerFirebase;
 
             }
 
@@ -86,6 +113,7 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
 
             }
         });
+
 
     }
 }
