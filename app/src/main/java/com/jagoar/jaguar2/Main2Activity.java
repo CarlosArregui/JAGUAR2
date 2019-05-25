@@ -66,7 +66,7 @@ public class Main2Activity extends AppCompatActivity {
 
                             break;
                         case R.id.add_puntos:
-                            selectedFragment = new AnadirFragment();
+                            selectedFragment = null;
                             Intent showMap = new Intent(contexto,ShowMapActivity.class);
                             showMap.putExtra("currentUser",current_user);
                             startActivity(showMap);
