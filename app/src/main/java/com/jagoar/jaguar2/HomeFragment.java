@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         if (getArguments() != null) {
             current_user = getArguments().getString("currentUser");
-            Log.v("jeje",current_user);
+            Log.v("jeje","home "+current_user);
         }
 
         rv = getView().findViewById(R.id.recycler_home);
@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
 
         FirebaseDatabase firebase = FirebaseDatabase.getInstance();
         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
-        Query q=bbdd.orderByChild("creador").equalTo(current_user);
+        Query q=bbdd.orderByChild("creador").equalTo("wilxair");
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             //saca datos y los catualiza en la vista

@@ -15,10 +15,11 @@
         android:id="@+id/asistencia"
         android:icon="@drawable/saved"
         android:title="Guardados" />
+
     <item
-        android:id="@+id/anadir"
+        android:id="@+id/add_puntos"
         android:icon="@drawable/created"
-        android:title="Guardados" />
+        android:title="Añadir" />
 
 
 </menu>

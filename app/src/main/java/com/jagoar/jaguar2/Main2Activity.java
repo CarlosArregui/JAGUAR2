@@ -48,7 +48,6 @@ public class Main2Activity extends AppCompatActivity {
                         case R.id.principal:
 
                             selectedFragment = new HomeFragment();
-
                             Log.v("jeje","home fragment selected: "+current_user);
 
 
@@ -66,9 +65,11 @@ public class Main2Activity extends AppCompatActivity {
                             startActivity(I);
 
                             break;
-                        case R.id.anadir:
+                        case R.id.add_puntos:
                             selectedFragment = new AnadirFragment();
-                            selectedFragment.setArguments(bundle);
+                            Intent showMap = new Intent(contexto,ShowMapActivity.class);
+                            showMap.putExtra("currentUser",current_user);
+                            startActivity(showMap);
 
                             break;
                     }
