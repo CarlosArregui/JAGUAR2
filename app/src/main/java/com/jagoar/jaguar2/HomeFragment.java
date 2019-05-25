@@ -2,6 +2,7 @@ package com.jagoar.jaguar2;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -17,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +36,7 @@ public class HomeFragment extends Fragment {
     List<Punto> puntos;
     AdaptadorRV adapter;
     Context contexto;
+    String current_mail;
     String current_user;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,37 +47,57 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        if (getArguments() != null) {
-            current_user = getArguments().getString("currentUser");
-            Log.v("jeje","home "+current_user);
-        }
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        current_mail= user.getEmail();
+
+
 
         rv = getView().findViewById(R.id.recycler_home);
         rv.setLayoutManager(new LinearLayoutManager(contexto));
         puntos = new ArrayList<>();
 
-
-        FirebaseDatabase firebase = FirebaseDatabase.getInstance();
-        DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
-        Query q=bbdd.orderByChild("creador").equalTo("wilxair");
+        DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
+        Query q=bbdd.orderByChild("correo").equalTo(current_mail);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            //saca datos y los catualiza en la vista
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                puntos.removeAll(puntos);
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Punto punto = snapshot.getValue(Punto.class);
-                    puntos.add(punto);
-                }
-                adapter = new AdaptadorRV(puntos);
-                adapter.notifyDataSetChanged();
-                rv.setAdapter(adapter);
-            }
+                for (DataSnapshot d: dataSnapshot.getChildren()) {
 
+                    current_user =d.getKey();
+
+                    FirebaseDatabase firebase = FirebaseDatabase.getInstance();
+                    DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
+                    Query q=bbdd.orderByChild("creador").equalTo(current_user);
+                    q.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        //saca datos y los catualiza en la vista
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            puntos.removeAll(puntos);
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                Punto punto = snapshot.getValue(Punto.class);
+                                puntos.add(punto);
+                            }
+                            adapter = new AdaptadorRV(puntos);
+                            adapter.notifyDataSetChanged();
+                            rv.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+
+                }
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
     }
 }
