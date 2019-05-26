@@ -44,12 +44,8 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
     public void onBindViewHolder(@NonNull AdaptadorRvUsuarios.ListaUsuariosHolder listaUsuariosHolder, int i) {
         Usuario usuario =lista_usuarios_recy.get(i);
         listaUsuariosHolder.tv_usuario.setText(usuario.getNombre());
-        List audios_list= usuario.getEventos_creados();
 
-        for(i=0;i<=audios_list.size().)
-        listaUsuariosHolder.tv_audios_creados.setText(audios);
-
-        listaUsuariosHolder.i=i;
+        listaUsuariosHolder.i = i;
         // listaPuntosHolder.const_lay.setOnClickListener(oyente);
 
     }
