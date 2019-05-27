@@ -8,12 +8,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-public class SplashScreen extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
 
+public class SplashScreen extends AppCompatActivity {
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        firebaseAuth = FirebaseAuth.getInstance();
         getSupportActionBar().hide();
         //Splash Screen
         ImageView imagen = (ImageView) findViewById(R.id.jaguar);
@@ -30,9 +33,13 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreen
-                        .this,ActivityLogin.class);
-                startActivity(intent);
+                if (firebaseAuth.getCurrentUser() != null) {
+                    Intent intent = new Intent(SplashScreen.this, ActivityLogin.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(SplashScreen.this, SliderActivity.class);
+                    startActivity(intent);
+                }
                 finish();
             }
         }, 2000);

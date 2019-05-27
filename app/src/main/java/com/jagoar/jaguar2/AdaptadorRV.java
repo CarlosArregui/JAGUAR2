@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 
-import android.media.Image;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -49,6 +49,25 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         Punto punto =lista_eventos_recy.get(i);
         listaPuntosHolder.tv_titulo_re.setText(punto.getTitulo());
         listaPuntosHolder.tv_fecha.setText(punto.getFecha());
+        listaPuntosHolder.btnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MediaPlayer mediaPlayer= new MediaPlayer();
+                try{
+                    mediaPlayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/jaguar-f79f4.appspot.com/o/Audio%2Flol.3gp?alt=media&token=1f2c2d13-09e5-4b29-8fae-dd722937ac6d");
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mp.start();
+                        }
+                    });
+                    mediaPlayer.prepare();
+                }catch (Exception  e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
         listaPuntosHolder.i=i;
         // listaPuntosHolder.const_lay.setOnClickListener(oyente);
 
@@ -67,6 +86,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
     public static class ListaPuntosHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tv_titulo_re, tv_fecha;
+        Button btnPlay;
         ImageView imagen;
         int i;
 
@@ -76,7 +96,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             super(itemView);
             tv_titulo_re=itemView.findViewById(R.id.tv_titulo);
             tv_fecha=itemView.findViewById(R.id.tv_fecha);
-
+            btnPlay=itemView.findViewById(R.id.btn_play);
             const_lay=(ConstraintLayout)itemView.findViewById(R.id.constraint_lay);
             itemView.setOnClickListener(this);
         }
@@ -101,7 +121,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         constructor.setView(vista);
 
         TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
-
+        Button btnPlay= vista.findViewById(R.id.btn_play);
         TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha);
         TextView tv_descripcion= vista.findViewById(R.id.tv_autor);
 
