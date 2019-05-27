@@ -11,6 +11,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="whats_jaguar">¿Qué es Jaguar?</string>
     <string name="how_does_it_work">Para finalizar...</string>
-    <string name="slider_descripcion_1">Jaguar es una aplicacion con la finalidad de que todas las personas puedan vivir las experiencias de visitar los lugares del mundo mediante audios grabados.</string>
-    <string name="slider_descripcion_2">Jaguar necesitara unos permisos para poder utilizarse con toda su funcinalidad.</string>
+    <string name="slider_descripcion_1">Jaguar es una aplicación con la finalidad de que todas las personas puedan vivir las experiencias de visitar los lugares del mundo mediante audios grabados.</string>
+    <string name="slider_descripcion_2">¡No te preocupes! Tu información está a salvo. Jaguar necesitará unos permisos para poder utilizarse con toda su funcionalidad.</string>
 </resources>
