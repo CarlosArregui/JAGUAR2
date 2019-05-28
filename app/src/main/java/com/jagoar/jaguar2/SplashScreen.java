@@ -12,6 +12,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashScreen extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
+    private ImageView imagen2;
+    private ImageView imagen;
+    private Animation myanim2, myanim,myanim3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,11 +22,45 @@ public class SplashScreen extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         getSupportActionBar().hide();
         //Splash Screen
-        ImageView imagen = (ImageView) findViewById(R.id.jaguar);
-        Animation myanim = AnimationUtils.loadAnimation(this, R.anim.splashanim);
-
+        imagen = (ImageView) findViewById(R.id.jaguar);
+        imagen2 = (ImageView) findViewById(R.id.rugido_id);
+        myanim = AnimationUtils.loadAnimation(this, R.anim.zoom);
+        myanim2 = AnimationUtils.loadAnimation(this, R.anim.shake);
+        myanim3 = AnimationUtils.loadAnimation(this, R.anim.small);
         imagen.startAnimation(myanim);
-        imagen.setVisibility(imagen.INVISIBLE);
+        /*myanim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                imagen2.startAnimation(myanim2);
+                myanim2.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        imagen.startAnimation(myanim3);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+    */
 
         openApp(true);
     }
