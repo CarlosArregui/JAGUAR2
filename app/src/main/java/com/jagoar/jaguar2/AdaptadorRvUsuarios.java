@@ -13,6 +13,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuarios.ListaUsuariosHolder> implements InterfazClickRV {
@@ -41,13 +49,33 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
     };
 
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorRvUsuarios.ListaUsuariosHolder listaUsuariosHolder, int i) {
+    public void onBindViewHolder(@NonNull final AdaptadorRvUsuarios.ListaUsuariosHolder listaUsuariosHolder, int i) {
         Usuario usuario =lista_usuarios_recy.get(i);
         listaUsuariosHolder.tv_usuario.setText(usuario.getNombre());
-        List audios_list= usuario.getEventos_creados();
 
-        for(i=0;i<=audios_list.size().)
-        listaUsuariosHolder.tv_audios_creados.setText(audios);
+        String user= usuario.getNombre();
+        final List <Punto>audios_list= new ArrayList<>();
+
+        FirebaseDatabase firebase = FirebaseDatabase.getInstance();
+        DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
+        Query q=bbdd.orderByChild("creador").equalTo(user);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            //saca datos y los catualiza en la vista
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                audios_list.removeAll(audios_list);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Punto punto = snapshot.getValue(Punto.class);
+                    audios_list.add(punto);
+                }
+              listaUsuariosHolder.tv_audios_creados.setText(Integer.toString(audios_list.size()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         listaUsuariosHolder.i=i;
         // listaPuntosHolder.const_lay.setOnClickListener(oyente);
