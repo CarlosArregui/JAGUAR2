@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -73,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Context contexto;
     String countryName;
     String current_user;
-    String URL;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,8 +192,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
 
-                Punto p = new Punto(id, titulo, creador, fecha, coord, countryName,URL);
-
+                Punto p = new Punto(id, titulo, creador, fecha, coord, countryName,url);
                 //insertamos nuestro objeto
                 bbdd.child(id).setValue(p);
 
@@ -319,18 +319,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void uploadAudio() {
 
         String nombre=et_nAudio.getText().toString().trim();
-        mProgress.setMessage("Subiendo archivo...");
-        mProgress.show();
         final StorageReference filepath=mSorage.child("Audio").child(nombre+".3gp");
         Uri uri= Uri.fromFile(new File(fileName));
+        //Uri no valido
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                //mProgress.dismiss();
-                filepath.getDownloadUrl();
-                URL=filepath.toString();
+                filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        //Uri válido
+                        Log.d("uriuri", "onSuccess: uri= "+ uri.toString());
+                    }
+                });
             }
         });
+        //ES EL URI INTERNO NO EL EXTERNO
+
     }
 
 
