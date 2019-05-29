@@ -55,6 +55,10 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
                 MediaPlayer mediaPlayer= new MediaPlayer();
                 try{
                     mediaPlayer.setDataSource(punto.getUrl());
+                    Log.v("uriuri",punto.getUrl());
+                    if (mediaPlayer.isPlaying()){
+                        mediaPlayer.stop();
+                    }
                     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(MediaPlayer mp) {
@@ -64,6 +68,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
                     mediaPlayer.prepare();
                 }catch (Exception  e){
                     e.printStackTrace();
+                    Log.v("uriuri",punto.getUrl());
                 }
 
             }
