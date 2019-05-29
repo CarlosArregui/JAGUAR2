@@ -73,6 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Context contexto;
     String countryName;
     String current_user;
+    String URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +191,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
 
-                Punto p = new Punto(id, titulo, creador, fecha, coord, countryName);
+                Punto p = new Punto(id, titulo, creador, fecha, coord, countryName,URL);
 
                 //insertamos nuestro objeto
                 bbdd.child(id).setValue(p);
@@ -320,13 +321,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String nombre=et_nAudio.getText().toString().trim();
         mProgress.setMessage("Subiendo archivo...");
         mProgress.show();
-        StorageReference filepath=mSorage.child("Audio").child(nombre+".3gp");
+        final StorageReference filepath=mSorage.child("Audio").child(nombre+".3gp");
         Uri uri= Uri.fromFile(new File(fileName));
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 //mProgress.dismiss();
-
+                filepath.getDownloadUrl();
+                URL=filepath.toString();
             }
         });
     }
