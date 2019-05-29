@@ -54,7 +54,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             public void onClick(View v) {
                 MediaPlayer mediaPlayer= new MediaPlayer();
                 try{
-                    mediaPlayer.setDataSource(punto.getURL());
+                    mediaPlayer.setDataSource(punto.getUrl());
                     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(MediaPlayer mp) {

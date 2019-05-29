@@ -164,9 +164,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(DialogInterface dialog, int which) {
                 //creamos nuestro objeto punto y le asignamos su clave
                 EditText et_nombre = vista.findViewById(R.id.et_titulo);
-                uploadAudio();
+
                 DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
                 String id = bbdd.push().getKey();
+
+
                 Date c = Calendar.getInstance().getTime();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                 String fecha = df.format(c);
@@ -179,7 +181,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String lon = latlon[1];
                 Double double_lat = Double.parseDouble(lat);
                 Double double_lon = Double.parseDouble(lon);
-                Log.v("latlon",lat+","+lon);
+
                 Geocoder gcd = new Geocoder(contexto, Locale.getDefault());
                 List<Address> addresses = null;
                 try {
@@ -192,16 +194,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
 
-                Punto p = new Punto(id, titulo, creador, fecha, coord, countryName,url);
-                //insertamos nuestro objeto
-                bbdd.child(id).setValue(p);
+                final Punto p = new Punto(id, titulo, creador, fecha, coord, countryName);
+                uploadAudio(p);
+
 
                 //cambiamos de activity y cerramos este
 
-                Intent I = new Intent(contexto, Main2Activity.class);
-                I.putExtra("currentUser",current_user);
-                startActivity(I);
-                finish();
+
 
 
             }
@@ -316,7 +315,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         recorder = null;
     }
 
-    private void uploadAudio() {
+    private void uploadAudio(final Punto p) {
 
         String nombre=et_nAudio.getText().toString().trim();
         final StorageReference filepath=mSorage.child("Audio").child(nombre+".3gp");
@@ -328,8 +327,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        //Uri válido
-                        Log.d("uriuri", "onSuccess: uri= "+ uri.toString());
+                        DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
+                        p.setUrl(uri.toString());
+                        bbdd.child(p.getId()).setValue(p);
+
+                        Intent I = new Intent(contexto, Main2Activity.class);
+                        I.putExtra("currentUser",current_user);
+                        startActivity(I);
+                        finish();
+
                     }
                 });
             }
