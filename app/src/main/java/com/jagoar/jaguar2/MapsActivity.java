@@ -16,6 +16,7 @@ import android.location.LocationManager;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -37,7 +38,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -46,6 +50,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -73,7 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Context contexto;
     String countryName;
     String current_user;
-    String URL;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,7 +196,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
 
-                Punto p = new Punto(id, titulo, creador, fecha, coord, countryName,URL);
+                Punto p = new Punto(id, titulo, creador, fecha, coord, countryName,url);
 
                 //insertamos nuestro objeto
                 bbdd.child(id).setValue(p);
@@ -323,14 +328,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mProgress.show();
         final StorageReference filepath=mSorage.child("Audio").child(nombre+".3gp");
         Uri uri= Uri.fromFile(new File(fileName));
-        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        UploadTask uploadTask =filepath.putFile(uri);
+
+
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                //mProgress.dismiss();
-                filepath.getDownloadUrl();
-                URL=filepath.toString();
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                // Continue with the task to get the download URL
+                return filepath.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                } else {
+                    // Handle failures
+                    // ...
+                }
             }
         });
+
+        url=urlTask.toString();
     }
 
 
