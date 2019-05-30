@@ -47,9 +47,14 @@ public class Registro extends AppCompatActivity {
     private Boolean no_repetido=false;
     private FirebaseAuth mAuth;
     private DatabaseReference bbdd;
+    SharedPref sharedpref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedpref = new SharedPref(this);
+        if(sharedpref.loadNightModeState()==true) {
+            setTheme(R.style.darkTtheme);
+        }else  setTheme(R.style.AppThemes);
         super.onCreate(savedInstanceState);
 
         //Paantalla de registro

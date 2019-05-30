@@ -13,8 +13,13 @@ import android.view.MenuItem;
 public class Main2Activity extends AppCompatActivity {
     Context contexto;
     String current_user;
+    SharedPref sharedpref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedpref = new SharedPref(this);
+        if(sharedpref.loadNightModeState()==true) {
+            setTheme(R.style.darkTtheme);
+        }else  setTheme(R.style.AppThemes);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         contexto = this;

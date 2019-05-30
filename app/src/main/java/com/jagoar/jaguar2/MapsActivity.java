@@ -74,11 +74,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String countryName;
     String current_user;
     String URL;
+    SharedPref sharedpref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        sharedpref = new SharedPref(this);
+        if(sharedpref.loadNightModeState()==true) {
+            setTheme(R.style.darkTtheme);
+        }else  setTheme(R.style.AppThemes);
         mSorage= FirebaseStorage.getInstance().getReference();
         contexto=this;
 
@@ -133,10 +138,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void sacarAlertDialog(final String latLng) {
         //metodo para llamar a nuestro alert dialog, crear puntos y subirlos a firebase.
         AlertDialog.Builder constructor = new AlertDialog.Builder(this);
-        constructor.setTitle("Inserccion");
-        constructor.setMessage("Insertar el nuevo contacto");
         LayoutInflater inflador=LayoutInflater.from(this);
         final View vista=inflador.inflate(R.layout.add_punto,null);
+        sharedpref = new SharedPref(this);
+        if(sharedpref.loadNightModeState()==true) {
+            setTheme(R.style.darkTtheme);
+        }else  setTheme(R.style.AppThemes);
         constructor.setView(vista);
         recordLabel=(TextView)vista.findViewById(R.id.tvGrabar);
         recordBtn =(Button)vista.findViewById(R.id.btn_grabacion);

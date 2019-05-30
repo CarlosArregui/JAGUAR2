@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundcolor"
+    >
 
     <TextView
         android:id="@+id/textView2"
@@ -13,7 +15,8 @@
         android:layout_marginTop="164dp"
         android:text="Audio"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="?attr/textColor"/>
 
     <TextView
         android:id="@+id/tvGrabar"
@@ -23,7 +26,8 @@
         android:layout_marginTop="228dp"
         android:text="Pulsa para grabar..."
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="?attr/textColor"/>
 
     <TextView
         android:id="@+id/textView"
@@ -33,7 +37,8 @@
         android:layout_marginTop="52dp"
         android:text="Titulo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="?attr/textColor"/>
 
     <EditText
         android:id="@+id/et_nAudio"
@@ -45,7 +50,8 @@
         android:hint="Nombre"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="?attr/textColor"/>
 
     <EditText
         android:id="@+id/et_titulo"
@@ -57,7 +63,8 @@
         android:hint="titulo"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="?attr/textColor"/>
 
     <Button
         android:id="@+id/btn_grabacion"
@@ -67,5 +74,8 @@
         android:layout_marginTop="212dp"
         android:text="Button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="?attr/textColor"
+        android:background="?attr/buttoncolor"/>
+
 </android.support.constraint.ConstraintLayout>

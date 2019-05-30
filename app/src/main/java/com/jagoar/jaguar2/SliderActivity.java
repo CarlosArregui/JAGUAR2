@@ -22,7 +22,7 @@ public class SliderActivity extends AppIntro {
         sliderPage.setTitle(getString(R.string.whats_jaguar));
         sliderPage.setImageDrawable(R.drawable.jaguar);
         sliderPage.setDescription(getString(R.string.slider_descripcion_1));
-        sliderPage.setBgColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+        sliderPage.setBgColor(ContextCompat.getColor(getApplicationContext(), R.color.backgroundcolorDark));
         showSkipButton(true);
         addSlide(AppIntroFragment.newInstance(sliderPage));
 
