@@ -14,6 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +36,8 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
     List<Usuario> usuarios;
     AdaptadorRvUsuarios adapter;
     Context contexto;
+    TextView et_user;
+    Button btn_buscar;
     String current_user;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_buscar, container, false);
@@ -50,7 +55,16 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
         rv.setLayoutManager(new LinearLayoutManager(contexto));
         usuarios = new ArrayList<>();
 
+        et_user= (EditText) getView().findViewById(R.id.et_usuario);
+        btn_buscar = getView().findViewById(R.id.btn_buscar);
 
+        btn_buscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String user_buscado= et_user.getText().toString();
+                
+            }
+        });
 
         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
         Query q=bbdd.orderByChild("nombre");
