@@ -123,7 +123,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
         Button btnPlay= vista.findViewById(R.id.btn_play);
         TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha);
-        TextView tv_descripcion= vista.findViewById(R.id.tv_autor);
+        TextView tv_descripcion= vista.findViewById(R.id.tv_titulo);
 
 
         tv_titulo.setText(punto.getTitulo());

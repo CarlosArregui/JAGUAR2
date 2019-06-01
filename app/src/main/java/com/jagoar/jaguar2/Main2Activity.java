@@ -64,7 +64,7 @@ public class Main2Activity extends AppCompatActivity {
 
                             break;
                         case R.id.anadir:
-                            selectedFragment = new AnadirFragment();
+                            selectedFragment = new BuscarFragment();
                             selectedFragment.setArguments(bundle);
 
                             break;
