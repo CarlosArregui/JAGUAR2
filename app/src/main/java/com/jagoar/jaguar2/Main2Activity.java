@@ -52,7 +52,7 @@ public class Main2Activity extends AppCompatActivity {
 
                             break;
                         case R.id.creados:
-                            selectedFragment = new CreadosFragment();
+                            selectedFragment = new BuscarFragment();
                             selectedFragment.setArguments(bundle);
 
                             break;
