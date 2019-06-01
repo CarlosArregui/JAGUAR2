@@ -2,6 +2,7 @@
 <resources>
     <color name="colorAccent1">#9C29B7</color>
     <color name="colorAccent2">#00A4D3</color>
+    <color name="colorPrimary">#FFFFFF</color>
     <!--Light-->
     <color name="colorPrimaryLight">#FFFFFF</color>
     <color name="backgroundcolor">#FFFFFF</color>
