@@ -7,8 +7,19 @@ public class Punto {
     String fecha;
     String coord;
     String countryName;
+    String url;
 
     public Punto() {
+    }
+
+    public Punto(String id, String titulo, String creador, String fecha, String coord, String countryName, String url) {
+        this.id = id;
+        this.titulo = titulo;
+        this.creador = creador;
+        this.fecha = fecha;
+        this.coord = coord;
+        this.countryName = countryName;
+        this.url = url;
     }
 
     public Punto(String id, String titulo, String creador, String fecha, String coord, String countryName) {
@@ -66,5 +77,13 @@ public class Punto {
 
     public void setCountryName(String countryName) {
         this.countryName = countryName;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

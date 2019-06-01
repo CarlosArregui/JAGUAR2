@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -73,6 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Context contexto;
     String countryName;
     String current_user;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,9 +164,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(DialogInterface dialog, int which) {
                 //creamos nuestro objeto punto y le asignamos su clave
                 EditText et_nombre = vista.findViewById(R.id.et_titulo);
-                uploadAudio();
+
                 DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
                 String id = bbdd.push().getKey();
+
+
                 Date c = Calendar.getInstance().getTime();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                 String fecha = df.format(c);
@@ -177,7 +181,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String lon = latlon[1];
                 Double double_lat = Double.parseDouble(lat);
                 Double double_lon = Double.parseDouble(lon);
-                Log.v("latlon",lat+","+lon);
+
                 Geocoder gcd = new Geocoder(contexto, Locale.getDefault());
                 List<Address> addresses = null;
                 try {
@@ -190,17 +194,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
 
-                Punto p = new Punto(id, titulo, creador, fecha, coord, countryName);
+                final Punto p = new Punto(id, titulo, creador, fecha, coord, countryName);
+                uploadAudio(p);
 
-                //insertamos nuestro objeto
-                bbdd.child(id).setValue(p);
 
                 //cambiamos de activity y cerramos este
 
-                Intent I = new Intent(contexto, Main2Activity.class);
-                I.putExtra("currentUser",current_user);
-                startActivity(I);
-                finish();
+
 
 
             }
@@ -315,20 +315,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         recorder = null;
     }
 
-    private void uploadAudio() {
+    private void uploadAudio(final Punto p) {
 
         String nombre=et_nAudio.getText().toString().trim();
-        mProgress.setMessage("Subiendo archivo...");
-        mProgress.show();
-        StorageReference filepath=mSorage.child("Audio").child(nombre+".3gp");
+        final StorageReference filepath=mSorage.child("Audio").child(nombre+".3gp");
         Uri uri= Uri.fromFile(new File(fileName));
+        //Uri no valido
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                //mProgress.dismiss();
+                filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
+                        p.setUrl(uri.toString());
+                        bbdd.child(p.getId()).setValue(p);
 
+                        Intent I = new Intent(contexto, Main2Activity.class);
+                        I.putExtra("currentUser",current_user);
+                        startActivity(I);
+                        finish();
+
+                    }
+                });
             }
         });
+        //ES EL URI INTERNO NO EL EXTERNO
+
     }
 
 

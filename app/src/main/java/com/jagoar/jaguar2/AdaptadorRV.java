@@ -45,8 +45,8 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
     };
 
     @Override
-    public void onBindViewHolder(@NonNull ListaPuntosHolder listaPuntosHolder, int i) {
-        Punto punto =lista_eventos_recy.get(i);
+    public void onBindViewHolder(@NonNull final ListaPuntosHolder listaPuntosHolder, int i) {
+        final Punto punto =lista_eventos_recy.get(i);
         listaPuntosHolder.tv_titulo_re.setText(punto.getTitulo());
         listaPuntosHolder.tv_fecha.setText(punto.getFecha());
         listaPuntosHolder.btnPlay.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +54,11 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             public void onClick(View v) {
                 MediaPlayer mediaPlayer= new MediaPlayer();
                 try{
-                    mediaPlayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/jaguar-f79f4.appspot.com/o/Audio%2Flol.3gp?alt=media&token=1f2c2d13-09e5-4b29-8fae-dd722937ac6d");
+                    mediaPlayer.setDataSource(punto.getUrl());
+                    Log.v("uriuri",punto.getUrl());
+                    if (mediaPlayer.isPlaying()){
+                        mediaPlayer.stop();
+                    }
                     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(MediaPlayer mp) {
@@ -64,6 +68,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
                     mediaPlayer.prepare();
                 }catch (Exception  e){
                     e.printStackTrace();
+                    Log.v("uriuri",punto.getUrl());
                 }
 
             }
