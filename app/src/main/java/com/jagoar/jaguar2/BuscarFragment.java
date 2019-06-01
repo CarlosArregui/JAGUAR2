@@ -1,6 +1,7 @@
 package com.jagoar.jaguar2;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,11 +12,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +36,8 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
     List<Usuario> usuarios;
     AdaptadorRvUsuarios adapter;
     Context contexto;
+    TextView et_user;
+    Button btn_buscar;
     String current_user;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_buscar, container, false);
@@ -53,18 +55,19 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
         rv.setLayoutManager(new LinearLayoutManager(contexto));
         usuarios = new ArrayList<>();
 
-        final TextView et_usuario= getView().findViewById(R.id.et_usuario);
-        Button btn_usuario=getView().findViewById(R.id.btn_usuario);
-        Button btn_buscar=getView().findViewById(R.id.btn_buscar);
+        et_user= (EditText) getView().findViewById(R.id.et_usuario);
+        btn_buscar = getView().findViewById(R.id.btn_buscar);
+
         btn_buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user= et_usuario.getText().toString();
+                String user_buscado= et_user.getText().toString();
 
             }
         });
+
         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
-        Query q=bbdd.orderByChild("correo");
+        Query q=bbdd.orderByChild("nombre");
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             //saca datos y los catualiza en la vista
