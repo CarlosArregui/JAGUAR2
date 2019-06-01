@@ -7,6 +7,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.github.paolorotolo.appintro.AppIntro;
+import com.github.paolorotolo.appintro.AppIntroFragment;
+import com.github.paolorotolo.appintro.model.SliderPage;
+
 public class SliderActivity extends AppIntro {
 
     @Override
@@ -18,7 +22,7 @@ public class SliderActivity extends AppIntro {
         sliderPage.setTitle(getString(R.string.whats_jaguar));
         sliderPage.setImageDrawable(R.drawable.jaguar);
         sliderPage.setDescription(getString(R.string.slider_descripcion_1));
-        sliderPage.setBgColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+        sliderPage.setBgColor(ContextCompat.getColor(getApplicationContext(), R.color.backgroundcolorDark));
         showSkipButton(true);
         addSlide(AppIntroFragment.newInstance(sliderPage));
 

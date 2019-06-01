@@ -22,6 +22,7 @@ import java.util.List;
 public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHolder> implements InterfazClickRV {
     @NonNull
     static List<Punto> lista_eventos_recy;
+    SharedPref sharedpref;
     Context contexto;
     private static InterfazClickRV itemListener;
     private View.OnClickListener listener;
@@ -32,8 +33,13 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
     @Override
     public ListaPuntosHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_add,viewGroup, false);
 
+
+        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_add,viewGroup, false);
+        sharedpref = new SharedPref(v.getContext());
+        if(sharedpref.loadNightModeState()==true) {
+            v.getContext().setTheme(R.style.darkTtheme);
+        }else  v.getContext().setTheme(R.style.AppThemes);
         // viewGroup.setOnClickListener(this);
         ListaPuntosHolder puntos = new ListaPuntosHolder(v);
         return puntos;
@@ -123,6 +129,10 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
         LayoutInflater inflador=LayoutInflater.from(v.getContext());
         final View vista=inflador.inflate(R.layout.alert_di_recy,null);
+        SharedPref sharedpref= new SharedPref(vista.getContext());
+        if(sharedpref.loadNightModeState()==true) {
+            vista.getContext().setTheme(R.style.darkTtheme);
+        }else  vista.getContext().setTheme(R.style.AppThemes);
         constructor.setView(vista);
 
         TextView tv_titulo= vista.findViewById(R.id.tv_titulo);

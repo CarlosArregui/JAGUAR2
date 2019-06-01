@@ -5,10 +5,11 @@
     android:id="@+id/layout_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="?attr/backgroundcolor"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp">
+
 
     <ImageView
         android:layout_width="156dp"
@@ -27,9 +28,11 @@
         android:inputType="textPersonName"
         android:maxLines="1"
         android:padding="15dp"
-        android:textColor="@color/colorPrimaryLight"
-        android:textColorHighlight="@color/colorPrimaryLight"
-        android:textColorHint="@color/colorPrimaryLight" />
+        android:textColor="?attr/textColor"
+        android:textColorHighlight="?attr/textColor"
+        android:textColorHint="?attr/tintcolor"
+        android:textColorLink="@color/colorAccent2"
+        android:textCursorDrawable="@color/colorAccent1" />
 
     <EditText
         android:id="@+id/etLog_pass"
@@ -43,9 +46,9 @@
         android:inputType="textPassword"
         android:maxLines="1"
         android:padding="15dp"
-        android:textColor="@color/colorPrimaryLight"
-        android:textColorHighlight="@color/colorPrimaryLight"
-        android:textColorHint="@color/colorPrimaryLight" />
+        android:textColor="?attr/textColor"
+        android:textColorHighlight="?attr/textColor"
+        android:textColorHint="?attr/tintcolor"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,7 +63,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:buttonTint="@color/icons"
+            android:buttonTint="?attr/tintcolor"
             android:checked="true"
             android:text="Remember Me"
             android:textColor="@color/colorAccent1" />
@@ -78,7 +81,7 @@
             android:drawablePadding="6dp"
             android:padding="4dp"
             android:text="Forget Password"
-            android:textColor="@color/colorAccent1" />
+            android:textColor="?attr/textColor" />
 
 
     </LinearLayout>
@@ -100,7 +103,7 @@
     <Button
         android:id="@+id/sign_up"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="0dp"
         android:layout_marginRight="10dp"
@@ -109,8 +112,17 @@
         android:padding="15dp"
         android:shadowColor="@android:color/transparent"
         android:text="Sign Up"
-        android:textColor="@color/icons" />
+        android:textColor="?attr/textColor" />
 
- 
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="7dp"
+        android:text="Switch"
+        android:textColor="?attr/textColor" />
 
 </LinearLayout>

@@ -9,14 +9,17 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,9 +49,11 @@ public class ActivityLogin extends AppCompatActivity {
     private EditText passLog;
     private TextView passforget;
     private LinearLayout layoutSnack;
+    private Switch mySwitch;
     private FirebaseAuth mAuth;
     private static final int RC_SIGN_IN = 9001;
     private SharedPreferences mPrefs;
+    SharedPref sharedpref;
     private static final String prefs_name="PrefsFile";
     String correo,contra;
     /*
@@ -57,7 +62,12 @@ public class ActivityLogin extends AppCompatActivity {
      */
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
+        sharedpref = new SharedPref(this);
+        if(sharedpref.loadNightModeState()==true) {
+            setTheme(R.style.darkTtheme);
+        }else  setTheme(R.style.AppThemes);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
@@ -114,7 +124,31 @@ public class ActivityLogin extends AppCompatActivity {
 
         mPrefs=getSharedPreferences(prefs_name,MODE_PRIVATE);
         getPreferencesData();
+        mySwitch=findViewById(R.id.switch1);
+        if (sharedpref.loadNightModeState()==true) {
+            mySwitch.setChecked(true);
+        }
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    sharedpref.setNightModeState(true);
+                    restartApp();
+                }
+                else {
+                    sharedpref.setNightModeState(false);
+                    restartApp();
+                }
+            }
+        });
 
+
+    }
+
+    private void restartApp() {
+        Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
+        startActivity(intent);
+        finish();
     }
     /*
      * En este método se modifica la coleccion con getters y setters añadiendolos con las keys a los EditText
