@@ -16,7 +16,7 @@
         android:layout_marginStart="112dp"
         android:layout_marginTop="36dp"
         android:text="¿Has olvidado la contraseña?"
-        android:textColor="@color/colorAccent1"
+        android:textColor="?textColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +27,7 @@
         android:layout_marginStart="92dp"
         android:layout_marginTop="72dp"
         android:text="Ingresa tu correo para crear una nueva"
-        android:textColor="@color/colorAccent1"
+        android:textColor="?textColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,9 +44,9 @@
         android:inputType="textPersonName"
         android:maxLines="1"
         android:padding="15dp"
-        android:textColor="@color/colorAccent1"
+        android:textColor="?textColor"
         android:textColorHighlight="@color/icons"
-        android:textColorHint="@color/colorAccent1"
+        android:textColorHint="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
