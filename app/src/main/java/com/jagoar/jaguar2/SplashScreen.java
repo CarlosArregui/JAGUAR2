@@ -12,8 +12,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashScreen extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
-    private ImageView imagen2;
-    private ImageView imagen;
+    private ImageView rugido_de_mierda;
+    private ImageView jaguar;
     private Animation myanim2, myanim,myanim3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,45 +22,17 @@ public class SplashScreen extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         getSupportActionBar().hide();
         //Splash Screen
-        imagen = (ImageView) findViewById(R.id.jaguar);
-        imagen2 = (ImageView) findViewById(R.id.rugido_id);
+        jaguar = (ImageView) findViewById(R.id.jaguar);
+        rugido_de_mierda = (ImageView) findViewById(R.id.rugido_guay);
+
         myanim = AnimationUtils.loadAnimation(this, R.anim.zoom);
         myanim2 = AnimationUtils.loadAnimation(this, R.anim.shake);
         myanim3 = AnimationUtils.loadAnimation(this, R.anim.small);
-        imagen.startAnimation(myanim);
-        /*myanim.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                imagen2.startAnimation(myanim2);
-                myanim2.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
 
-                    }
+        jaguar.startAnimation(myanim);
+        rugido_de_mierda.startAnimation(myanim2);
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        imagen.startAnimation(myanim3);
-                    }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-    */
 
         openApp(true);
     }

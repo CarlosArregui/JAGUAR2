@@ -4,31 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="?attr/backgroundcolor"
     tools:context=".SplashScreen">
 
     <ImageView
         android:id="@+id/jaguar"
-        android:layout_width="239dp"
-        android:layout_height="332dp"
+        android:layout_width="214dp"
+        android:layout_height="249dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="84dp"
         android:layout_marginTop="196dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.161"
         app:srcCompat="@drawable/jaguar" />
 
     <ImageView
-        android:id="@+id/rugido_id"
-        android:layout_width="294dp"
-        android:layout_height="242dp"
-        android:layout_marginStart="248dp"
-        android:layout_marginTop="320dp"
+        android:id="@+id/rugido_guay"
+        android:layout_width="97dp"
+        android:layout_height="101dp"
+        android:layout_marginStart="312dp"
+        android:layout_marginTop="368dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/rugido1" />
+        app:srcCompat="@drawable/rugido" />
 
 </android.support.constraint.ConstraintLayout>

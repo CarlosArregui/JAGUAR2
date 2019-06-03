@@ -38,13 +38,14 @@ public class HomeFragment extends Fragment {
     Context contexto;
     String current_mail;
     String current_user;
-
+    SharedPref sharedpref;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.home, container, false);
 
     }
     @Override
     public void onActivityCreated(Bundle state) {
+
         super.onActivityCreated(state);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -54,6 +55,10 @@ public class HomeFragment extends Fragment {
 
         rv = getView().findViewById(R.id.recycler_home);
         rv.setLayoutManager(new LinearLayoutManager(contexto));
+        sharedpref = new SharedPref(rv.getContext());
+        if(sharedpref.loadNightModeState()==true) {
+            rv.getContext().setTheme(R.style.darkTtheme);
+        }else   rv.getContext().setTheme(R.style.AppThemes);
         puntos = new ArrayList<>();
 
         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");

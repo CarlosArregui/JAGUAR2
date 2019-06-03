@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="500dp"
-    android:background="@color/colorBlack">
+    android:background="@color/colorPrimaryLight">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@color/colorlv"
+        android:background="@color/cardview_shadow_start_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:text="TextView"
-            android:textColor="@color/colorAccent2"
+            android:textColor="@color/colorAccent1"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -41,20 +41,20 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="88dp"
-            android:background="#0000A4D3"
+            android:background="@color/colorAccent2"
             android:text="Autor"
-            android:textColor="@color/colorAccent1"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_autor"
+            android:id="@+id/tv_titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="84dp"
             android:layout_marginTop="84dp"
             android:text="TextView"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorPrimaryLight"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -66,9 +66,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="140dp"
             android:layout_marginBottom="8dp"
-            android:background="#00532F2F"
+            android:background="@color/colorAccent2"
             android:text="Fecha"
-            android:textColor="@color/colorAccent1"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -82,7 +82,7 @@
             android:layout_marginTop="136dp"
             android:layout_marginBottom="8dp"
             android:text="TextView"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorAccent1"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
