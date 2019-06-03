@@ -76,6 +76,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="?attr/textColor"
-        android:background="?attr/buttoncolor"/>
+        android:background="?attr/colorAccent"/>
 
 </android.support.constraint.ConstraintLayout>
