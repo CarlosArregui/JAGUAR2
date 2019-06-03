@@ -13,9 +13,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 //Comentar esta clase adaptador podria causar cambios en las leyes espacio-temporales de la fisica, asi que no lo hare.
@@ -78,6 +86,8 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return lista_eventos_recy.size();
@@ -89,7 +99,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
     }
 
 
-    public static class ListaPuntosHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ListaPuntosHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
         TextView tv_titulo_re, tv_fecha;
         Button btnPlay;
         ImageView imagen;
@@ -104,11 +114,61 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             btnPlay=itemView.findViewById(R.id.btn_play);
             const_lay=(ConstraintLayout)itemView.findViewById(R.id.constraint_lay);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
+
 
         @Override
         public void onClick(View v) {
             sacarAlertDialog(lista_eventos_recy.get(this.getPosition()), v );
+
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            sacarAlertDialogBorrar(lista_eventos_recy.get(this.getPosition()), v );
+            return true;
+        }
+
+        private void sacarAlertDialogBorrar(final Punto punto, View v) {
+            AlertDialog.Builder constructor= new AlertDialog.Builder(v.getContext());
+
+            LayoutInflater inflador=LayoutInflater.from(v.getContext());
+            final View vista=inflador.inflate(R.layout.alert_di_recy_borrar,null);
+            constructor.setView(vista);
+
+            constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("ALERT","has clicado borrar");
+                    DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos").child(punto.getId());
+                    bbdd.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.hasChildren()) {
+                                dataSnapshot.getRef().removeValue();
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+            });
+            constructor.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("ALERT","has clicado cancelar");
+
+
+                }
+            });
+            AlertDialog alert=constructor.create();
+            alert.show();
 
         }
     }
