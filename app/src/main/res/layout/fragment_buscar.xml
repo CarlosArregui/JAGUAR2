@@ -34,13 +34,17 @@
 
         <ImageButton
             android:id="@+id/btn_buscar"
-            android:layout_width="69dp"
-            android:layout_height="51dp"
+            style="android.support.v7.widget.AppCompatImageButton"
+            android:layout_width="62dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:background="@color/colorPrimary"
             android:src="@android:drawable/ic_menu_search"
             android:tint="@color/colorAccent1"
             app:layout_constraintStart_toEndOf="@+id/et_usuario"
             app:layout_constraintTop_toTopOf="parent" />
+
 
     </android.support.constraint.ConstraintLayout>
 
