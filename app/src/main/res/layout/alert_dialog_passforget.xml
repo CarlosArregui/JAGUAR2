@@ -46,7 +46,7 @@
         android:padding="15dp"
         android:textColor="?textColor"
         android:textColorHighlight="@color/icons"
-        android:textColorHint="@color/colorAccent"
+        android:textColorHint="?attr/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

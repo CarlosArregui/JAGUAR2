@@ -7,7 +7,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundcolor">@color/backgroundcolor</item>
         <item name="tintcolor">@color/tintcolor</item>
-        <item name="buttoncolor">@color/buttoncolor</item>
         <item name="textColor">@color/texcolor</item>
     </style>
 
@@ -17,7 +16,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundcolor">@color/backgroundcolorDark</item>
         <item name="tintcolor">@color/tintcolorDark</item>
-        <item name="buttoncolor">@color/buttoncolor</item>
         <item name="textColor">@color/texcolorDark</item>
     </style>
 

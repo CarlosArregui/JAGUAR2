@@ -27,8 +27,8 @@
         android:inputType="textPersonName"
         android:maxLines="1"
         android:padding="15dp"
-        android:textColor="@color/colorAccent"
-        android:textColorHighlight="@color/colorAccent"
+        android:textColor="?textColor"
+        android:textColorHighlight="?attr/colorAccent"
         android:textColorHint="?attr/textColor" />
 
     <EditText
@@ -43,8 +43,8 @@
         android:inputType="textPersonName"
         android:maxLines="1"
         android:padding="15dp"
-        android:textColor="@color/colorAccent"
-        android:textColorHighlight="@color/colorAccent"
+        android:textColor="?attr/textColor"
+        android:textColorHighlight="?attr/colorAccent"
         android:textColorHint="?attr/textColor"/>
 
     <EditText
@@ -59,8 +59,8 @@
         android:inputType="textPassword"
         android:maxLines="1"
         android:padding="15dp"
-        android:textColor="@color/colorAccent"
-        android:textColorHighlight="@color/colorAccent"
+        android:textColor="?attr/textColor"
+        android:textColorHighlight="?attr/colorAccent"
         android:textColorHint="?attr/textColor"/>
 
     <EditText
@@ -75,8 +75,8 @@
         android:inputType="textPassword"
         android:maxLines="1"
         android:padding="15dp"
-        android:textColor="@color/colorAccent"
-        android:textColorHighlight="@color/colorAccent"
+        android:textColor="?attr/textColor"
+        android:textColorHighlight="?attr/colorAccent"
         android:textColorHint="?attr/textColor"/>
 
     <LinearLayout
@@ -96,7 +96,7 @@
         android:padding="15dp"
         android:shadowColor="@android:color/transparent"
         android:text="Sign Up"
-        android:textColor="?attr/textColor" />
+        android:textColor="@color/colorPrimaryLight" />
 
 
 </LinearLayout>
