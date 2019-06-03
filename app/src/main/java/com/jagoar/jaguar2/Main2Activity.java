@@ -14,13 +14,18 @@ import android.view.MenuItem;
 public class Main2Activity extends AppCompatActivity {
     Context contexto;
     String current_user;
+    SharedPref sharedpref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedpref = new SharedPref(this);
+        if(sharedpref.loadNightModeState()==true) {
+            setTheme(R.style.darkTtheme);
+        }else  setTheme(R.style.AppThemes);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         contexto = this;
-
         Intent login_inent=getIntent();
+
         current_user=login_inent.getStringExtra("currentUser");
         Log.v("jeje ","estamos en Main activity2: "+current_user);
 
@@ -43,20 +48,17 @@ public class Main2Activity extends AppCompatActivity {
 
 
 
-
                     switch (item.getItemId()) {
                         case R.id.principal:
 
                             selectedFragment = new HomeFragment();
-                            Log.v("jeje","home fragment selected: "+current_user);
+                            selectedFragment.setArguments(bundle);
 
 
                             break;
                         case R.id.creados:
-                            selectedFragment = new CreadosFragment();
-
-                            Log.v("jeje","home fragment Creados");
-
+                            selectedFragment = new BuscarFragment();
+                            selectedFragment.setArguments(bundle);
                             break;
                         case R.id.asistencia:
                             selectedFragment = null;

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 
-import android.media.Image;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +22,7 @@ import java.util.List;
 public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHolder> implements InterfazClickRV {
     @NonNull
     static List<Punto> lista_eventos_recy;
+    SharedPref sharedpref;
     Context contexto;
     private static InterfazClickRV itemListener;
     private View.OnClickListener listener;
@@ -32,8 +33,13 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
     @Override
     public ListaPuntosHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_add,viewGroup, false);
 
+
+        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_add,viewGroup, false);
+        sharedpref = new SharedPref(v.getContext());
+        if(sharedpref.loadNightModeState()==true) {
+            v.getContext().setTheme(R.style.darkTtheme);
+        }else  v.getContext().setTheme(R.style.AppThemes);
         // viewGroup.setOnClickListener(this);
         ListaPuntosHolder puntos = new ListaPuntosHolder(v);
         return puntos;
@@ -45,10 +51,34 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
     };
 
     @Override
-    public void onBindViewHolder(@NonNull ListaPuntosHolder listaPuntosHolder, int i) {
-        Punto punto =lista_eventos_recy.get(i);
+    public void onBindViewHolder(@NonNull final ListaPuntosHolder listaPuntosHolder, int i) {
+        final Punto punto =lista_eventos_recy.get(i);
         listaPuntosHolder.tv_titulo_re.setText(punto.getTitulo());
         listaPuntosHolder.tv_fecha.setText(punto.getFecha());
+        listaPuntosHolder.btnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MediaPlayer mediaPlayer= new MediaPlayer();
+                try{
+                    mediaPlayer.setDataSource(punto.getUrl());
+                    Log.v("uriuri",punto.getUrl());
+                    if (mediaPlayer.isPlaying()){
+                        mediaPlayer.stop();
+                    }
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mp.start();
+                        }
+                    });
+                    mediaPlayer.prepare();
+                }catch (Exception  e){
+                    e.printStackTrace();
+                    Log.v("uriuri",punto.getUrl());
+                }
+
+            }
+        });
         listaPuntosHolder.i=i;
         // listaPuntosHolder.const_lay.setOnClickListener(oyente);
 
@@ -67,6 +97,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
     public static class ListaPuntosHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tv_titulo_re, tv_fecha;
+        Button btnPlay;
         ImageView imagen;
         int i;
 
@@ -76,7 +107,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             super(itemView);
             tv_titulo_re=itemView.findViewById(R.id.tv_titulo);
             tv_fecha=itemView.findViewById(R.id.tv_fecha);
-
+            btnPlay=itemView.findViewById(R.id.btn_play);
             const_lay=(ConstraintLayout)itemView.findViewById(R.id.constraint_lay);
             itemView.setOnClickListener(this);
         }
@@ -98,12 +129,16 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
         LayoutInflater inflador=LayoutInflater.from(v.getContext());
         final View vista=inflador.inflate(R.layout.alert_di_recy,null);
+        SharedPref sharedpref= new SharedPref(vista.getContext());
+        if(sharedpref.loadNightModeState()==true) {
+            vista.getContext().setTheme(R.style.darkTtheme);
+        }else  vista.getContext().setTheme(R.style.AppThemes);
         constructor.setView(vista);
 
         TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
-
+        Button btnPlay= vista.findViewById(R.id.btn_play);
         TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha);
-        TextView tv_descripcion= vista.findViewById(R.id.tv_autor);
+        TextView tv_descripcion= vista.findViewById(R.id.tv_titulo);
 
 
         tv_titulo.setText(punto.getTitulo());

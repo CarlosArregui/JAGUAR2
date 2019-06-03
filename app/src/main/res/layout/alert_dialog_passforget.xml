@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="?attr/backgroundcolor"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -12,8 +13,8 @@
         android:id="@+id/tvDescriptForgot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="36dp"
         android:text="¿Has olvidado la contraseña?"
         android:textColor="@color/colorAccent1"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,9 +22,10 @@
 
     <TextView
         android:id="@+id/tvDescriptForgot3"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="72dp"
         android:text="Ingresa tu correo para crear una nueva"
         android:textColor="@color/colorAccent1"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,10 +33,10 @@
 
     <EditText
         android:id="@+id/et_insertemail"
-        android:layout_width="215dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="136dp"
+        android:layout_width="297dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/shapeemail"
         android:drawableLeft="@drawable/ic_email_black_24dp"
         android:drawablePadding="10dp"
@@ -50,10 +52,10 @@
 
     <Button
         android:id="@+id/btn_pass"
-        android:layout_width="215dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="208dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="236dp"
         android:background="@drawable/shapesignup"
         android:padding="15dp"
         android:shadowColor="@android:color/transparent"
@@ -62,4 +64,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>
