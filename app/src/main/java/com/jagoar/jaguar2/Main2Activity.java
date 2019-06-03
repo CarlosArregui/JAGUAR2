@@ -68,8 +68,10 @@ public class Main2Activity extends AppCompatActivity {
 
                             break;
                         case R.id.anadir:
-                            selectedFragment = new BuscarFragment();
-                            selectedFragment.setArguments(bundle);
+                            selectedFragment = null;
+                            Intent showMap = new Intent(contexto,ShowMapActivity.class);
+                            showMap.putExtra("currentUser",current_user);
+                            startActivity(showMap);
 
                             break;
                     }

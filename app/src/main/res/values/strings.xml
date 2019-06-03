@@ -13,4 +13,5 @@
     <string name="how_does_it_work">Para finalizar...</string>
     <string name="slider_descripcion_1">Jaguar es una aplicación con la finalidad de que todas las personas puedan vivir las experiencias de visitar los lugares del mundo mediante audios grabados.</string>
     <string name="slider_descripcion_2">¡No te preocupes! Tu información está a salvo. Jaguar necesitará unos permisos para poder utilizarse con toda su funcionalidad.</string>
+    <string name="title_activity_show_map">Map</string>
 </resources>
