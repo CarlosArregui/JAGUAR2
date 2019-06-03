@@ -3,21 +3,19 @@
     <!-- Base application theme light. -->
     <style name="AppThemes" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here Light. -->
-        <item name="colorPrimaryDark">@color/colorPrimaryLight</item>
-        <item name="colorAccent">@color/colorAccent1</item>
+        <item name="colorPrimary">@color/colorPrimaryLight</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundcolor">@color/backgroundcolor</item>
         <item name="tintcolor">@color/tintcolor</item>
-        <item name="buttoncolor">@color/buttoncolor</item>
         <item name="textColor">@color/texcolor</item>
     </style>
 
     <style name="darkTtheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here Light. -->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent1</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundcolor">@color/backgroundcolorDark</item>
         <item name="tintcolor">@color/tintcolorDark</item>
-        <item name="buttoncolor">@color/buttoncolor</item>
         <item name="textColor">@color/texcolorDark</item>
     </style>
 </resources>

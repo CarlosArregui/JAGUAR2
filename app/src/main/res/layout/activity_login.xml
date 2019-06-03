@@ -31,8 +31,8 @@
         android:textColor="?attr/textColor"
         android:textColorHighlight="?attr/textColor"
         android:textColorHint="?attr/tintcolor"
-        android:textColorLink="@color/colorAccent2"
-        android:textCursorDrawable="@color/colorAccent1" />
+        android:textColorLink="?attr/colorAccent"
+        android:textCursorDrawable="?attr/colorAccent" />
 
     <EditText
         android:id="@+id/etLog_pass"
@@ -66,7 +66,7 @@
             android:buttonTint="?attr/tintcolor"
             android:checked="true"
             android:text="Remember Me"
-            android:textColor="@color/colorAccent1" />
+            android:textColor="?attr/textColor" />
 
         <TextView
             android:id="@+id/tvPassForget"
@@ -96,9 +96,9 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/shapelogin"
         android:padding="15dp"
-        android:shadowColor="@color/colorAccent2"
+        android:shadowColor="?attr/textColor"
         android:text="Log In"
-        android:textColor="@color/colorAccent1" />
+        android:textColor="@color/colorPrimaryLight" />
 
     <Button
         android:id="@+id/sign_up"

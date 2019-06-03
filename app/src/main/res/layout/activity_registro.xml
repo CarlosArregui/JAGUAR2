@@ -27,9 +27,9 @@
         android:inputType="textPersonName"
         android:maxLines="1"
         android:padding="15dp"
-        android:textColor="@color/colorAccent1"
-        android:textColorHighlight="@color/colorAccent2"
-        android:textColorHint="@color/colorAccent1" />
+        android:textColor="?textColor"
+        android:textColorHighlight="?attr/colorAccent"
+        android:textColorHint="?attr/textColor" />
 
     <EditText
         android:id="@+id/etEmail"
@@ -43,9 +43,9 @@
         android:inputType="textPersonName"
         android:maxLines="1"
         android:padding="15dp"
-        android:textColor="@color/colorAccent1"
-        android:textColorHighlight="@color/colorAccent2"
-        android:textColorHint="@color/colorAccent1" />
+        android:textColor="?attr/textColor"
+        android:textColorHighlight="?attr/colorAccent"
+        android:textColorHint="?attr/textColor"/>
 
     <EditText
         android:id="@+id/etPass1"
@@ -59,9 +59,9 @@
         android:inputType="textPassword"
         android:maxLines="1"
         android:padding="15dp"
-        android:textColor="@color/colorAccent1"
-        android:textColorHighlight="@color/icons"
-        android:textColorHint="@color/colorAccent1" />
+        android:textColor="?attr/textColor"
+        android:textColorHighlight="?attr/colorAccent"
+        android:textColorHint="?attr/textColor"/>
 
     <EditText
         android:id="@+id/etPassConfirm"
@@ -75,9 +75,9 @@
         android:inputType="textPassword"
         android:maxLines="1"
         android:padding="15dp"
-        android:textColor="@color/colorAccent1"
-        android:textColorHighlight="@color/icons"
-        android:textColorHint="@color/colorAccent1" />
+        android:textColor="?attr/textColor"
+        android:textColorHighlight="?attr/colorAccent"
+        android:textColorHint="?attr/textColor"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,7 +96,7 @@
         android:padding="15dp"
         android:shadowColor="@android:color/transparent"
         android:text="Sign Up"
-        android:textColor="?attr/textColor" />
+        android:textColor="@color/colorPrimaryLight" />
 
 
 </LinearLayout>
