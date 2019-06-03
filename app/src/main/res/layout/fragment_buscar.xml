@@ -27,8 +27,8 @@
             android:ems="10"
             android:hint="Usuario"
             android:inputType="textPersonName"
-            android:textColor="@color/colorAccent1"
-            android:textColorHint="@color/colorAccent1"
+            android:textColor="?attr/textColor"
+            android:textColorHint="?attr/colorAccent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,9 +36,9 @@
             android:id="@+id/btn_buscar"
             android:layout_width="69dp"
             android:layout_height="51dp"
-            android:background="@color/colorPrimary"
+            android:background="?attr/backgroundcolor"
             android:src="@android:drawable/ic_menu_search"
-            android:tint="@color/colorAccent1"
+            android:tint="?attr/colorAccent"
             app:layout_constraintStart_toEndOf="@+id/et_usuario"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,7 +63,7 @@
         android:layout_marginTop="160dp"
         android:layout_marginEnd="8dp"
         android:text="¡Estos son otros usuarios que te pueden interesar!"
-        android:textColor="@color/colorAccent2"
+        android:textColor="?attr/textColor"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.015"
