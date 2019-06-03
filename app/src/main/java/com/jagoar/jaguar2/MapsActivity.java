@@ -56,7 +56,6 @@ import java.util.Locale;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private ProgressDialog mProgress;
     private StorageReference mSorage;
-    private EditText et_nAudio;
     private static final String LOG_TAG="Record_log";
     private Button recordBtn;
     private TextView recordLabel;
@@ -141,7 +140,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         constructor.setView(vista);
         recordLabel=(TextView)vista.findViewById(R.id.tvGrabar);
         recordBtn =(Button)vista.findViewById(R.id.btn_grabacion);
-        et_nAudio=(EditText)vista.findViewById(R.id.et_nAudio);
         recordBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -317,8 +315,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void uploadAudio(final Punto p) {
 
-        String nombre=et_nAudio.getText().toString().trim();
-        final StorageReference filepath=mSorage.child("Audio").child(nombre+".3gp");
+
+        final StorageReference filepath=mSorage.child("Audio").child(p.getId()+".3gp");
         Uri uri= Uri.fromFile(new File(fileName));
         //Uri no valido
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
