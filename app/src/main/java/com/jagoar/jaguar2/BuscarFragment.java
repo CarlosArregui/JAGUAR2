@@ -72,6 +72,7 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                        
                         Log.v("mensaje",String.valueOf(dataSnapshot.getChildrenCount()));
                         if (dataSnapshot.getChildrenCount()==0){
                             Intent showMap = new Intent(contexto,ShowMapActivity.class);
