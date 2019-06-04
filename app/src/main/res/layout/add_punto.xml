@@ -8,17 +8,6 @@
     >
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="164dp"
-        android:text="Audio"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="?attr/textColor"/>
-
-    <TextView
         android:id="@+id/tvGrabar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,19 +25,6 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="52dp"
         android:text="Titulo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="?attr/textColor"/>
-
-    <EditText
-        android:id="@+id/et_nAudio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="152dp"
-        android:ems="10"
-        android:hint="Nombre"
-        android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="?attr/textColor"/>
@@ -76,6 +52,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="?attr/textColor"
-        android:background="?attr/buttoncolor"/>
+        android:background="?attr/colorAccent"/>
 
 </android.support.constraint.ConstraintLayout>

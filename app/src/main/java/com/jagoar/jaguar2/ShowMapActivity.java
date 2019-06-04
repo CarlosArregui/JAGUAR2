@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,16 +21,15 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static java.lang.Thread.sleep;
-
-public class ShowMapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private String current_user;
     public ArrayList<Marker> lista_marker;
+    public ArrayList<String>lista_audios;
     Button btn_autoplay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,28 +42,6 @@ public class ShowMapActivity extends AppCompatActivity implements OnMapReadyCall
         Intent login_inent=getIntent();
         if (login_inent.getStringExtra("currentUser")!=null){
             current_user=login_inent.getStringExtra("currentUser");
-            Log.v("jeje","showmapActivity: "+current_user);
-        }
-
-        btn_autoplay=findViewById(R.id.btn_autolpay);
-        btn_autoplay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                autoPlay();
-            }
-        });
-    }
-
-    private void autoPlay() {
-        for(Marker m:lista_marker){
-
-            try {
-                Log.v("jeje",m.getTitle());
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(m.getPosition()));
-                sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -93,18 +67,23 @@ public class ShowMapActivity extends AppCompatActivity implements OnMapReadyCall
             //saca datos y los catualiza en la vista
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Marker> lista_markerFirebase =new ArrayList<>();
+                ArrayList<String> lista_audioFirebase =new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Punto p = snapshot.getValue(Punto.class);
                     String coord =p.getCoord();
                     String[] latlong = coord.split(",");
+                    String url=p.getUrl();
+                    lista_audioFirebase.add(url);
                     double latitude = Double.parseDouble(latlong[0]);
                     double longitude = Double.parseDouble(latlong[1]);
                     LatLng location = new LatLng(latitude, longitude);
                     Marker marker=mMap.addMarker(new MarkerOptions().position(location).title(p.getTitulo()));
                     lista_markerFirebase.add(marker);
 
+
                 }
                 lista_marker=lista_markerFirebase;
+                lista_audios=lista_audioFirebase;
 
             }
 
@@ -113,7 +92,5 @@ public class ShowMapActivity extends AppCompatActivity implements OnMapReadyCall
 
             }
         });
-
-
     }
 }

@@ -80,9 +80,6 @@ public class ActivityLogin extends AppCompatActivity {
         passforget=(TextView)findViewById(R.id.tvPassForget);
         checkBoxRememberMe=(CheckBox)findViewById(R.id.cbRemember);
 
-        //Este botón esta destinado al inicio de sesión de google
-
-
 
         /*
          * mAuth es el atributo de Firebase destinado a la autentificación.
@@ -144,7 +141,10 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed() {
 
+    }
     private void restartApp() {
         Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
         startActivity(intent);
