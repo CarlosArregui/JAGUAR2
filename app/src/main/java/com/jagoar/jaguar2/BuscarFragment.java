@@ -1,10 +1,12 @@
 package com.jagoar.jaguar2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +43,7 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
     TextView et_user;
     ImageButton btn_buscar;
     String current_user;
+    LinearLayout layoutSnack;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_buscar, container, false);
 
@@ -62,7 +66,32 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
         btn_buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user_buscado= et_user.getText().toString();
+                final String user_buscado= et_user.getText().toString();
+
+                FirebaseDatabase.getInstance().getReference("usuarios").child(user_buscado).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        Log.v("mensaje",String.valueOf(dataSnapshot.getChildrenCount()));
+                        if (dataSnapshot.getChildrenCount()==0){
+                            Intent showMap = new Intent(contexto,ShowMapActivity.class);
+                            showMap.putExtra("currentUser",user_buscado);
+                            startActivity(showMap);
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        snackbar("Usuario no encontrado");
+
+                    }
+
+                });
+
+
+
 
             }
         });
@@ -89,7 +118,14 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
             }
         });
     }
-
+    private void snackbar(String message){
+        final Snackbar snackbar = Snackbar
+                .make(layoutSnack, message, Snackbar.LENGTH_LONG);
+//        View snackView=snackbar.getView();
+//        TextView textView=snackView.findViewById(com.google.android.material.R.id.snackbar_text);
+//        textView.setTextColor(Color.YELLOW);
+        snackbar.show();
+    }
     @Override
     public boolean onQueryTextSubmit(String s) {
         return false;
