@@ -40,6 +40,7 @@ public class SliderActivity extends AppIntro {
         super.onDonePressed(currentFragment);
         Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -47,5 +48,6 @@ public class SliderActivity extends AppIntro {
         super.onSkipPressed(currentFragment);
         Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
         startActivity(intent);
+        finish();
     }
 }
