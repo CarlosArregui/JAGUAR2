@@ -40,13 +40,10 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
 
         // viewGroup.setOnClickListener(this);
         AdaptadorRvUsuarios.ListaUsuariosHolder usuarios = new AdaptadorRvUsuarios.ListaUsuariosHolder(v);
+
         return usuarios;
     }
-    View.OnClickListener oyente=new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        }
-    };
+
 
     @Override
     public void onBindViewHolder(@NonNull final AdaptadorRvUsuarios.ListaUsuariosHolder listaUsuariosHolder, int i) {
@@ -111,7 +108,7 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
 
         @Override
         public void onClick(View v) {
-            sacarAlertDialog(lista_usuarios_recy.get(this.getPosition()), v );
+            //sacarAlertDialog(lista_usuarios_recy.get(this.getPosition()), v );
 
         }
     }
