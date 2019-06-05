@@ -15,8 +15,13 @@ public class SplashScreen extends AppCompatActivity {
     private ImageView rugido_de_mierda;
     private ImageView jaguar;
     private Animation myanim2, myanim,myanim3;
+    SharedPref sharedpref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedpref = new SharedPref(this);
+        if(sharedpref.loadNightModeState()==true) {
+            setTheme(R.style.darkTtheme);
+        }else  setTheme(R.style.AppThemes);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         firebaseAuth = FirebaseAuth.getInstance();
