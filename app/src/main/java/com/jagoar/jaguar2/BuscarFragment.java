@@ -40,6 +40,7 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
     TextView et_user;
     ImageButton btn_buscar;
     String current_user;
+    SharedPref sharedpref;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_buscar, container, false);
 
@@ -54,6 +55,11 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
         }
         rv = getView().findViewById(R.id.rv_usuarios);
         rv.setLayoutManager(new LinearLayoutManager(contexto));
+
+        sharedpref = new SharedPref(rv.getContext());
+        if(sharedpref.loadNightModeState()==true) {
+            rv.getContext().setTheme(R.style.darkTtheme);
+        }else  rv.getContext().setTheme(R.style.AppThemes);
         usuarios = new ArrayList<>();
 
         et_user= (EditText) getView().findViewById(R.id.et_usuario);

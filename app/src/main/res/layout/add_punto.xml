@@ -60,7 +60,7 @@
                 android:id="@+id/tvGrabar"
                 android:layout_width="211dp"
                 android:layout_height="wrap_content"
-                android:text="Manten pulsado para grabar..."
+                android:text="Manten pulsado para grabar"
                 android:textColor="?attr/textColor"
                 android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="parent"

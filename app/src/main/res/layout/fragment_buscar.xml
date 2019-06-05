@@ -24,6 +24,9 @@
             android:layout_width="201dp"
             android:layout_height="48dp"
             android:layout_marginStart="4dp"
+            android:background="@drawable/shapeemail"
+            android:drawableLeft="@drawable/ic_person_black_24dp"
+            android:drawablePadding="10dp"
             android:ems="10"
             android:hint="Usuario"
             android:inputType="textPersonName"
@@ -31,6 +34,7 @@
             android:textColorHint="?attr/colorAccent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <ImageButton
             android:id="@+id/btn_buscar"
@@ -48,7 +52,7 @@
         android:id="@+id/rv_usuarios"
         android:layout_width="411dp"
         android:layout_height="441dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="84dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -57,16 +61,13 @@
 
     <TextView
         android:id="@+id/t"
-        android:layout_width="271dp"
+        android:layout_width="280dp"
         android:layout_height="59dp"
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="160dp"
-        android:layout_marginEnd="8dp"
         android:text="¡Estos son otros usuarios que te pueden interesar!"
         android:textColor="?attr/textColor"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.015"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
