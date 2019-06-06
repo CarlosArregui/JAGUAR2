@@ -134,6 +134,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         @Override
         public boolean onLongClick(View v) {
             sacarAlertDialogBorrar(lista_eventos_recy.get(this.getPosition()), v );
+
             return true;
         }
 

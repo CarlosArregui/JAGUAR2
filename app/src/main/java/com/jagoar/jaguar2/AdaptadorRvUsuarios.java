@@ -132,11 +132,6 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
         final View vista=inflador.inflate(R.layout.alert_di_recy_user,null);
         constructor.setView(vista);
 
-        TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
-
-        TextView tv_fecha_hora= vista.findViewById(R.id.tv_audios_creados);
-        TextView tv_descripcion= vista.findViewById(R.id.tv_titulo);
-
 
 
 
