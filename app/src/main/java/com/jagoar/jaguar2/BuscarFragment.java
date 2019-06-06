@@ -78,6 +78,7 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
                             Intent showMap = new Intent(contexto,ShowMapActivity.class);
                             showMap.putExtra("currentUser",user_buscado);
                             startActivity(showMap);
+                            
                         }
 
 
