@@ -115,11 +115,11 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
 
         @Override
         public void onClick(View v) {
-            sacarAlertDialog(lista_usuarios_recy.get(this.getPosition()), v );
+            //sacarAlertDialog(lista_usuarios_recy.get(this.getPosition()), v );
 
         }
     }
-    public static void sacarAlertDialog(Usuario user, View v)
+    /*public static void sacarAlertDialog(Usuario user, View v)
     {
         // Log.v("clicado", "posciion:"+position);
 
@@ -150,5 +150,5 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
         });
         AlertDialog alert=constructor.create();
         alert.show();
-    }
+    }*/
 }
