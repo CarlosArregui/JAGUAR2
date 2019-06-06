@@ -149,11 +149,38 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             final View vista=inflador.inflate(R.layout.alert_di_recy_borrar,null);
             constructor.setView(vista);
 
+         /*   constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("ALERT","has clicado borrar");
+                    DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos").child(punto.getId());
+                    bbdd.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.hasChildren()) {
+                                dataSnapshot.getRef().removeValue();
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+            });
+            constructor.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("ALERT","has clicado cancelar");
+
+
+                }
+            });*/
             AlertDialog alert=constructor.create();
-
             alert.show();
-
-
 
         }
     }
