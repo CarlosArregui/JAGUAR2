@@ -12,7 +12,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashScreen extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
-    private ImageView rugido_de_mierda;
     private ImageView jaguar;
     private Animation myanim2, myanim,myanim3;
     SharedPref sharedpref;
@@ -28,17 +27,13 @@ public class SplashScreen extends AppCompatActivity {
         getSupportActionBar().hide();
         //Splash Screen
         jaguar = (ImageView) findViewById(R.id.jaguar);
-        rugido_de_mierda = (ImageView) findViewById(R.id.rugido_guay);
+
 
         myanim = AnimationUtils.loadAnimation(this, R.anim.zoom);
         myanim2 = AnimationUtils.loadAnimation(this, R.anim.shake);
-        myanim3 = AnimationUtils.loadAnimation(this, R.anim.small);
+
 
         jaguar.startAnimation(myanim);
-        rugido_de_mierda.startAnimation(myanim2);
-
-
-
         openApp(true);
     }
 
