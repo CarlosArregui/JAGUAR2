@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -109,6 +110,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
     public class ListaPuntosHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
         TextView tv_titulo_re, tv_fecha;
         ImageButton btnPlay;
+        Button btnVolverBorr, btnAceptarBorr;
         ImageView imagen;
         int i;
 
@@ -120,6 +122,8 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             tv_fecha=itemView.findViewById(R.id.tv_fecha);
             btnPlay=itemView.findViewById(R.id.btn_play);
             const_lay=(ConstraintLayout)itemView.findViewById(R.id.constraint_lay);
+            btnVolverBorr=itemView.findViewById(R.id.btn_borr_volv);
+            btnAceptarBorr=itemView.findViewById(R.id.btn_borr_add);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
@@ -145,38 +149,11 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             final View vista=inflador.inflate(R.layout.alert_di_recy_borrar,null);
             constructor.setView(vista);
 
-            constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Log.d("ALERT","has clicado borrar");
-                    DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos").child(punto.getId());
-                    bbdd.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.hasChildren()) {
-                                dataSnapshot.getRef().removeValue();
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-                }
-            });
-            constructor.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Log.d("ALERT","has clicado cancelar");
-
-
-                }
-            });
             AlertDialog alert=constructor.create();
+
             alert.show();
+
+
 
         }
     }
