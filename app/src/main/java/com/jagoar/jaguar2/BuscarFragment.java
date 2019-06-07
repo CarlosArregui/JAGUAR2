@@ -45,6 +45,7 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
     String current_user;
     LinearLayout layoutSnack;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+       contexto=container.getContext();
         return inflater.inflate(R.layout.fragment_buscar, container, false);
 
     }
@@ -56,6 +57,7 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
             current_user = getArguments().getString("currentUser");
             Log.v("jeje",current_user);
         }
+
         rv = getView().findViewById(R.id.rv_usuarios);
         rv.setLayoutManager(new LinearLayoutManager(contexto));
         usuarios = new ArrayList<>();
@@ -74,19 +76,20 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
 
 
                         Log.v("mensaje",String.valueOf(dataSnapshot.getChildrenCount()));
-                        if (dataSnapshot.getChildrenCount()==1){
+                        if (dataSnapshot.getChildrenCount()>1){
                             Intent showMap = new Intent(contexto,ShowMapActivity.class);
                             showMap.putExtra("currentUser",user_buscado);
                             startActivity(showMap);
                             
+                        }else{
+                            snackbar();
                         }
-
 
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        snackbar("Usuario no encontrado");
+                        snackbar();
 
                     }
 
@@ -120,12 +123,9 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
             }
         });
     }
-    private void snackbar(String message){
-        final Snackbar snackbar = Snackbar
-                .make(layoutSnack, message, Snackbar.LENGTH_LONG);
-//        View snackView=snackbar.getView();
-//        TextView textView=snackView.findViewById(com.google.android.material.R.id.snackbar_text);
-//        textView.setTextColor(Color.YELLOW);
+    private void snackbar(){
+        Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content),
+                "Usuario no encontrado", Snackbar.LENGTH_LONG);
         snackbar.show();
     }
     @Override
