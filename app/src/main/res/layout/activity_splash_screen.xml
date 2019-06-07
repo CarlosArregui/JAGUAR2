@@ -15,26 +15,13 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="196dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="240dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.161"
         app:srcCompat="@drawable/jaguar" />
-
-    <ImageView
-        android:id="@+id/rugido_guay"
-        android:layout_width="97dp"
-        android:layout_height="101dp"
-        android:layout_marginStart="312dp"
-        android:layout_marginTop="368dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/rugido" />
 
 </android.support.constraint.ConstraintLayout>

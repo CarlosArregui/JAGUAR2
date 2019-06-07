@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -107,7 +109,8 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
     public class ListaPuntosHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
         TextView tv_titulo_re, tv_fecha;
-        Button btnPlay;
+        ImageButton btnPlay;
+        Button btnVolverBorr, btnAceptarBorr;
         ImageView imagen;
         int i;
 
@@ -119,6 +122,8 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             tv_fecha=itemView.findViewById(R.id.tv_fecha);
             btnPlay=itemView.findViewById(R.id.btn_play);
             const_lay=(ConstraintLayout)itemView.findViewById(R.id.constraint_lay);
+            btnVolverBorr=itemView.findViewById(R.id.btn_borr_volv);
+            btnAceptarBorr=itemView.findViewById(R.id.btn_borr_add);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
@@ -144,7 +149,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             final View vista=inflador.inflate(R.layout.alert_di_recy_borrar,null);
             constructor.setView(vista);
 
-            constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
+         /*   constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Log.d("ALERT","has clicado borrar");
@@ -173,7 +178,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
 
                 }
-            });
+            });*/
             AlertDialog alert=constructor.create();
             alert.show();
 
@@ -199,11 +204,10 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
         Button btnPlay= vista.findViewById(R.id.btn_play);
         TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha);
-        TextView tv_descripcion= vista.findViewById(R.id.tv_titulo);
-
+        TextView tv_autor= vista.findViewById(R.id.tv_autor);
 
         tv_titulo.setText(punto.getTitulo());
-        tv_descripcion.setText(punto.getCreador());
+        tv_autor.setText(punto.getCreador());
 
         tv_fecha_hora.setText(punto.getFecha());
 

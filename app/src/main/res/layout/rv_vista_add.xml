@@ -8,21 +8,6 @@
     android:background="?attr/backgroundcolor">
 
 
-
-        <TextView
-            android:id="@+id/tv_hora"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="220dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="TextView"
-            android:textColor="?attr/textColor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.822" />
-
         <TextView
             android:id="@+id/tv_fecha"
             android:layout_width="wrap_content"
@@ -45,20 +30,21 @@
             android:layout_marginTop="16dp"
             android:text="TextView"
             android:textColor="?attr/textColor"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <Button
-            android:id="@+id/btn_play"
-            style="@style/Base.TextAppearance.AppCompat.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="296dp"
-            android:layout_marginTop="24dp"
+            android:textSize="23dp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_play"
+            android:layout_width="106dp"
+            android:layout_height="79dp"
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="8dp"
+            android:background="?attr/backgroundcolor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_play_arrow_black_24dp" />
 
 
 </android.support.constraint.ConstraintLayout>

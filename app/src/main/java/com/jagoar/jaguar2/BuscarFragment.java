@@ -74,10 +74,11 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
 
 
                         Log.v("mensaje",String.valueOf(dataSnapshot.getChildrenCount()));
-                        if (dataSnapshot.getChildrenCount()==0){
+                        if (dataSnapshot.getChildrenCount()==1){
                             Intent showMap = new Intent(contexto,ShowMapActivity.class);
                             showMap.putExtra("currentUser",user_buscado);
                             startActivity(showMap);
+                            
                         }
 
 

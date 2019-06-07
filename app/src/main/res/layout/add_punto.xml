@@ -1,57 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativetLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundcolor"
-    >
+    android:orientation="vertical"
+    android:padding="20dp">
 
-    <TextView
-        android:id="@+id/tvGrabar"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="375dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="228dp"
-        android:text="Pulsa para grabar..."
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="?attr/textColor"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="52dp"
-        android:text="Titulo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="?attr/textColor"/>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Insercción de punto"
+            android:textAlignment="center"
+            android:textColor="?textColor"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:laout_conversion_absoluteWidth="185dp"
+            tools:layout_conversion_absoluteHeor_absoluteX="20dp"
+            tools:layout_editight="19dp"
+            tools:layyout_editor_absoluteY="20dp" />
 
-    <EditText
-        android:id="@+id/et_titulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="64dp"
-        android:ems="10"
-        android:hint="titulo"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="?attr/textColor"/>
 
-    <Button
-        android:id="@+id/btn_grabacion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="188dp"
-        android:layout_marginTop="212dp"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="?attr/textColor"
-        android:background="?attr/colorAccent"/>
+        <EditText
+            android:id="@+id/et_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/shapealert"
+            android:drawablePadding="10dp"
+            android:hint="Nombre"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:textColor="?textColor"
+            android:textColorHighlight="@color/icons"
+            android:textColorHint="?attr/colorAccent"
+            tools:layout_conversion_absoluteHeight="56dp"
+            tools:layout_conversion_absoluteWidth="297dp"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="283dp" />
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvGrabar"
+                android:layout_width="211dp"
+                android:layout_height="wrap_content"
+                android:text="Manten pulsado para grabar"
+                android:textColor="?attr/textColor"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_grabacion"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/shapelogin"
+                android:drawableLeft="@drawable/ic_mic_black_24dp"
+                android:padding="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_volver_add"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shapealert"
+                android:layoutDirection="inherit"
+                android:padding="15dp"
+                android:shadowColor="@android:color/transparent"
+                android:text="Volver"
+                android:textAlignment="center"
+                android:textColor="?attr/colorAccent"
+                tools:layout_conversion_absoluteHeight="118dp"
+                tools:layout_conversion_absoluteWidth="0dp"
+                tools:layout_editor_absoluteX="475dp"
+                tools:layout_editor_absoluteY="593dp" />
+
+            <Button
+                android:id="@+id/btn_ins_add"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/shapelogin"
+                android:padding="15dp"
+                android:shadowColor="?attr/textColor"
+                android:text="Insertar"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryLight"
+                tools:layout_conversion_absoluteHeight="49dp"
+                tools:layout_conversion_absoluteWidth="287dp"
+                tools:layout_editor_absoluteX="104dp"
+                tools:layout_editor_absoluteY="593dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

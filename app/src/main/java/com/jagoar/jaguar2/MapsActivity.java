@@ -57,7 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ProgressDialog mProgress;
     private StorageReference mSorage;
     private static final String LOG_TAG="Record_log";
-    private Button recordBtn;
+    private Button recordBtn, btnVolver, btnAñadir;
     private TextView recordLabel;
     private String fileName;
     private MediaRecorder  recorder;
@@ -133,8 +133,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void sacarAlertDialog(final String latLng) {
         //metodo para llamar a nuestro alert dialog, crear puntos y subirlos a firebase.
         AlertDialog.Builder constructor = new AlertDialog.Builder(this);
-        constructor.setTitle("Inserccion");
-        constructor.setMessage("Insertar el nuevo contacto");
         LayoutInflater inflador=LayoutInflater.from(this);
         final View vista=inflador.inflate(R.layout.add_punto,null);
         constructor.setView(vista);
@@ -155,11 +153,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-
-        constructor.setPositiveButton("Insertar", new DialogInterface.OnClickListener() {
-
+        btnAñadir =(Button)vista.findViewById(R.id.btn_ins_add);
+        btnVolver =(Button)vista.findViewById(R.id.btn_volver_add);
+        btnAñadir.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
                 //creamos nuestro objeto punto y le asignamos su clave
                 EditText et_nombre = vista.findViewById(R.id.et_titulo);
 
@@ -196,19 +194,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 uploadAudio(p);
 
 
-                //cambiamos de activity y cerramos este
 
 
 
 
             }
         });
-        constructor.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.d("ALERT", "has clicado cancelar");
+            public void onClick(View v) {
                 punto.remove();
-
+                Intent I = new Intent(contexto, MapsActivity.class);
+                I.putExtra("currentUser",current_user);
+                startActivity(I);
+                finish();
             }
         });
         AlertDialog alert = constructor.create();
@@ -280,14 +279,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        /*Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if(location!=null) {
-            actualizarUbicacion(location);
-            Log.v("ubicacion", location.getLatitude()+", "+location.getLongitude());
-        }
-        else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
-        }*/
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
     }
 
@@ -318,7 +309,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final StorageReference filepath=mSorage.child("Audio").child(p.getId()+".3gp");
         Uri uri= Uri.fromFile(new File(fileName));
-        //Uri no valido
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -338,7 +328,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 });
             }
         });
-        //ES EL URI INTERNO NO EL EXTERNO
 
     }
 

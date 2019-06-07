@@ -14,6 +14,7 @@
     <ImageView
         android:layout_width="156dp"
         android:layout_height="150dp"
+        android:layout_marginBottom="50dp"
         android:src="@drawable/jaguar" />
 
     <EditText
@@ -76,13 +77,13 @@
             android:layout_marginTop="0dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
+            android:baselineAligned="false"
             android:clickable="true"
             android:drawableLeft="@drawable/ic_lock_open_black_24dp"
             android:drawablePadding="6dp"
             android:padding="4dp"
             android:text="Forget Password"
-            android:textColor="?attr/textColor"
-            />
+            android:textColor="?attr/textColor" />
 
 
     </LinearLayout>
@@ -123,7 +124,7 @@
         android:layout_marginTop="0dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="7dp"
-        android:text="Switch"
+        android:text="Tema"
         android:textColor="?attr/textColor" />
 
 </LinearLayout>
