@@ -27,6 +27,7 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
     @NonNull
     static List<Usuario> lista_usuarios_recy;
     Context contexto;
+    SharedPref sharedpref;
     private static InterfazClickRV itemListener;
     private View.OnClickListener listener;
     public AdaptadorRvUsuarios(List<Usuario> lista_usuarios) {
@@ -37,16 +38,16 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
     @Override
     public AdaptadorRvUsuarios.ListaUsuariosHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_user,viewGroup, false);
-
+        sharedpref = new SharedPref(v.getContext());
+        if(sharedpref.loadNightModeState()==true) {
+            v.getContext().setTheme(R.style.darkTtheme);
+        }else  v.getContext().setTheme(R.style.AppThemes);
         // viewGroup.setOnClickListener(this);
         AdaptadorRvUsuarios.ListaUsuariosHolder usuarios = new AdaptadorRvUsuarios.ListaUsuariosHolder(v);
+
         return usuarios;
     }
-    View.OnClickListener oyente=new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        }
-    };
+
 
     @Override
     public void onBindViewHolder(@NonNull final AdaptadorRvUsuarios.ListaUsuariosHolder listaUsuariosHolder, int i) {
@@ -111,11 +112,11 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
 
         @Override
         public void onClick(View v) {
-            sacarAlertDialog(lista_usuarios_recy.get(this.getPosition()), v );
+            //sacarAlertDialog(lista_usuarios_recy.get(this.getPosition()), v );
 
         }
     }
-    public static void sacarAlertDialog(Usuario user, View v)
+    /*public static void sacarAlertDialog(Usuario user, View v)
     {
         // Log.v("clicado", "posciion:"+position);
 
@@ -127,11 +128,6 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
         LayoutInflater inflador=LayoutInflater.from(v.getContext());
         final View vista=inflador.inflate(R.layout.alert_di_recy_user,null);
         constructor.setView(vista);
-
-        TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
-
-        TextView tv_fecha_hora= vista.findViewById(R.id.tv_audios_creados);
-        TextView tv_descripcion= vista.findViewById(R.id.tv_titulo);
 
 
 
@@ -151,5 +147,5 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
         });
         AlertDialog alert=constructor.create();
         alert.show();
-    }
+    }*/
 }

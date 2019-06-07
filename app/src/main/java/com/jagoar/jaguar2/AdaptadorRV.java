@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -107,7 +111,8 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
     public class ListaPuntosHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
         TextView tv_titulo_re, tv_fecha;
-        Button btnPlay;
+        ImageButton btnPlay;
+        Button btnVolverBorr, btnAceptarBorr;
         ImageView imagen;
         int i;
 
@@ -119,6 +124,8 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             tv_fecha=itemView.findViewById(R.id.tv_fecha);
             btnPlay=itemView.findViewById(R.id.btn_play);
             const_lay=(ConstraintLayout)itemView.findViewById(R.id.constraint_lay);
+            btnVolverBorr=itemView.findViewById(R.id.btn_borr_volv);
+            btnAceptarBorr=itemView.findViewById(R.id.btn_borr_add);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
@@ -133,8 +140,13 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         @Override
         public boolean onLongClick(View v) {
             sacarAlertDialogBorrar(lista_eventos_recy.get(this.getPosition()), v );
+
             return true;
         }
+
+
+
+
 
         private void sacarAlertDialogBorrar(final Punto punto, View v) {
             AlertDialog.Builder constructor= new AlertDialog.Builder(v.getContext());
@@ -153,7 +165,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.hasChildren()) {
                                 dataSnapshot.getRef().removeValue();
-
+                                notifyItemRemoved(lista_eventos_recy.indexOf(punto));
                             }
                         }
 
@@ -198,11 +210,10 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
         Button btnPlay= vista.findViewById(R.id.btn_play);
         TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha);
-        TextView tv_descripcion= vista.findViewById(R.id.tv_titulo);
-
+        TextView tv_autor= vista.findViewById(R.id.tv_autor);
 
         tv_titulo.setText(punto.getTitulo());
-        tv_descripcion.setText(punto.getCreador());
+        tv_autor.setText(punto.getCreador());
 
         tv_fecha_hora.setText(punto.getFecha());
 

@@ -3,13 +3,11 @@ package com.jagoar.jaguar2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -299,7 +297,7 @@ public class ActivityLogin extends AppCompatActivity {
         LayoutInflater inflater=this.getLayoutInflater();
         final View dialogView=inflater.inflate(R.layout.alert_dialog_passforget, null);
         dialog.setView(dialogView);
-        final EditText editText_passForget=(EditText)dialogView.findViewById(R.id.et_insertemail);
+        final EditText editText_passForget=(EditText)dialogView.findViewById(R.id.et_titulo);
 
         final Button boton_enviarforget=(Button)dialogView.findViewById(R.id.btn_pass);
         boton_enviarforget.setOnClickListener(new View.OnClickListener() {
