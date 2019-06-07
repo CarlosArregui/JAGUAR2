@@ -67,16 +67,21 @@ public class Main2Activity extends AppCompatActivity {
                             startActivity(I);
 
                             break;
-                        case R.id.anadir:
-                            selectedFragment = null;
+                        case R.id.add_puntos:
                             Intent showMap = new Intent(contexto,ShowMapActivity.class);
                             showMap.putExtra("currentUser",current_user);
                             startActivity(showMap);
+                            selectedFragment = new HomeFragment();
 
                             break;
                     }
 
                     if (selectedFragment != null){
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                selectedFragment).commit();
+                    }
+                    else{
+                        selectedFragment = new HomeFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                                 selectedFragment).commit();
                     }

@@ -17,6 +17,7 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -133,7 +134,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void sacarAlertDialog(final String latLng) {
         //metodo para llamar a nuestro alert dialog, crear puntos y subirlos a firebase.
-        AlertDialog.Builder constructor = new AlertDialog.Builder(this);
+        final AlertDialog.Builder constructor = new AlertDialog.Builder(this);
         LayoutInflater inflador=LayoutInflater.from(this);
         final View vista=inflador.inflate(R.layout.add_punto,null);
         constructor.setView(vista);
@@ -156,6 +157,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         btnAñadir =(Button)vista.findViewById(R.id.btn_ins_add);
         btnVolver =(Button)vista.findViewById(R.id.btn_volver_add);
+
+        final AlertDialog alert = constructor.create();
+        alert.show();
+
         btnAñadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,14 +210,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 punto.remove();
-                Intent I = new Intent(contexto, MapsActivity.class);
-                I.putExtra("currentUser",current_user);
-                startActivity(I);
-                finish();
+                alert.cancel();
             }
         });
-        AlertDialog alert = constructor.create();
-        alert.show();
+
 
     }
 
@@ -319,10 +320,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
                         p.setUrl(uri.toString());
                         bbdd.child(p.getId()).setValue(p);
-
-                        Intent I = new Intent(contexto, Main2Activity.class);
+                        /*Intent I = new Intent(contexto, Main2Activity.class);
                         I.putExtra("currentUser",current_user);
-                        startActivity(I);
+                        startActivity(I);*/
                         finish();
 
                     }

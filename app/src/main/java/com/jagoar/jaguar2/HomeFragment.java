@@ -82,8 +82,11 @@ public class HomeFragment extends Fragment {
                                 Punto punto = snapshot.getValue(Punto.class);
                                 puntos.add(punto);
                             }
+                            int lastNumber=puntos.size()-1;
                             adapter = new AdaptadorRV(puntos);
+                            adapter.notifyItemInserted(lastNumber);
                             adapter.notifyDataSetChanged();
+
                             rv.setAdapter(adapter);
                         }
 
