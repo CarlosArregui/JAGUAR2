@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -142,6 +144,10 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             return true;
         }
 
+
+
+
+
         private void sacarAlertDialogBorrar(final Punto punto, View v) {
             AlertDialog.Builder constructor= new AlertDialog.Builder(v.getContext());
 
@@ -149,7 +155,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             final View vista=inflador.inflate(R.layout.alert_di_recy_borrar,null);
             constructor.setView(vista);
 
-         /*   constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
+            constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Log.d("ALERT","has clicado borrar");
@@ -159,7 +165,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.hasChildren()) {
                                 dataSnapshot.getRef().removeValue();
-
+                                notifyItemRemoved(lista_eventos_recy.indexOf(punto));
                             }
                         }
 
@@ -178,7 +184,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
 
                 }
-            });*/
+            });
             AlertDialog alert=constructor.create();
             alert.show();
 
