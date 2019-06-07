@@ -155,6 +155,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         btnAñadir =(Button)vista.findViewById(R.id.btn_ins_add);
         btnVolver =(Button)vista.findViewById(R.id.btn_volver_add);
+
+        final AlertDialog alert = constructor.create();
+        alert.show();
+
         btnAñadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,14 +208,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 punto.remove();
-                Intent I = new Intent(contexto, MapsActivity.class);
-                I.putExtra("currentUser",current_user);
-                startActivity(I);
-                finish();
+                alert.cancel();
             }
         });
-        AlertDialog alert = constructor.create();
-        alert.show();
+
 
     }
 
