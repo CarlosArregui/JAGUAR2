@@ -1,9 +1,12 @@
 package com.jagoar.jaguar2;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.system.Os;
+import android.util.Log;
 import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -27,7 +31,7 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
     private GoogleMap mMap;
     private String current_user;
     public ArrayList<Marker> lista_marker;
-    public ArrayList<String>lista_audios;
+    public ArrayList<Punto>lista_puntos;
     Button btn_autoplay;
 
     @Override
@@ -67,13 +71,13 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
             //saca datos y los catualiza en la vista
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Marker> lista_markerFirebase =new ArrayList<>();
-                ArrayList<String> lista_audioFirebase =new ArrayList<>();
+                ArrayList<Punto> lista_puntosFirebase =new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Punto p = snapshot.getValue(Punto.class);
                     String coord =p.getCoord();
                     String[] latlong = coord.split(",");
                     String url=p.getUrl();
-                    lista_audioFirebase.add(url);
+                    lista_puntosFirebase.add(p);
                     double latitude = Double.parseDouble(latlong[0]);
                     double longitude = Double.parseDouble(latlong[1]);
                     LatLng location = new LatLng(latitude, longitude);
@@ -83,13 +87,49 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
 
                 }
                 lista_marker=lista_markerFirebase;
-                lista_audios=lista_audioFirebase;
+                lista_puntos=lista_puntosFirebase;
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String titulo=marker.getTitle();
+                LatLng coord=marker.getPosition();
+                String coordenadas=coord.toString().replace("lat/lng: (","").replace(")","");
+                String audio="";
+                Log.v("jeje",coordenadas);
+                for (Punto p: lista_puntos){
+                    Log.v("jeje",p.getCoord());
+                    if (coordenadas.equals(p.getCoord())){
+
+                        audio=p.getUrl();
+                    }
+                }
+                try {
+                    MediaPlayer mediaPlayer=new MediaPlayer();
+                    mediaPlayer.setDataSource(audio);
+
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            boolean audio=true;
+                            mp.start();
+                        }
+                    });
+                    mediaPlayer.prepare();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return true;
             }
         });
     }
