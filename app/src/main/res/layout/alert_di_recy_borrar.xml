@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/RelativetLayout"
@@ -12,37 +12,34 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="¿Está seguro de querer borrar el audio?"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginEnd="8dp"
+        android:text="¿Desea borrar el audio?"
         android:textAlignment="center"
         android:textColor="?attr/colorAccent"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+         />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="76dp"
-        android:layout_height="72dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="70dp"
         android:background="@drawable/ic_clear_black_24dp"
-        android:foregroundGravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:foregroundGravity="center" />
 
     <Button
         android:id="@+id/btn_borr_volv"
-        android:layout_width="150dp"
+        android:layout_width="171dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="140dp"
         android:background="@drawable/shapealert"
         android:layoutDirection="inherit"
         android:shadowColor="@android:color/transparent"
@@ -54,10 +51,9 @@
 
     <Button
         android:id="@+id/btn_borr_add"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="140dp"
         android:layout_marginEnd="4dp"
         android:background="@drawable/shapedelete"
         android:padding="15dp"
@@ -66,9 +62,7 @@
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryLight"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.812"
-        app:layout_constraintStart_toEndOf="@+id/btn_borr_volv"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

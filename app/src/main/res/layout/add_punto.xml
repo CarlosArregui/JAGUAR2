@@ -58,7 +58,7 @@
 
             <TextView
                 android:id="@+id/tvGrabar"
-                android:layout_width="211dp"
+                android:layout_width="199dp"
                 android:layout_height="wrap_content"
                 android:text="Manten pulsado para grabar"
                 android:textColor="?attr/textColor"
@@ -68,9 +68,9 @@
 
             <Button
                 android:id="@+id/btn_grabacion"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="48dp"
                 android:background="@drawable/shapelogin"
                 android:drawableLeft="@drawable/ic_mic_black_24dp"
                 android:padding="15dp"
