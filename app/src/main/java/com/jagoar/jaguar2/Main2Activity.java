@@ -61,10 +61,10 @@ public class Main2Activity extends AppCompatActivity {
                             selectedFragment.setArguments(bundle);
                             break;
                         case R.id.asistencia:
-                            selectedFragment = null;
                             Intent I = new Intent(contexto,MapsActivity.class);
                             I.putExtra("currentUser",current_user);
                             startActivity(I);
+                            selectedFragment = new HomeFragment();
 
                             break;
                         case R.id.anadir:

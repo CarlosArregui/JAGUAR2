@@ -124,8 +124,6 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             tv_fecha=itemView.findViewById(R.id.tv_fecha);
             btnPlay=itemView.findViewById(R.id.btn_play);
             const_lay=(ConstraintLayout)itemView.findViewById(R.id.constraint_lay);
-            btnVolverBorr=itemView.findViewById(R.id.btn_borr_volv);
-            btnAceptarBorr=itemView.findViewById(R.id.btn_borr_add);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
@@ -154,6 +152,12 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             LayoutInflater inflador=LayoutInflater.from(v.getContext());
             final View vista=inflador.inflate(R.layout.alert_di_recy_borrar,null);
             constructor.setView(vista);
+            btnVolverBorr=vista.findViewById(R.id.btn_borr_volv);
+            btnAceptarBorr=vista.findViewById(R.id.btn_borr_add);
+
+            final AlertDialog alert=constructor.create();
+            alert.show();
+
             btnAceptarBorr.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -170,7 +174,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                            alert.cancel();
                         }
                     });
 
@@ -198,8 +202,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
                 }
             });*/
-            AlertDialog alert=constructor.create();
-            alert.show();
+
 
         }
     }
