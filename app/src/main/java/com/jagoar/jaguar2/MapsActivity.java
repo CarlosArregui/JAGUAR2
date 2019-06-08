@@ -16,6 +16,7 @@ import android.location.LocationManager;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -58,6 +59,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private StorageReference mSorage;
     private static final String LOG_TAG="Record_log";
     private Button recordBtn, btnVolver, btnAñadir;
+    private EditText et_nombre;
     private TextView recordLabel;
     private String fileName;
     private MediaRecorder  recorder;
@@ -133,11 +135,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void sacarAlertDialog(final String latLng) {
         //metodo para llamar a nuestro alert dialog, crear puntos y subirlos a firebase.
         AlertDialog.Builder constructor = new AlertDialog.Builder(this);
+        constructor.setCancelable(false);
         LayoutInflater inflador=LayoutInflater.from(this);
         final View vista=inflador.inflate(R.layout.add_punto,null);
         constructor.setView(vista);
         recordLabel=(TextView)vista.findViewById(R.id.tvGrabar);
         recordBtn =(Button)vista.findViewById(R.id.btn_grabacion);
+        et_nombre = vista.findViewById(R.id.et_titulo);
         recordBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -162,45 +166,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnAñadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //creamos nuestro objeto punto y le asignamos su clave
-                EditText et_nombre = vista.findViewById(R.id.et_titulo);
-
-                DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
-                String id = bbdd.push().getKey();
-
-
-                Date c = Calendar.getInstance().getTime();
-                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                String fecha = df.format(c);
-                String titulo = et_nombre.getText().toString();
-                String creador = current_user;
-                String coord = punto.getPosition().toString().replace("lat/lng: (", "").replace(")", "");
-
-                String latlon[] = coord.split(",");
-                String lat = latlon[0];
-                String lon = latlon[1];
-                Double double_lat = Double.parseDouble(lat);
-                Double double_lon = Double.parseDouble(lon);
-
-                Geocoder gcd = new Geocoder(contexto, Locale.getDefault());
-                List<Address> addresses = null;
                 try {
-                    addresses = gcd.getFromLocation(double_lat, double_lon, 1);
-                    if (addresses.size() > 0) {
-                        countryName = addresses.get(0).getCountryName();
+                    if (!et_nombre.getText().toString().trim().equals("") && recorder!=null){
+                        //creamos nuestro objeto punto y le asignamos su clave
+
+                        DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
+                        String id = bbdd.push().getKey();
+
+
+                        Date c = Calendar.getInstance().getTime();
+                        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                        String fecha = df.format(c);
+                        String titulo = et_nombre.getText().toString();
+                        String creador = current_user;
+                        String coord = punto.getPosition().toString().replace("lat/lng: (", "").replace(")", "");
+
+                        String latlon[] = coord.split(",");
+                        String lat = latlon[0];
+                        String lon = latlon[1];
+                        Double double_lat = Double.parseDouble(lat);
+                        Double double_lon = Double.parseDouble(lon);
+
+                        Geocoder gcd = new Geocoder(contexto, Locale.getDefault());
+                        List<Address> addresses = null;
+                        try {
+                            addresses = gcd.getFromLocation(double_lat, double_lon, 1);
+                            if (addresses.size() > 0) {
+                                countryName = addresses.get(0).getCountryName();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        final Punto p = new Punto(id, titulo, creador, fecha, coord, countryName);
+                        uploadAudio(p);
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    else{
+                        snackbar();
+                    }
+                }catch (Exception e){
+                    snackbar();
                 }
-
-
-                final Punto p = new Punto(id, titulo, creador, fecha, coord, countryName);
-                uploadAudio(p);
-
-
-
-
-
 
             }
         });
@@ -292,16 +298,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         try {
             recorder.prepare();
         } catch (IOException e) {
-            Log.e(LOG_TAG, "prepare() failed");
+            snackbar();
         }
 
         recorder.start();
     }
 
     private void stopRecording() {
-        recorder.stop();
-        recorder.release();
-        recorder = null;
+
+       try {
+           recorder.stop();
+           recorder.release();
+       }catch (Exception e){
+           snackbar();
+       }
+
     }
 
     private void uploadAudio(final Punto p) {
@@ -329,6 +340,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+    }
+    private void snackbar(){
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
+                "Ups, algo no ha salido bien", Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
 
