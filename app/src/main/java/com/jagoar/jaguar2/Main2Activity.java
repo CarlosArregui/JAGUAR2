@@ -65,7 +65,7 @@ public class Main2Activity extends AppCompatActivity {
                             Intent I = new Intent(contexto,MapsActivity.class);
                             I.putExtra("currentUser",current_user);
                             startActivity(I);
-
+                          HomeFragment home= new HomeFragment();
                             break;
                         case R.id.anadir:
                             selectedFragment = null;

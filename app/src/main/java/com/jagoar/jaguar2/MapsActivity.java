@@ -319,10 +319,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         p.setUrl(uri.toString());
                         bbdd.child(p.getId()).setValue(p);
 
-                        Intent I = new Intent(contexto, Main2Activity.class);
-                        I.putExtra("currentUser",current_user);
-                        startActivity(I);
-                        finish();
+
 
                     }
                 });
