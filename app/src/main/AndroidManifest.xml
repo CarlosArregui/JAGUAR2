@@ -35,6 +35,7 @@
 
         <activity
             android:name=".ShowMapActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_show_map"></activity>
         <activity android:name=".SliderActivity" />
 
@@ -42,18 +43,26 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".HomeFragment" />
+        <activity android:name=".HomeFragment"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Main2Activity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_main2" />
         <activity
             android:name=".MapsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".ActivityLogin" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Registro" />
-        <activity android:name=".Usuario" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".ActivityLogin"
+            android:screenOrientation="portrait" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Registro"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Usuario"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SplashScreen"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
