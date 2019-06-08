@@ -156,7 +156,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             btnAceptarBorr=vista.findViewById(R.id.btn_borr_add);
 
             final AlertDialog alert=constructor.create();
-            alert.show();
+
 
             btnAceptarBorr.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -169,12 +169,13 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
                             if (dataSnapshot.hasChildren()) {
                                 dataSnapshot.getRef().removeValue();
                                 notifyItemRemoved(lista_eventos_recy.indexOf(punto));
+                                alert.cancel();
                             }
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            alert.cancel();
+
                         }
                     });
 
@@ -184,9 +185,11 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             btnVolverBorr.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    alert.cancel();
                 }
             });
+
+            alert.show();
 
             /*constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
                 @Override
