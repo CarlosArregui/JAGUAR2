@@ -167,6 +167,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
                                 dataSnapshot.getRef().removeValue();
                                 notifyItemRemoved(lista_eventos_recy.indexOf(punto));
                                 lista_eventos_recy.remove(punto);
+
                             }
                         }
 
