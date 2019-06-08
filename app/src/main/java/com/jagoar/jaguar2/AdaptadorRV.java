@@ -154,10 +154,9 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             LayoutInflater inflador=LayoutInflater.from(v.getContext());
             final View vista=inflador.inflate(R.layout.alert_di_recy_borrar,null);
             constructor.setView(vista);
-
-            /*constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
+            btnAceptarBorr.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(View v) {
                     Log.d("ALERT","has clicado borrar");
                     DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos").child(punto.getId());
                     bbdd.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -174,6 +173,20 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
                         }
                     });
+
+                }
+            });
+
+            btnVolverBorr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+            /*constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
                 }
             });
@@ -206,6 +219,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             vista.getContext().setTheme(R.style.darkTtheme);
         }else  vista.getContext().setTheme(R.style.AppThemes);
         constructor.setView(vista);
+
 
         TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
         Button btnPlay= vista.findViewById(R.id.btn_play);
