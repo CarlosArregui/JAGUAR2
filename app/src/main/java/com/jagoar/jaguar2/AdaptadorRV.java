@@ -155,7 +155,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             final View vista=inflador.inflate(R.layout.alert_di_recy_borrar,null);
             constructor.setView(vista);
 
-            constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
+            /*constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Log.d("ALERT","has clicado borrar");
@@ -184,7 +184,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
 
                 }
-            });
+            });*/
             AlertDialog alert=constructor.create();
             alert.show();
 
