@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -65,6 +66,7 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
                     double longitude = Double.parseDouble(latlong[1]);
                     LatLng location = new LatLng(latitude, longitude);
                     Marker marker=mMap.addMarker(new MarkerOptions().position(location).title(p.getTitulo()));
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.jaguar));
                     lista_markerFirebase.add(marker);
 
 
@@ -87,6 +89,7 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
                 LatLng coord=marker.getPosition();
                 String coordenadas=coord.toString().replace("lat/lng: (","").replace(")","");
                 String audio="";
+                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.rugido));
                 Log.v("jeje",coordenadas);
                 for (Punto p: lista_puntos){
                     Log.v("jeje",p.getCoord());
@@ -103,6 +106,7 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
                         @Override
                         public void onPrepared(MediaPlayer mp) {
                             boolean audio=true;
+
                             mp.start();
                         }
                     });
