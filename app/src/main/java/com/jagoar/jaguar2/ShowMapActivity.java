@@ -66,7 +66,7 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
                     double longitude = Double.parseDouble(latlong[1]);
                     LatLng location = new LatLng(latitude, longitude);
                     Marker marker=mMap.addMarker(new MarkerOptions().position(location).title(p.getTitulo()));
-                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.jaguar));
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.explorer));
                     lista_markerFirebase.add(marker);
 
 

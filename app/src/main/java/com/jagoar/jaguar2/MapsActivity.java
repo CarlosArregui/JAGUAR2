@@ -91,10 +91,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         mSorage= FirebaseStorage.getInstance().getReference();
         contexto=this;
+
+        //correo del usuario
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
          current_mail = user.getEmail();
 
 
+
+         //saca el current user
 
         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
         Query q=bbdd.orderByChild("correo").equalTo(current_mail);
@@ -126,7 +130,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        //metodo sacar ubicacion
         miUbicacion();
+
         miEvento();
 
     }
@@ -138,7 +145,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 if (latLng != null){
                     punto = mMap.addMarker(new MarkerOptions().position(latLng)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.explorer)));
                     sacarAlertDialog(latLng.toString());
                 }
             }
@@ -253,11 +260,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (marcador != null) {
             marcador.remove();
             marcador = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi ubicacion")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.explorer)));
             mMap.animateCamera(miUbicacion);
         } else {
             marcador = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi ubicacion")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.explorer)));
             mMap.animateCamera(miUbicacion);
         }
     }
