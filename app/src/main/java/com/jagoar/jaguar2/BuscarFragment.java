@@ -55,7 +55,7 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         if (getArguments() != null) {
             current_user = getArguments().getString("currentUser");
-            Log.v("jeje",current_user);
+
         }
 
         rv = getView().findViewById(R.id.rv_usuarios);

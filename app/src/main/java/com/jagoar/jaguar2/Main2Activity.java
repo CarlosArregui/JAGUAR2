@@ -62,7 +62,6 @@ public class Main2Activity extends AppCompatActivity {
                             break;
                         case R.id.asistencia:
                             Intent I = new Intent(contexto,MapsActivity.class);
-                            I.putExtra("currentUser",current_user);
                             startActivity(I);
 
 

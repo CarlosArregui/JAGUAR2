@@ -16,6 +16,7 @@ import android.location.LocationManager;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -40,8 +41,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -76,6 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String countryName;
     String current_user;
     String url;
+    String current_mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,11 +91,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         mSorage= FirebaseStorage.getInstance().getReference();
         contexto=this;
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+         current_mail = user.getEmail();
 
-        Intent login_inent=getIntent();
-        if (login_inent.getStringExtra("currentUser")!=null){
-            current_user=login_inent.getStringExtra("currentUser");
-        }
+
+
+        DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
+        Query q=bbdd.orderByChild("correo").equalTo(current_mail);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot d: dataSnapshot.getChildren()) {
+
+                    current_user =d.getKey();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -330,6 +359,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
                         p.setUrl(uri.toString());
                         bbdd.child(p.getId()).setValue(p);
+                        Intent i = new Intent(contexto,Main2Activity.class);
+                        startActivity(i);
                         finish();
 
                     }
