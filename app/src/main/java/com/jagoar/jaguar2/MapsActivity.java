@@ -113,11 +113,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
 
-
-
-
-
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -128,16 +123,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mProgress=new ProgressDialog(this);
     }
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -196,46 +181,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 try {
-                    if (!et_nombre.getText().toString().trim().equals("") && recorder!=null){
-                        //creamos nuestro objeto punto y le asignamos su clave
+                    if (!et_nombre.getText().toString().trim().equals("")){
+                        if (recorder!=null) {
+                            //creamos nuestro objeto punto y le asignamos su clave
 
-                        DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
-                        String id = bbdd.push().getKey();
+                            DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
+                            String id = bbdd.push().getKey();
 
 
-                        Date c = Calendar.getInstance().getTime();
-                        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                        String fecha = df.format(c);
-                        String titulo = et_nombre.getText().toString();
-                        String creador = current_user;
-                        String coord = punto.getPosition().toString().replace("lat/lng: (", "").replace(")", "");
+                            Date c = Calendar.getInstance().getTime();
+                            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                            String fecha = df.format(c);
+                            String titulo = et_nombre.getText().toString();
+                            String creador = current_user;
+                            String coord = punto.getPosition().toString().replace("lat/lng: (", "").replace(")", "");
 
-                        String latlon[] = coord.split(",");
-                        String lat = latlon[0];
-                        String lon = latlon[1];
-                        Double double_lat = Double.parseDouble(lat);
-                        Double double_lon = Double.parseDouble(lon);
+                            String latlon[] = coord.split(",");
+                            String lat = latlon[0];
+                            String lon = latlon[1];
+                            Double double_lat = Double.parseDouble(lat);
+                            Double double_lon = Double.parseDouble(lon);
 
-                        Geocoder gcd = new Geocoder(contexto, Locale.getDefault());
-                        List<Address> addresses = null;
-                        try {
-                            addresses = gcd.getFromLocation(double_lat, double_lon, 1);
-                            if (addresses.size() > 0) {
-                                countryName = addresses.get(0).getCountryName();
+                            Geocoder gcd = new Geocoder(contexto, Locale.getDefault());
+                            List<Address> addresses = null;
+                            try {
+                                addresses = gcd.getFromLocation(double_lat, double_lon, 1);
+                                if (addresses.size() > 0) {
+                                    countryName = addresses.get(0).getCountryName();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
 
-                        final Punto p = new Punto(id, titulo, creador, fecha, coord, countryName);
-                        uploadAudio(p);
-                        alert.cancel();
+                            final Punto p = new Punto(id, titulo, creador, fecha, coord, countryName);
+                            uploadAudio(p);
+                            alert.cancel();
+                        }
+                        else{
+                            snackbar("Tienes que grabar algun sonido, joven explorador");
+                        }
                     }
                     else{
-                        snackbar();
+                        snackbar("Ingresa un titulo al punto");
                     }
                 }catch (Exception e){
-                    snackbar();
                 }
 
             }
@@ -328,9 +317,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         try {
             recorder.prepare();
         } catch (IOException e) {
-            snackbar();
+            snackbar("Oh oh, algo no ha salido del todo bien");
         }
-
         recorder.start();
     }
 
@@ -340,7 +328,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
            recorder.stop();
            recorder.release();
        }catch (Exception e){
-           snackbar();
+           snackbar("Oh oh, algo no ha salido del todo bien");
+           recorder=null;
        }
 
     }
@@ -369,9 +358,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
     }
-    private void snackbar(){
-        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                "Ups, algo no ha salido bien", Snackbar.LENGTH_LONG);
+    private void snackbar(String mensaje){
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),mensaje , Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 

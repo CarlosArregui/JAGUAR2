@@ -1,15 +1,10 @@
 package com.jagoar.jaguar2;
-
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.system.Os;
 import android.util.Log;
-import android.widget.Button;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -32,7 +27,6 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
     private String current_user;
     public ArrayList<Marker> lista_marker;
     public ArrayList<Punto>lista_puntos;
-    Button btn_autoplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,21 +38,10 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
         mapFragment.getMapAsync(this);
 
         Intent login_inent=getIntent();
-        if (login_inent.getStringExtra("currentUser")!=null){
-            current_user=login_inent.getStringExtra("currentUser");
-        }
+        current_user=login_inent.getStringExtra("currentUser");
+
     }
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -124,7 +107,6 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
                         }
                     });
                     mediaPlayer.prepare();
-
 
                 } catch (IOException e) {
                     e.printStackTrace();
