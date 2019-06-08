@@ -200,6 +200,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         final Punto p = new Punto(id, titulo, creador, fecha, coord, countryName);
                         uploadAudio(p);
+                        alert.cancel();
                     }
                     else{
                         snackbar();
@@ -329,10 +330,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
                         p.setUrl(uri.toString());
                         bbdd.child(p.getId()).setValue(p);
-
-                        Intent I = new Intent(contexto, Main2Activity.class);
-                        I.putExtra("currentUser",current_user);
-                        startActivity(I);
                         finish();
 
                     }

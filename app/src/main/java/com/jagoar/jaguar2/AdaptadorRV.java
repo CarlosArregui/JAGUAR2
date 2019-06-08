@@ -124,6 +124,8 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             tv_fecha=itemView.findViewById(R.id.tv_fecha);
             btnPlay=itemView.findViewById(R.id.btn_play);
             const_lay=(ConstraintLayout)itemView.findViewById(R.id.constraint_lay);
+            btnVolverBorr=itemView.findViewById(R.id.btn_borr_volv);
+            btnAceptarBorr=itemView.findViewById(R.id.btn_borr_add);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
@@ -152,15 +154,10 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             LayoutInflater inflador=LayoutInflater.from(v.getContext());
             final View vista=inflador.inflate(R.layout.alert_di_recy_borrar,null);
             constructor.setView(vista);
-            btnVolverBorr=vista.findViewById(R.id.btn_borr_volv);
-            btnAceptarBorr=vista.findViewById(R.id.btn_borr_add);
 
-            final AlertDialog alert=constructor.create();
-
-
-            btnAceptarBorr.setOnClickListener(new View.OnClickListener() {
+            constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(DialogInterface dialog, int which) {
                     Log.d("ALERT","has clicado borrar");
                     DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos").child(punto.getId());
                     bbdd.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -169,7 +166,6 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
                             if (dataSnapshot.hasChildren()) {
                                 dataSnapshot.getRef().removeValue();
                                 notifyItemRemoved(lista_eventos_recy.indexOf(punto));
-                                alert.cancel();
                             }
                         }
 
@@ -181,22 +177,6 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
                 }
             });
-
-            btnVolverBorr.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    alert.cancel();
-                }
-            });
-
-            alert.show();
-
-            /*constructor.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
             constructor.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -204,8 +184,9 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
 
                 }
-            });*/
-
+            });
+            AlertDialog alert=constructor.create();
+            alert.show();
 
         }
     }
@@ -225,7 +206,6 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             vista.getContext().setTheme(R.style.darkTtheme);
         }else  vista.getContext().setTheme(R.style.AppThemes);
         constructor.setView(vista);
-
 
         TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
         Button btnPlay= vista.findViewById(R.id.btn_play);
