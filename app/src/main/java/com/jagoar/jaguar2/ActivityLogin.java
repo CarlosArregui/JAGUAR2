@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -46,7 +47,7 @@ public class ActivityLogin extends AppCompatActivity {
     private EditText emailLog;
     private EditText passLog;
     private TextView passforget;
-    private LinearLayout layoutSnack;
+    private ConstraintLayout layoutSnack;
     private Switch mySwitch;
     private FirebaseAuth mAuth;
     private static final int RC_SIGN_IN = 9001;
@@ -70,7 +71,7 @@ public class ActivityLogin extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
         context=this;
-        layoutSnack =(LinearLayout)findViewById(R.id.layout_login);
+        layoutSnack =(ConstraintLayout)findViewById(R.id.layout_login);
         emailLog=(EditText)findViewById(R.id.etLog_email);
         passLog=(EditText)findViewById(R.id.etLog_pass);
         sign_up =(Button)findViewById(R.id.sign_up);
