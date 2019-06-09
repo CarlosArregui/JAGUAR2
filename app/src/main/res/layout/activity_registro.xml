@@ -14,7 +14,7 @@
         android:layout_width="156dp"
         android:layout_height="150dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="31dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/jaguar"
         app:layout_constraintEnd_toStartOf="@+id/guideline25"
@@ -146,34 +146,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="245dp" />
+        app:layout_constraintGuide_begin="230dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="315dp" />
+        app:layout_constraintGuide_begin="300dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="385dp" />
+        app:layout_constraintGuide_begin="370dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="455dp" />
+        app:layout_constraintGuide_begin="440dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="525dp" />
+        app:layout_constraintGuide_begin="510dp" />
 
 </android.support.constraint.ConstraintLayout>
