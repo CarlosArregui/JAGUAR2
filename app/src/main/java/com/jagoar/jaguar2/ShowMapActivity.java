@@ -1,5 +1,7 @@
 package com.jagoar.jaguar2;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -28,6 +30,7 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
     private String current_user;
     public ArrayList<Marker> lista_marker;
     public ArrayList<Punto>lista_puntos;
+    Bitmap smallMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,11 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        int height = 80;
+        int width = 80;
+        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.marker1);
+        Bitmap b=bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
         FirebaseDatabase firebase = FirebaseDatabase.getInstance();
         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
         Query q=bbdd.orderByChild("creador").equalTo(current_user);
@@ -66,7 +73,7 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
                     double longitude = Double.parseDouble(latlong[1]);
                     LatLng location = new LatLng(latitude, longitude);
                     Marker marker=mMap.addMarker(new MarkerOptions().position(location).title(p.getTitulo()));
-                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.explorer));
+                    marker.setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
                     lista_markerFirebase.add(marker);
 
 
@@ -89,7 +96,12 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
                 LatLng coord=marker.getPosition();
                 String coordenadas=coord.toString().replace("lat/lng: (","").replace(")","");
                 String audio="";
-                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.exploration));
+                int height = 80;
+                int width = 80;
+                BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.exploration);
+                Bitmap b=bitmapdraw.getBitmap();
+                Bitmap changeMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                marker.setIcon(BitmapDescriptorFactory.fromBitmap(changeMarker));
                 Log.v("jeje",coordenadas);
                 for (Punto p: lista_puntos){
                     Log.v("jeje",p.getCoord());
@@ -119,4 +131,6 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
             }
         });
     }
+
+
 }

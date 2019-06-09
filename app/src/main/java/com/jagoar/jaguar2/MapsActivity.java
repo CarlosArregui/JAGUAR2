@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -74,7 +76,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker marcador;
     double lat = 0.0;
     double lng = 0.0;
-    private Marker punto;
     LocationManager locationManager;
     Dialog customDialog = null;
     ImageButton imagen;
@@ -84,6 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String current_user;
     String url;
     String current_mail;
+    String localizacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,11 +144,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-
+                localizacion=latLng.toString();
                 if (latLng != null){
-                    punto = mMap.addMarker(new MarkerOptions().position(latLng)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.explorer)));
-                    sacarAlertDialog(latLng.toString());
+                    sacarAlertDialog(localizacion);
                 }
             }
 
@@ -201,7 +201,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             String fecha = df.format(c);
                             String titulo = et_nombre.getText().toString();
                             String creador = current_user;
-                            String coord = punto.getPosition().toString().replace("lat/lng: (", "").replace(")", "");
+                            String coord = localizacion.replace("lat/lng: (", "").replace(")", "");
 
                             String latlon[] = coord.split(",");
                             String lat = latlon[0];
@@ -239,7 +239,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                punto.remove();
                 alert.cancel();
             }
         });
@@ -257,14 +256,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void agregegarMarcador(double lat, double lng) {
         LatLng coordenadas = new LatLng(lat, lng);
         CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
+        int height = 80;
+        int width = 80;
+        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.explorer);
+        Bitmap b=bitmapdraw.getBitmap();
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+
         if (marcador != null) {
             marcador.remove();
             marcador = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi ubicacion")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.explorer)));
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
             mMap.animateCamera(miUbicacion);
         } else {
             marcador = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi ubicacion")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.explorer)));
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
             mMap.animateCamera(miUbicacion);
         }
     }
