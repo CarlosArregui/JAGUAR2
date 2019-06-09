@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint_lay"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:layout_margin="20dp"
+    android:layout_height="90dp"
+    android:layout_margin="10dp"
     android:background="?attr/backgroundcolor">
 
 
@@ -47,9 +47,10 @@
             android:background="?attr/backgroundcolor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.922"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideline23"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.352"
             app:srcCompat="@drawable/ic_play_arrow_black_24dp" />
 
         <android.support.constraint.Guideline
