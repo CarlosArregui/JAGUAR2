@@ -107,22 +107,9 @@
         app:layout_constraintStart_toStartOf="@+id/guideline27"
         app:layout_constraintTop_toTopOf="@+id/guideline29" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/guideline25"
-        app:layout_constraintStart_toStartOf="@+id/guideline24"
-        tools:layout_editor_absoluteY="388dp">
-
-
-    </LinearLayout>
-
     <Button
         android:id="@+id/log_in"
-        android:layout_width="355dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -205,7 +192,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="382dp" />
+        app:layout_constraintGuide_begin="385dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline30"
