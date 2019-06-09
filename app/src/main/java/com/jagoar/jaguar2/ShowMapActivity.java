@@ -89,7 +89,7 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
                 LatLng coord=marker.getPosition();
                 String coordenadas=coord.toString().replace("lat/lng: (","").replace(")","");
                 String audio="";
-                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.rugido));
+                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.exploration));
                 Log.v("jeje",coordenadas);
                 for (Punto p: lista_puntos){
                     Log.v("jeje",p.getCoord());

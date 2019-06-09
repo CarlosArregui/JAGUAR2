@@ -70,6 +70,7 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
                     audios_list.add(punto);
                 }
               listaUsuariosHolder.tv_audios_creados.setText(Integer.toString(audios_list.size()));
+                Log.v("audios","creados"+Integer.toString(audios_list.size()));
             }
 
             @Override
