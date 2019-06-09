@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/RelativetLayout"
@@ -10,106 +10,159 @@
     android:padding="20dp">
 
 
-    <LinearLayout
-        android:layout_width="375dp"
+    <TextView
+        android:id="@+id/tvDescriptForgot"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="¿Has olvidado la contraseña?"
+        android:textAlignment="center"
+        android:textColor="?textColor"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline12"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/guideline11"
+        tools:laout_conversion_absoluteWidth="185dp"
+        tools:layout_conversion_absoluteHeor_absoluteX="20dp"
+        tools:layout_editight="19dp"
+        tools:layyout_editor_absoluteY="20dp" />
 
-        <TextView
-            android:id="@+id/tvDescriptForgot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="¿Has olvidado la contraseña?"
-            android:textAlignment="center"
-            android:textColor="?textColor"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            tools:laout_conversion_absoluteWidth="185dp"
-            tools:layout_conversion_absoluteHeor_absoluteX="20dp"
-            tools:layout_editight="19dp"
-            tools:layyout_editor_absoluteY="20dp" />
+    <TextView
+        android:id="@+id/tvDescriptForgot3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="65dp"
+        android:text="Ingresa tu correo para crear una nueva"
+        android:textAlignment="center"
+        android:textColor="?textColor"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline13"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/guideline12"
+        tools:layout_conversion_absoluteHeor_absoluteX="92dp"
+        tools:layout_conversion_absoluteWidth="244dp"
+        tools:layout_editight="19dp" />
 
-        <TextView
-            android:id="@+id/tvDescriptForgot3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Ingresa tu correo para crear una nueva"
-            android:textAlignment="center"
-            android:textColor="?textColor"
-            android:textSize="14dp"
-            tools:layout_conversion_absoluteHeor_absoluteX="92dp"
-            tools:layout_conversion_absoluteWidth="244dp"
-            tools:layout_editight="19dp"
-            tools:layout_editor_absoluteY="128dp" />
+    <EditText
+        android:id="@+id/et_titulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/shapealert"
+        android:drawableLeft="@drawable/ic_email_black_24dp"
+        android:drawablePadding="10dp"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        android:padding="15dp"
+        android:textColor="?textColor"
+        android:textColorHighlight="@color/icons"
+        android:textColorHint="?attr/colorAccent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/guideline13"
+        tools:layout_conversion_absoluteHeight="56dp"
+        tools:layout_conversion_absoluteWidth="297dp" />
 
-        <EditText
-            android:id="@+id/et_titulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/shapealert"
-            android:drawableLeft="@drawable/ic_email_black_24dp"
-            android:drawablePadding="10dp"
-            android:hint="Email"
-            android:inputType="textPersonName"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:textColor="?textColor"
-            android:textColorHighlight="@color/icons"
-            android:textColorHint="?attr/colorAccent"
-            tools:layout_conversion_absoluteHeight="56dp"
-            tools:layout_conversion_absoluteWidth="297dp"
-            tools:layout_editor_absoluteX="62dp"
-            tools:layout_editor_absoluteY="283dp" />
+    <Button
+        android:id="@+id/btn_volver_add"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/shapealert"
+        android:layoutDirection="inherit"
+        android:padding="15dp"
+        android:shadowColor="@android:color/transparent"
+        android:text="Atrás"
+        android:textAlignment="center"
+        android:textColor="?attr/colorAccent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/guideline14"
+        tools:layout_conversion_absoluteHeight="118dp"
+        tools:layout_conversion_absoluteWidth="0dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+    <Button
+        android:id="@+id/btn_pass"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/shapelogin"
+        android:padding="15dp"
+        android:shadowColor="?attr/textColor"
+        android:text="Enviar"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryLight"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toTopOf="@+id/guideline14"
+        tools:layout_conversion_absoluteHeight="49dp"
+        tools:layout_conversion_absoluteWidth="287dp" />
 
-            <Button
-                android:id="@+id/btn_volver_add"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shapealert"
-                android:layoutDirection="inherit"
-                android:padding="15dp"
-                android:shadowColor="@android:color/transparent"
-                android:text="Atrás"
-                android:textAlignment="center"
-                android:textColor="?attr/colorAccent"
-                tools:layout_conversion_absoluteHeight="118dp"
-                tools:layout_conversion_absoluteWidth="0dp"
-                tools:layout_editor_absoluteX="475dp"
-                tools:layout_editor_absoluteY="593dp" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="2dp" />
 
-            <Button
-                android:id="@+id/btn_pass"
-                android:layout_width="145dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/shapelogin"
-                android:padding="15dp"
-                android:shadowColor="?attr/textColor"
-                android:text="Enviar"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryLight"
-                tools:layout_conversion_absoluteHeight="49dp"
-                tools:layout_conversion_absoluteWidth="287dp"
-                tools:layout_editor_absoluteX="104dp"
-                tools:layout_editor_absoluteY="593dp" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="2dp" />
 
-        </LinearLayout>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
 
-    </LinearLayout>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="4dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="52dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="93dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="168dp" />
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
