@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/const_lay_user"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="200px"
     android:background="?attr/backgroundcolor">
 
     <TextView
         android:id="@+id/tv_titulo"
         android:layout_width="180dp"
         android:layout_height="37dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="20dp"
         android:text="TextView"
         android:textColor="?attr/textColor"
         android:textSize="24sp"
@@ -22,10 +23,10 @@
         android:id="@+id/tv_audios_creados"
         android:layout_width="63dp"
         android:layout_height="31dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:textColor="?attr/textColor"
-        android:textStyle="bold"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline22"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,6 +42,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="405dp" />
+        app:layout_constraintGuide_begin="406dp" />
 
 </android.support.constraint.ConstraintLayout>
