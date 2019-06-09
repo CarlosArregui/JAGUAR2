@@ -209,29 +209,20 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         constructor.setView(vista);
 
         TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
-        Button btnPlay= vista.findViewById(R.id.btn_play);
+        Button btnPlay= vista.findViewById(R.id.volvInfo);
         TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha);
         TextView tv_autor= vista.findViewById(R.id.tv_autor);
-
+        final AlertDialog alert=constructor.create();
         tv_titulo.setText(punto.getTitulo());
         tv_autor.setText(punto.getCountryName());
 
         tv_fecha_hora.setText(punto.getFecha());
-
-        constructor.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+        btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.d("ALERT","has clicado aceptar");
+            public void onClick(View v) {
+                alert.cancel();
             }
         });
-        constructor.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.d("ALERT","has clicado cancelar");
-
-            }
-        });
-        AlertDialog alert=constructor.create();
         alert.show();
     }
 }
