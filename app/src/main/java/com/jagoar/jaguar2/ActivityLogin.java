@@ -291,8 +291,9 @@ public class ActivityLogin extends AppCompatActivity {
         final View dialogView=inflater.inflate(R.layout.alert_dialog_passforget, null);
         dialog.setView(dialogView);
         final EditText editText_passForget=(EditText)dialogView.findViewById(R.id.et_titulo);
-
         final Button boton_enviarforget=(Button)dialogView.findViewById(R.id.btn_pass);
+        final Button boton_enviarforget_vol=(Button)dialogView.findViewById(R.id.btn_pass);
+        final AlertDialog b=dialog.create();
         boton_enviarforget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -304,17 +305,22 @@ public class ActivityLogin extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    // do something when mail was sent successfully.
+                                    snackbar("Mira en tu correo para resetear la contraseña.");
                                 } else {
-                                    // ...
+                                    snackbar("Ha habido un problema con el correo escrito");
                                 }
                             }
                         });
 
             }
-        });
 
-        AlertDialog b=dialog.create();
+        });
+        boton_enviarforget_vol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                b.cancel();
+            }
+        });
         b.show();
     }
 
