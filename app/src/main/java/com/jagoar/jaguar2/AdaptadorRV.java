@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 //Comentar esta clase adaptador podria causar cambios en las leyes espacio-temporales de la fisica, asi que no lo hare.
@@ -160,6 +162,9 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             btnAceptarBorr.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    StorageReference mSorage= FirebaseStorage.getInstance().getReference();
+                    final StorageReference filepath=mSorage.child("Audio").child(punto.getId()+".3gp");
+                    filepath.delete();
                     DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos").child(punto.getId());
                     bbdd.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
