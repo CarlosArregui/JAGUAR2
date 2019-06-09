@@ -106,12 +106,6 @@ public class ActivityLogin extends AppCompatActivity {
         });
 
         /*
-         * Estas lineas obtienen un token del idCliente y el correo de tu cuenta de google.
-         */
-
-
-
-        /*
          * Se inicializa el objeto de SharedPreferences y se pasan por parametros prefs_name que indica el nombre de la colección
           * MODE_PRIVATE donde indicamos que solo nuestra aplicacion tiene acceso a nuestras preferencias
 
@@ -272,9 +266,7 @@ public class ActivityLogin extends AppCompatActivity {
         emailLog.getText().clear();
         passLog.getText().clear();
     }
-    /*
-     * En este metodo se crea un Intent y llama al predefinido de google para visualizar tus cuentas y lo inicializa
-     */
+
 
 
 
