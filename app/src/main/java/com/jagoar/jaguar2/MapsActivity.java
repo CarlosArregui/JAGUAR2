@@ -86,6 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String url;
     String current_mail;
     String localizacion;
+    public Boolean puntocreado=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +151,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMapClick(LatLng latLng) {
                 localizacion=latLng.toString();
-                if (latLng != null){
+                if (latLng != null &&puntocreado==false){
                     sacarAlertDialog(localizacion);
                 }
             }
@@ -195,6 +196,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 try {
                     if (!et_nombre.getText().toString().trim().equals("")){
                         if (recorder!=null) {
+                            puntocreado=true;
                             //creamos nuestro objeto punto y le asignamos su clave
 
                             DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
