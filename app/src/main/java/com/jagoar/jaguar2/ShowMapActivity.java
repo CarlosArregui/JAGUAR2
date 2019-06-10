@@ -96,7 +96,7 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
             @Override
             public boolean onMarkerClick(final Marker marker) {
                 final LatLng coord=marker.getPosition();
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(coord, 5), new GoogleMap.CancelableCallback() {
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(coord, 9), new GoogleMap.CancelableCallback() {
                     @Override
                     public void onFinish() {
                         String coordenadas=coord.toString().replace("lat/lng: (","").replace(")","");

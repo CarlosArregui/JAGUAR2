@@ -292,7 +292,7 @@ public class ActivityLogin extends AppCompatActivity {
         dialog.setView(dialogView);
         final EditText editText_passForget=(EditText)dialogView.findViewById(R.id.et_titulo);
         final Button boton_enviarforget=(Button)dialogView.findViewById(R.id.btn_pass);
-        final Button boton_enviarforget_vol=(Button)dialogView.findViewById(R.id.btn_pass);
+        final Button boton_enviarforget_vol=(Button)dialogView.findViewById(R.id.btn_volver_add);
         final AlertDialog b=dialog.create();
         boton_enviarforget.setOnClickListener(new View.OnClickListener() {
             @Override
