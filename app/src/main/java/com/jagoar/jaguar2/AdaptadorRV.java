@@ -1,28 +1,18 @@
 package com.jagoar.jaguar2;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-
-
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,9 +27,8 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
     @NonNull
     static List<Punto> lista_eventos_recy;
     SharedPref sharedpref;
-    Context contexto;
+    MediaPlayer mediaPlayer;
     private static InterfazClickRV itemListener;
-    private View.OnClickListener listener;
     public AdaptadorRV(List<Punto> lista_puntos) {
         this.lista_eventos_recy=lista_puntos;
     }
@@ -54,15 +43,10 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         if(sharedpref.loadNightModeState()==true) {
             v.getContext().setTheme(R.style.darkTtheme);
         }else  v.getContext().setTheme(R.style.AppThemes);
-        // viewGroup.setOnClickListener(this);
+
         ListaPuntosHolder puntos = new ListaPuntosHolder(v);
         return puntos;
     }
-    View.OnClickListener oyente=new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        }
-    };
 
     @Override
     public void onBindViewHolder(@NonNull final ListaPuntosHolder listaPuntosHolder, int i) {
@@ -72,10 +56,9 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         listaPuntosHolder.btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MediaPlayer mediaPlayer= new MediaPlayer();
+                mediaPlayer= new MediaPlayer();
                 try{
                     mediaPlayer.setDataSource(punto.getUrl());
-                    Log.v("uriuri",punto.getUrl());
                     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(MediaPlayer mp) {
