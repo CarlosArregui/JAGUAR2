@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,8 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -31,6 +30,7 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
     public ArrayList<Marker> lista_marker;
     public ArrayList<Punto>lista_puntos;
     Bitmap smallMarker;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +92,10 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                String titulo=marker.getTitle();
                 LatLng coord=marker.getPosition();
                 String coordenadas=coord.toString().replace("lat/lng: (","").replace(")","");
                 String audio="";
+                String titulo="";
                 int height = 80;
                 int width = 80;
                 BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.exploration);
@@ -108,28 +108,40 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
                     if (coordenadas.equals(p.getCoord())){
 
                         audio=p.getUrl();
+                        titulo=p.getTitulo();
                     }
                 }
-                try {
-                    MediaPlayer mediaPlayer=new MediaPlayer();
-                    mediaPlayer.setDataSource(audio);
+                try{
+                    if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                        mediaPlayer.stop();
+                        mediaPlayer.reset();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
 
+                    }
+                    mediaPlayer = new MediaPlayer();
+                    mediaPlayer.setDataSource(audio);
+                    snackbar("Reproduciendo "+titulo);
                     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(MediaPlayer mp) {
-                            boolean audio=true;
-
                             mp.start();
+
+
                         }
                     });
                     mediaPlayer.prepare();
-
-                } catch (IOException e) {
+                }catch (Exception  e){
                     e.printStackTrace();
                 }
                 return true;
             }
         });
+    }
+
+    private void snackbar(String mensaje){
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),mensaje , Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
 

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
     static List<Punto> lista_eventos_recy;
     SharedPref sharedpref;
     MediaPlayer mediaPlayer;
+    View v;
     private static InterfazClickRV itemListener;
     public AdaptadorRV(List<Punto> lista_puntos) {
         this.lista_eventos_recy=lista_puntos;
@@ -38,7 +40,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
     public ListaPuntosHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
 
-        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_add,viewGroup, false);
+        v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_add,viewGroup, false);
         sharedpref = new SharedPref(v.getContext());
         if(sharedpref.loadNightModeState()==true) {
             v.getContext().setTheme(R.style.darkTtheme);
@@ -56,28 +58,33 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         listaPuntosHolder.btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer= new MediaPlayer();
                 try{
+                    if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                        mediaPlayer.stop();
+                        mediaPlayer.reset();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+
+                    }
+                    mediaPlayer = new MediaPlayer();
                     mediaPlayer.setDataSource(punto.getUrl());
+                    snackbar("Reproduciendo "+punto.getTitulo());
                     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(MediaPlayer mp) {
-                            if (mp.isPlaying()){
-                                mp.stop();
-                            }
                             mp.start();
+
+
                         }
                     });
                     mediaPlayer.prepare();
                 }catch (Exception  e){
                     e.printStackTrace();
-                    Log.v("uriuri",punto.getUrl());
                 }
 
             }
         });
         listaPuntosHolder.i=i;
-        // listaPuntosHolder.const_lay.setOnClickListener(oyente);
 
     }
 
@@ -98,10 +105,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         TextView tv_titulo_re, tv_fecha;
         ImageButton btnPlay;
         Button btnVolverBorr, btnAceptarBorr;
-        ImageView imagen;
         int i;
-
-        Button btn_abrir;
         ConstraintLayout const_lay;
         public ListaPuntosHolder(@NonNull View itemView) {
             super(itemView);
@@ -181,11 +185,6 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
     }
     public static void sacarAlertDialog(Punto punto, View v)
     {
-        // Log.v("clicado", "posciion:"+position);
-
-        // Evento evento=lista_eventos_recy.get(position);
-
-        Log.v("clicado","Clase:"+ v.getClass());
         AlertDialog.Builder constructor= new AlertDialog.Builder(v.getContext());
 
         LayoutInflater inflador=LayoutInflater.from(v.getContext());
@@ -212,5 +211,9 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
             }
         });
         alert.show();
+    }
+    private void snackbar(String audio){
+        Snackbar snackbar = Snackbar.make(v, audio, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 }
