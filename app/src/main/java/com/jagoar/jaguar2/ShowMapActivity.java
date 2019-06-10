@@ -8,6 +8,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -91,49 +94,59 @@ public class ShowMapActivity extends FragmentActivity implements OnMapReadyCallb
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
-            public boolean onMarkerClick(Marker marker) {
-                LatLng coord=marker.getPosition();
-                String coordenadas=coord.toString().replace("lat/lng: (","").replace(")","");
-                String audio="";
-                String titulo="";
-                int height = 80;
-                int width = 80;
-                BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.exploration);
-                Bitmap b=bitmapdraw.getBitmap();
-                Bitmap changeMarker = Bitmap.createScaledBitmap(b, width, height, false);
-                marker.setIcon(BitmapDescriptorFactory.fromBitmap(changeMarker));
-                Log.v("jeje",coordenadas);
-                for (Punto p: lista_puntos){
-                    Log.v("jeje",p.getCoord());
-                    if (coordenadas.equals(p.getCoord())){
+            public boolean onMarkerClick(final Marker marker) {
+                final LatLng coord=marker.getPosition();
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(coord, 5), new GoogleMap.CancelableCallback() {
+                    @Override
+                    public void onFinish() {
+                        String coordenadas=coord.toString().replace("lat/lng: (","").replace(")","");
+                        String audio="";
+                        String titulo="";
+                        int height = 80;
+                        int width = 80;
+                        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.exploration);
+                        Bitmap b=bitmapdraw.getBitmap();
+                        Bitmap changeMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                        marker.setIcon(BitmapDescriptorFactory.fromBitmap(changeMarker));
+                        Log.v("jeje",coordenadas);
+                        for (Punto p: lista_puntos){
+                            Log.v("jeje",p.getCoord());
+                            if (coordenadas.equals(p.getCoord())){
 
-                        audio=p.getUrl();
-                        titulo=p.getTitulo();
-                    }
-                }
-                try{
-                    if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                        mediaPlayer.stop();
-                        mediaPlayer.reset();
-                        mediaPlayer.release();
-                        mediaPlayer = null;
-
-                    }
-                    mediaPlayer = new MediaPlayer();
-                    mediaPlayer.setDataSource(audio);
-                    snackbar("Reproduciendo "+titulo);
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            mp.start();
-
-
+                                audio=p.getUrl();
+                                titulo=p.getTitulo();
+                            }
                         }
-                    });
-                    mediaPlayer.prepare();
-                }catch (Exception  e){
-                    e.printStackTrace();
-                }
+                        try{
+                            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                                mediaPlayer.stop();
+                                mediaPlayer.reset();
+                                mediaPlayer.release();
+                                mediaPlayer = null;
+
+                            }
+                            mediaPlayer = new MediaPlayer();
+                            mediaPlayer.setDataSource(audio);
+                            snackbar("Reproduciendo "+titulo);
+                            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                @Override
+                                public void onPrepared(MediaPlayer mp) {
+                                    mp.start();
+
+
+                                }
+                            });
+                            mediaPlayer.prepare();
+                        }catch (Exception  e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
                 return true;
             }
         });
