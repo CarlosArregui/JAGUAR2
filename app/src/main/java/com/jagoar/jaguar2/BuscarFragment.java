@@ -33,8 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-public class BuscarFragment extends Fragment implements SearchView.OnQueryTextListener{
+public class BuscarFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     RecyclerView rv;
     List<Usuario> usuarios;
@@ -44,11 +43,13 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
     ImageButton btn_buscar;
     String current_user;
     LinearLayout layoutSnack;
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       contexto=container.getContext();
+        contexto = container.getContext();
         return inflater.inflate(R.layout.fragment_buscar, container, false);
 
     }
+
     @Override
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
@@ -62,26 +63,26 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
         rv.setLayoutManager(new LinearLayoutManager(contexto));
         usuarios = new ArrayList<>();
 
-        et_user= (EditText) getView().findViewById(R.id.et_usuario);
+        et_user = (EditText) getView().findViewById(R.id.et_usuario);
         btn_buscar = getView().findViewById(R.id.btn_buscar);
 
         btn_buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String user_buscado= et_user.getText().toString();
+                final String user_buscado = et_user.getText().toString();
 
                 FirebaseDatabase.getInstance().getReference("usuarios").child(user_buscado).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
-                        Log.v("mensaje",String.valueOf(dataSnapshot.getChildrenCount()));
-                        if (dataSnapshot.getChildrenCount()>1){
-                            Intent showMap = new Intent(contexto,ShowMapActivity.class);
-                            showMap.putExtra("currentUser",user_buscado);
+                        Log.v("mensaje", String.valueOf(dataSnapshot.getChildrenCount()));
+                        if (dataSnapshot.getChildrenCount() > 1) {
+                            Intent showMap = new Intent(contexto, ShowMapActivity.class);
+                            showMap.putExtra("currentUser", user_buscado);
                             startActivity(showMap);
-                            
-                        }else{
+
+                        } else {
                             snackbar();
                         }
 
@@ -96,13 +97,11 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
                 });
 
 
-
-
             }
         });
 
         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
-        Query q=bbdd.orderByChild("nombre");
+        Query q = bbdd.orderByChild("nombre");
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             //saca datos y los catualiza en la vista
@@ -123,11 +122,13 @@ public class BuscarFragment extends Fragment implements SearchView.OnQueryTextLi
             }
         });
     }
-    private void snackbar(){
+
+    private void snackbar() {
         Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content),
                 "Usuario no encontrado", Snackbar.LENGTH_LONG);
         snackbar.show();
     }
+
     @Override
     public boolean onQueryTextSubmit(String s) {
         return false;

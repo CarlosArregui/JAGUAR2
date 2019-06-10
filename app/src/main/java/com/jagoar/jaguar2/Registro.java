@@ -38,14 +38,14 @@ import com.google.firebase.database.ValueEventListener;
 public class Registro extends AppCompatActivity {
     private ConstraintLayout layoutSnack;
     private EditText email;
-    private EditText pass,et_usuario;
+    private EditText pass, et_usuario;
     private EditText passConfirm;
     private Button registro;
     private String correo;
     private String contra;
     private String usuario;
     private Context contexto;
-    private Boolean no_repetido=false;
+    private Boolean no_repetido = false;
     private FirebaseAuth mAuth;
     private DatabaseReference bbdd;
     SharedPref sharedpref;
@@ -53,9 +53,9 @@ public class Registro extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(this);
-        if(sharedpref.loadNightModeState()==true) {
+        if (sharedpref.loadNightModeState() == true) {
             setTheme(R.style.darkTtheme);
-        }else  setTheme(R.style.AppThemes);
+        } else setTheme(R.style.AppThemes);
         super.onCreate(savedInstanceState);
 
         //Paantalla de registro
@@ -63,14 +63,14 @@ public class Registro extends AppCompatActivity {
 
         getSupportActionBar().hide();
         FirebaseApp.initializeApp(this);
-        contexto=this;
-        layoutSnack=findViewById(R.id.layout_registro);
+        contexto = this;
+        layoutSnack = findViewById(R.id.layout_registro);
         mAuth = FirebaseAuth.getInstance();
-        email=(EditText)findViewById(R.id.etEmail);
-        pass=(EditText)findViewById(R.id.etPass1);
-        registro=(Button)findViewById(R.id.btnRegistrar);
-        passConfirm=(EditText)findViewById(R.id.etPassConfirm);
-        et_usuario=(EditText)findViewById(R.id.et_usuario);
+        email = (EditText) findViewById(R.id.etEmail);
+        pass = (EditText) findViewById(R.id.etPass1);
+        registro = (Button) findViewById(R.id.btnRegistrar);
+        passConfirm = (EditText) findViewById(R.id.etPassConfirm);
+        et_usuario = (EditText) findViewById(R.id.et_usuario);
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +78,7 @@ public class Registro extends AppCompatActivity {
             }
         });
     }
+
     private void registrarUsuario() {
         //Obtenemos los textos de los editext
         correo = email.getText().toString().trim();
@@ -101,24 +102,19 @@ public class Registro extends AppCompatActivity {
 
         //verificacion de que el usuario no esta repetido
 
-            FirebaseDatabase.getInstance().getReference("usuarios").child(usuario).addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("usuarios").child(usuario).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    Log.v("mensaje",String.valueOf(dataSnapshot.getChildrenCount()));
-                    if (dataSnapshot.getChildrenCount()==0){
-                        no_repetido=true;
-                    }
-                    else{
-                        snackbar("El usuario ya existe");
-                    }
-
-
-
-
-
-
+                Log.v("mensaje", String.valueOf(dataSnapshot.getChildrenCount()));
+                if (dataSnapshot.getChildrenCount() == 0) {
+                    no_repetido = true;
+                } else {
+                    snackbar("El usuario ya existe");
                 }
+
+
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -130,27 +126,27 @@ public class Registro extends AppCompatActivity {
 
         //Crear usuario
 
-        if (no_repetido){
+        if (no_repetido) {
             mAuth.createUserWithEmailAndPassword(correo, contra)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
-                              Usuario u = new Usuario();
+                                Usuario u = new Usuario();
                                 u.setCorreo(correo);
                                 u.setNombre(usuario);
                                 String clave = usuario;
                                 bbdd.child(clave).setValue(u);
-                                FirebaseUser user=mAuth.getCurrentUser();
+                                FirebaseUser user = mAuth.getCurrentUser();
                                 user.sendEmailVerification();
                                 final Intent loging = new Intent(contexto, ActivityLogin.class);
                                 startActivity(loging);
-                            }else{
-                                if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                            } else {
+                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                     snackbar("El correo ya está en uso");
 
-                                }else{
+                                } else {
                                     snackbar("Oops... Algo ha salido mal");
                                 }
                             }
@@ -159,7 +155,7 @@ public class Registro extends AppCompatActivity {
         }
     }
 
-    private void snackbar(String message){
+    private void snackbar(String message) {
         final Snackbar snackbar = Snackbar
                 .make(layoutSnack, message, Snackbar.LENGTH_LONG);
 //        View snackView=snackbar.getView();

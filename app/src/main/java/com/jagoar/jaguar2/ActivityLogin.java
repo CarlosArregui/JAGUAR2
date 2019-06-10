@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -43,7 +44,7 @@ public class ActivityLogin extends AppCompatActivity {
     //Atributos de la clase
     private CheckBox checkBoxRememberMe;
     private Context context;
-    private Button sign_up,log_in;
+    private Button sign_up, log_in;
     private EditText emailLog;
     private EditText passLog;
     private TextView passforget;
@@ -53,8 +54,8 @@ public class ActivityLogin extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
     private SharedPreferences mPrefs;
     SharedPref sharedpref;
-    private static final String prefs_name="PrefsFile";
-    String correo,contra;
+    private static final String prefs_name = "PrefsFile";
+    String correo, contra;
     /*
      * En el onCreate inicializamos los atributos, añadimos los listener de los botones y otras cosas
      * de firebase.
@@ -64,20 +65,20 @@ public class ActivityLogin extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(this);
-        if(sharedpref.loadNightModeState()==true) {
+        if (sharedpref.loadNightModeState() == true) {
             setTheme(R.style.darkTtheme);
-        }else  setTheme(R.style.AppThemes);
+        } else setTheme(R.style.AppThemes);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
-        context=this;
-        layoutSnack =(ConstraintLayout)findViewById(R.id.layout_login);
-        emailLog=(EditText)findViewById(R.id.etLog_email);
-        passLog=(EditText)findViewById(R.id.etLog_pass);
-        sign_up =(Button)findViewById(R.id.sign_up);
-        log_in =(Button)findViewById(R.id.log_in);
-        passforget=(TextView)findViewById(R.id.tvPassForget);
-        checkBoxRememberMe=(CheckBox)findViewById(R.id.cbRemember);
+        context = this;
+        layoutSnack = (ConstraintLayout) findViewById(R.id.layout_login);
+        emailLog = (EditText) findViewById(R.id.etLog_email);
+        passLog = (EditText) findViewById(R.id.etLog_pass);
+        sign_up = (Button) findViewById(R.id.sign_up);
+        log_in = (Button) findViewById(R.id.log_in);
+        passforget = (TextView) findViewById(R.id.tvPassForget);
+        checkBoxRememberMe = (CheckBox) findViewById(R.id.cbRemember);
 
 
         /*
@@ -86,7 +87,7 @@ public class ActivityLogin extends AppCompatActivity {
          */
 
         mAuth = FirebaseAuth.getInstance();
-        final Intent I = new Intent(this,Registro.class);
+        final Intent I = new Intent(this, Registro.class);
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,19 +104,20 @@ public class ActivityLogin extends AppCompatActivity {
         passforget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    alertDialog();            }
+                alertDialog();
+            }
         });
 
         /*
          * Se inicializa el objeto de SharedPreferences y se pasan por parametros prefs_name que indica el nombre de la colección
-          * MODE_PRIVATE donde indicamos que solo nuestra aplicacion tiene acceso a nuestras preferencias
+         * MODE_PRIVATE donde indicamos que solo nuestra aplicacion tiene acceso a nuestras preferencias
 
          */
 
-        mPrefs=getSharedPreferences(prefs_name,MODE_PRIVATE);
+        mPrefs = getSharedPreferences(prefs_name, MODE_PRIVATE);
         getPreferencesData();
-        mySwitch=findViewById(R.id.switch1);
-        if (sharedpref.loadNightModeState()==true) {
+        mySwitch = findViewById(R.id.switch1);
+        if (sharedpref.loadNightModeState() == true) {
             mySwitch.setChecked(true);
         }
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -124,8 +126,7 @@ public class ActivityLogin extends AppCompatActivity {
                 if (isChecked) {
                     sharedpref.setNightModeState(true);
                     restartApp();
-                }
-                else {
+                } else {
                     sharedpref.setNightModeState(false);
                     restartApp();
                 }
@@ -134,10 +135,12 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     }
+
     @Override
     public void onBackPressed() {
 
     }
+
     private void restartApp() {
         Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
         startActivity(intent);
@@ -148,17 +151,17 @@ public class ActivityLogin extends AppCompatActivity {
      */
 
     private void getPreferencesData() {
-        SharedPreferences sharedPreferences=getSharedPreferences(prefs_name,MODE_PRIVATE);
-        if (sharedPreferences.contains("pref_name")){
-            String u=sharedPreferences.getString("pref_name", "not found");
+        SharedPreferences sharedPreferences = getSharedPreferences(prefs_name, MODE_PRIVATE);
+        if (sharedPreferences.contains("pref_name")) {
+            String u = sharedPreferences.getString("pref_name", "not found");
             emailLog.setText(u);
         }
-        if (sharedPreferences.contains("pref_pass")){
-            String p=sharedPreferences.getString("pref_pass", "not found");
+        if (sharedPreferences.contains("pref_pass")) {
+            String p = sharedPreferences.getString("pref_pass", "not found");
             passLog.setText(p);
         }
-        if (sharedPreferences.contains("checkbox")){
-            Boolean b=sharedPreferences.getBoolean("checkbox", false);
+        if (sharedPreferences.contains("checkbox")) {
+            Boolean b = sharedPreferences.getBoolean("checkbox", false);
             checkBoxRememberMe.setChecked(b);
         }
     }
@@ -171,8 +174,8 @@ public class ActivityLogin extends AppCompatActivity {
 
         // El .trim es para eliminar espacios al principio y al final de la palabra
 
-         correo=emailLog.getText().toString().trim();
-         contra=passLog.getText().toString().trim();
+        correo = emailLog.getText().toString().trim();
+        contra = passLog.getText().toString().trim();
 
 
         /*
@@ -180,11 +183,11 @@ public class ActivityLogin extends AppCompatActivity {
          * snackbar para avisar al usuario.
          */
 
-        if(TextUtils.isEmpty(correo)){
+        if (TextUtils.isEmpty(correo)) {
             snackbar("Ingresa un correo");
             return;
         }
-        if(TextUtils.isEmpty(contra)){
+        if (TextUtils.isEmpty(contra)) {
             snackbar("Ingresa una contraseña");
             return;
         }
@@ -194,15 +197,15 @@ public class ActivityLogin extends AppCompatActivity {
          * de los Edit Text y el Checkbox complementando y completando la coleccion de mPrefs, en el caso de que
          * el checkbox no sea true, se limpia mPrefs.
          */
-        if (checkBoxRememberMe.isChecked()){
-            Boolean boolIsCheked=checkBoxRememberMe.isChecked();
-            SharedPreferences.Editor editor=mPrefs.edit();
+        if (checkBoxRememberMe.isChecked()) {
+            Boolean boolIsCheked = checkBoxRememberMe.isChecked();
+            SharedPreferences.Editor editor = mPrefs.edit();
             editor.putString("pref_name", correo);
             editor.putString("pref_pass", contra);
             editor.putBoolean("checkbox", boolIsCheked);
             editor.apply();
 
-        }else{
+        } else {
             mPrefs.edit().clear().apply();
         }
         /*
@@ -216,26 +219,26 @@ public class ActivityLogin extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        try{
-                            FirebaseUser user=mAuth.getCurrentUser();
+                        try {
+                            FirebaseUser user = mAuth.getCurrentUser();
                             if (!user.isEmailVerified()) {
-                                snackbar("No has verificado el correo"); 
-                            }else{
+                                snackbar("No has verificado el correo");
+                            } else {
                                 if (task.isSuccessful()) {
                                     DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
-                                    Query q=bbdd.orderByChild("correo").equalTo(correo);
+                                    Query q = bbdd.orderByChild("correo").equalTo(correo);
                                     q.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            for (DataSnapshot d: dataSnapshot.getChildren()) {
+                                            for (DataSnapshot d : dataSnapshot.getChildren()) {
 
                                                 // cogemos el id del usuario, su nombre
-                                                String current_user =d.getKey();
-                                                Log.v("user","current user: "+current_user);
+                                                String current_user = d.getKey();
+                                                Log.v("user", "current user: " + current_user);
                                                 //
 
-                                                Intent I = new Intent(context,Main2Activity.class);
-                                                I.putExtra("currentUser",current_user);
+                                                Intent I = new Intent(context, Main2Activity.class);
+                                                I.putExtra("currentUser", current_user);
                                                 startActivity(I);
                                                 snackbar("Logeado");
                                                 finish();
@@ -251,15 +254,13 @@ public class ActivityLogin extends AppCompatActivity {
                                     });
 
 
-
-                                } else{
+                                } else {
                                     snackbar("No has ingresado los datos correctamente.");
                                 }
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             snackbar("Me huele a mi que la cuenta no existe");
                         }
-
 
 
                     }
@@ -269,48 +270,45 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
-    private void snackbar(String message){
+    private void snackbar(String message) {
         final Snackbar snackbar = Snackbar
-               .make(layoutSnack, message, Snackbar.LENGTH_LONG);
+                .make(layoutSnack, message, Snackbar.LENGTH_LONG);
 
-       snackbar.show();
+        snackbar.show();
     }
 
-    private void alertDialog(){
-        AlertDialog.Builder dialog=new AlertDialog.Builder(this);
-        LayoutInflater inflater=this.getLayoutInflater();
-        final View dialogView=inflater.inflate(R.layout.alert_dialog_passforget, null);
+    private void alertDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.alert_dialog_passforget, null);
         dialog.setView(dialogView);
-        final EditText editText_passForget=(EditText)dialogView.findViewById(R.id.et_titulo);
-        final Button boton_enviarforget=(Button)dialogView.findViewById(R.id.btn_pass);
-        final Button boton_enviarforget_vol=(Button)dialogView.findViewById(R.id.btn_volver_add);
-        final AlertDialog b=dialog.create();
+        final EditText editText_passForget = (EditText) dialogView.findViewById(R.id.et_titulo);
+        final Button boton_enviarforget = (Button) dialogView.findViewById(R.id.btn_pass);
+        final Button boton_enviarforget_vol = (Button) dialogView.findViewById(R.id.btn_volver_add);
+        final AlertDialog b = dialog.create();
         boton_enviarforget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stringEmailForget=editText_passForget.getText().toString().trim();
+                String stringEmailForget = editText_passForget.getText().toString().trim();
                 FirebaseAuth auth = FirebaseAuth.getInstance();
-
-                auth.sendPasswordResetEmail(stringEmailForget)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    snackbar("Mira en tu correo para resetear la contraseña.");
-                                } else {
-                                    snackbar("Ha habido un problema con el correo escrito");
+              
+                try {
+                    auth.sendPasswordResetEmail(stringEmailForget)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        snackbar("Le hemos enviado un correo para restablecer su contraseña");
+                                        b.cancel();
+                                    } else {
+                                        snackbar("Ha habido un problema con el correo escrito");
+                                    }
                                 }
-                            }
-                        });
+                            });
+                } catch (Exception e) {
+                    snackbar("Ingresa un correo");
+                }
+
 
             }
 

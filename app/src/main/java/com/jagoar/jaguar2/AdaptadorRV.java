@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +24,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
+
 //Comentar esta clase adaptador podria causar cambios en las leyes espacio-temporales de la fisica, asi que no lo hare.
 public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHolder> implements InterfazClickRV {
     @NonNull
@@ -31,8 +33,9 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
     MediaPlayer mediaPlayer;
     View v;
     private static InterfazClickRV itemListener;
+
     public AdaptadorRV(List<Punto> lista_puntos) {
-        this.lista_eventos_recy=lista_puntos;
+        this.lista_eventos_recy = lista_puntos;
     }
 
 
@@ -40,11 +43,11 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
     public ListaPuntosHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
 
-        v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_add,viewGroup, false);
+        v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_add, viewGroup, false);
         sharedpref = new SharedPref(v.getContext());
-        if(sharedpref.loadNightModeState()==true) {
+        if (sharedpref.loadNightModeState() == true) {
             v.getContext().setTheme(R.style.darkTtheme);
-        }else  v.getContext().setTheme(R.style.AppThemes);
+        } else v.getContext().setTheme(R.style.AppThemes);
 
         ListaPuntosHolder puntos = new ListaPuntosHolder(v);
         return puntos;
@@ -52,13 +55,13 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
     @Override
     public void onBindViewHolder(@NonNull final ListaPuntosHolder listaPuntosHolder, int i) {
-        final Punto punto =lista_eventos_recy.get(i);
+        final Punto punto = lista_eventos_recy.get(i);
         listaPuntosHolder.tv_titulo_re.setText(punto.getTitulo());
         listaPuntosHolder.tv_fecha.setText(punto.getFecha());
         listaPuntosHolder.btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
+                try {
                     if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                         mediaPlayer.stop();
                         mediaPlayer.reset();
@@ -68,7 +71,7 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
                     }
                     mediaPlayer = new MediaPlayer();
                     mediaPlayer.setDataSource(punto.getUrl());
-                    snackbar("Reproduciendo "+punto.getTitulo());
+                    snackbar("Reproduciendo " + punto.getTitulo());
                     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(MediaPlayer mp) {
@@ -78,16 +81,15 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
                         }
                     });
                     mediaPlayer.prepare();
-                }catch (Exception  e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
             }
         });
-        listaPuntosHolder.i=i;
+        listaPuntosHolder.i = i;
 
     }
-
 
 
     @Override
@@ -101,18 +103,19 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
     }
 
 
-    public class ListaPuntosHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
+    public class ListaPuntosHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView tv_titulo_re, tv_fecha;
         ImageButton btnPlay;
         Button btnVolverBorr, btnAceptarBorr;
         int i;
         ConstraintLayout const_lay;
+
         public ListaPuntosHolder(@NonNull View itemView) {
             super(itemView);
-            tv_titulo_re=itemView.findViewById(R.id.tv_titulo);
-            tv_fecha=itemView.findViewById(R.id.tv_fecha);
-            btnPlay=itemView.findViewById(R.id.btn_play);
-            const_lay=(ConstraintLayout)itemView.findViewById(R.id.constraint_lay);
+            tv_titulo_re = itemView.findViewById(R.id.tv_titulo);
+            tv_fecha = itemView.findViewById(R.id.tv_fecha);
+            btnPlay = itemView.findViewById(R.id.btn_play);
+            const_lay = (ConstraintLayout) itemView.findViewById(R.id.constraint_lay);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -121,36 +124,33 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
 
         @Override
         public void onClick(View v) {
-            sacarAlertDialog(lista_eventos_recy.get(this.getPosition()), v );
+            sacarAlertDialog(lista_eventos_recy.get(this.getPosition()), v);
 
         }
 
         @Override
         public boolean onLongClick(View v) {
-            sacarAlertDialogBorrar(lista_eventos_recy.get(this.getPosition()), v );
+            sacarAlertDialogBorrar(lista_eventos_recy.get(this.getPosition()), v);
 
             return true;
         }
 
 
-
-
-
         private void sacarAlertDialogBorrar(final Punto punto, View v) {
-            final AlertDialog.Builder constructor= new AlertDialog.Builder(v.getContext());
+            final AlertDialog.Builder constructor = new AlertDialog.Builder(v.getContext());
 
-            LayoutInflater inflador=LayoutInflater.from(v.getContext());
-            final View vista=inflador.inflate(R.layout.alert_di_recy_borrar,null);
+            LayoutInflater inflador = LayoutInflater.from(v.getContext());
+            final View vista = inflador.inflate(R.layout.alert_di_recy_borrar, null);
             constructor.setView(vista);
 
-            btnVolverBorr=vista.findViewById(R.id.btn_borr_volv);
-            btnAceptarBorr=vista.findViewById(R.id.btn_borr_add);
-            final AlertDialog alert=constructor.create();
+            btnVolverBorr = vista.findViewById(R.id.btn_borr_volv);
+            btnAceptarBorr = vista.findViewById(R.id.btn_borr_add);
+            final AlertDialog alert = constructor.create();
             btnAceptarBorr.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    StorageReference mSorage= FirebaseStorage.getInstance().getReference();
-                    final StorageReference filepath=mSorage.child("Audio").child(punto.getId()+".3gp");
+                    StorageReference mSorage = FirebaseStorage.getInstance().getReference();
+                    final StorageReference filepath = mSorage.child("Audio").child(punto.getId() + ".3gp");
                     filepath.delete();
                     DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos").child(punto.getId());
                     bbdd.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -171,35 +171,35 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
                     });
                 }
             });
-           btnVolverBorr.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   alert.cancel();
-               }
-           });
+            btnVolverBorr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alert.cancel();
+                }
+            });
 
 
             alert.show();
 
         }
     }
-    public static void sacarAlertDialog(Punto punto, View v)
-    {
-        AlertDialog.Builder constructor= new AlertDialog.Builder(v.getContext());
 
-        LayoutInflater inflador=LayoutInflater.from(v.getContext());
-        final View vista=inflador.inflate(R.layout.alert_di_recy,null);
-        SharedPref sharedpref= new SharedPref(vista.getContext());
-        if(sharedpref.loadNightModeState()==true) {
+    public static void sacarAlertDialog(Punto punto, View v) {
+        AlertDialog.Builder constructor = new AlertDialog.Builder(v.getContext());
+
+        LayoutInflater inflador = LayoutInflater.from(v.getContext());
+        final View vista = inflador.inflate(R.layout.alert_di_recy, null);
+        SharedPref sharedpref = new SharedPref(vista.getContext());
+        if (sharedpref.loadNightModeState() == true) {
             vista.getContext().setTheme(R.style.darkTtheme);
-        }else  vista.getContext().setTheme(R.style.AppThemes);
+        } else vista.getContext().setTheme(R.style.AppThemes);
         constructor.setView(vista);
 
-        TextView tv_titulo= vista.findViewById(R.id.tv_titulo);
-        Button btnPlay= vista.findViewById(R.id.volvInfo);
-        TextView tv_fecha_hora= vista.findViewById(R.id.tv_fecha);
-        TextView tv_autor= vista.findViewById(R.id.tv_autor);
-        final AlertDialog alert=constructor.create();
+        TextView tv_titulo = vista.findViewById(R.id.tv_titulo);
+        Button btnPlay = vista.findViewById(R.id.volvInfo);
+        TextView tv_fecha_hora = vista.findViewById(R.id.tv_fecha);
+        TextView tv_autor = vista.findViewById(R.id.tv_autor);
+        final AlertDialog alert = constructor.create();
         tv_titulo.setText(punto.getTitulo());
         tv_autor.setText(punto.getCountryName());
 
@@ -212,7 +212,8 @@ public class AdaptadorRV extends RecyclerView.Adapter<AdaptadorRV.ListaPuntosHol
         });
         alert.show();
     }
-    private void snackbar(String audio){
+
+    private void snackbar(String audio) {
         Snackbar snackbar = Snackbar.make(v, audio, Snackbar.LENGTH_LONG);
         snackbar.show();
     }

@@ -22,14 +22,15 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Main2Activity extends AppCompatActivity {
     Context contexto;
-    String current_mail,current_user;
+    String current_mail, current_user;
     SharedPref sharedpref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(this);
-        if(sharedpref.loadNightModeState()==true) {
+        if (sharedpref.loadNightModeState() == true) {
             setTheme(R.style.darkTtheme);
-        }else  setTheme(R.style.AppThemes);
+        } else setTheme(R.style.AppThemes);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         contexto = this;
@@ -37,17 +38,17 @@ public class Main2Activity extends AppCompatActivity {
         current_mail = user.getEmail();
 
 
-
         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
-        Query q=bbdd.orderByChild("correo").equalTo(current_mail);
+        Query q = bbdd.orderByChild("correo").equalTo(current_mail);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot d: dataSnapshot.getChildren()) {
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
 
-                    current_user =d.getKey();
+                    current_user = d.getKey();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -78,19 +79,19 @@ public class Main2Activity extends AppCompatActivity {
                             break;
 
                         case R.id.asistencia:
-                            Intent I = new Intent(contexto,MapsActivity.class);
+                            Intent I = new Intent(contexto, MapsActivity.class);
                             startActivity(I);
                             break;
                         case R.id.anadir:
                             selectedFragment = null;
-                            Intent showMap = new Intent(contexto,ShowMapActivity.class);
-                            showMap.putExtra("currentUser",current_user);
+                            Intent showMap = new Intent(contexto, ShowMapActivity.class);
+                            showMap.putExtra("currentUser", current_user);
                             startActivity(showMap);
                             break;
 
                     }
 
-                    if (selectedFragment != null){
+                    if (selectedFragment != null) {
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                                 selectedFragment).commit();
                     }

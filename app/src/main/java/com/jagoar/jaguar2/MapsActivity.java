@@ -66,12 +66,12 @@ import java.util.Locale;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private ProgressDialog mProgress;
     private StorageReference mSorage;
-    private static final String LOG_TAG="Record_log";
+    private static final String LOG_TAG = "Record_log";
     private Button recordBtn, btnVolver, btnAñadir;
     private EditText et_nombre;
     private TextView recordLabel;
     private String fileName;
-    private MediaRecorder  recorder;
+    private MediaRecorder recorder;
     private GoogleMap mMap;
     private Marker marcador;
     double lat = 0.0;
@@ -79,45 +79,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationManager locationManager;
     Dialog customDialog = null;
     ImageButton imagen;
-    EditText et_titulo,et_fecha,et_hora,et_descripcion;
+    EditText et_titulo, et_fecha, et_hora, et_descripcion;
     Context contexto;
     String countryName;
     String current_user;
     String url;
     String current_mail;
     String localizacion;
-    public Boolean puntocreado=false;
+    public Boolean puntocreado = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPref sharedpref;
         sharedpref = new SharedPref(this);
-        if(sharedpref.loadNightModeState()==true) {
+        if (sharedpref.loadNightModeState() == true) {
             setTheme(R.style.darkTtheme);
-        }else  setTheme(R.style.AppThemes);
+        } else setTheme(R.style.AppThemes);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        mSorage= FirebaseStorage.getInstance().getReference();
-        contexto=this;
+        mSorage = FirebaseStorage.getInstance().getReference();
+        contexto = this;
 
         //correo del usuario
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-         current_mail = user.getEmail();
+        current_mail = user.getEmail();
 
 
-
-         //saca el current user
+        //saca el current user
 
         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
-        Query q=bbdd.orderByChild("correo").equalTo(current_mail);
+        Query q = bbdd.orderByChild("correo").equalTo(current_mail);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot d: dataSnapshot.getChildren()) {
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
 
-                    current_user =d.getKey();
+                    current_user = d.getKey();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -132,7 +132,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         fileName = getExternalCacheDir().getAbsolutePath();
         fileName += "/audiorecordtest.3gp";
-        mProgress=new ProgressDialog(this);
+        mProgress = new ProgressDialog(this);
     }
 
     @Override
@@ -150,8 +150,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                localizacion=latLng.toString();
-                if (latLng != null &&puntocreado==false){
+                localizacion = latLng.toString();
+                if (latLng != null && puntocreado == false) {
                     sacarAlertDialog(localizacion);
                 }
             }
@@ -163,20 +163,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //metodo para llamar a nuestro alert dialog, crear puntos y subirlos a firebase.
         AlertDialog.Builder constructor = new AlertDialog.Builder(this);
         constructor.setCancelable(false);
-        LayoutInflater inflador=LayoutInflater.from(this);
-        final View vista=inflador.inflate(R.layout.add_punto,null);
+        LayoutInflater inflador = LayoutInflater.from(this);
+        final View vista = inflador.inflate(R.layout.add_punto, null);
         constructor.setView(vista);
-        recordLabel=(TextView)vista.findViewById(R.id.tvGrabar);
-        recordBtn =(Button)vista.findViewById(R.id.btn_grabacion);
+        recordLabel = (TextView) vista.findViewById(R.id.tvGrabar);
+        recordBtn = (Button) vista.findViewById(R.id.btn_grabacion);
         et_nombre = vista.findViewById(R.id.et_titulo);
         recordBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                if (event.getAction()==MotionEvent.ACTION_DOWN){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     recordLabel.setText("Grabación iniciada");
                     startRecording();
-                }else if (event.getAction()==MotionEvent.ACTION_UP){
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     stopRecording();
                     recordLabel.setText("Grabación finalizada");
                 }
@@ -184,8 +184,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        btnAñadir =(Button)vista.findViewById(R.id.btn_ins_add);
-        btnVolver =(Button)vista.findViewById(R.id.btn_volver_add);
+        btnAñadir = (Button) vista.findViewById(R.id.btn_ins_add);
+        btnVolver = (Button) vista.findViewById(R.id.btn_volver_add);
 
         final AlertDialog alert = constructor.create();
         alert.show();
@@ -194,9 +194,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 try {
-                    if (!et_nombre.getText().toString().trim().equals("")){
-                        if (recorder!=null) {
-                            puntocreado=true;
+                    if (!et_nombre.getText().toString().trim().equals("")) {
+                        if (recorder != null) {
+                            puntocreado = true;
                             //creamos nuestro objeto punto y le asignamos su clave
 
                             DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
@@ -230,15 +230,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             final Punto p = new Punto(id, titulo, creador, fecha, coord, countryName);
                             uploadAudio(p);
                             alert.cancel();
-                        }
-                        else{
+                        } else {
                             snackbar("Tienes que grabar algun sonido, joven explorador");
                         }
-                    }
-                    else{
+                    } else {
                         snackbar("Ingresa un titulo al punto");
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
 
             }
@@ -254,19 +252,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
-
-
-
-
-
     private void agregegarMarcador(double lat, double lng) {
         LatLng coordenadas = new LatLng(lat, lng);
         CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
         int height = 80;
         int width = 80;
-        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.explorer);
-        Bitmap b=bitmapdraw.getBitmap();
+        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.explorer);
+        Bitmap b = bitmapdraw.getBitmap();
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         if (marcador != null) {
@@ -286,17 +278,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //location.getLatitude()
             //location.getLongitude()
             lat = location.getLatitude();//40.4165000;
-            lng =  location.getLongitude();//-3.7025600;
-            agregegarMarcador(lat,lng);
+            lng = location.getLongitude();//-3.7025600;
+            agregegarMarcador(lat, lng);
         }
     }
 
     LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            if (location!=null) {
+            if (location != null) {
                 actualizarUbicacion(location);
-                Log.v("ubicacion", location.getLatitude()+", "+location.getLongitude());
+                Log.v("ubicacion", location.getLatitude() + ", " + location.getLongitude());
                 locationManager.removeUpdates(this);
             }
         }
@@ -343,21 +335,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void stopRecording() {
 
-       try {
-           recorder.stop();
-           recorder.release();
-       }catch (Exception e){
-           snackbar("Oh oh, algo no ha salido del todo bien");
-           recorder=null;
-       }
+        try {
+            recorder.stop();
+            recorder.release();
+        } catch (Exception e) {
+            snackbar("Oh oh, algo no ha salido del todo bien");
+            recorder = null;
+        }
 
     }
 
     private void uploadAudio(final Punto p) {
 
 
-        final StorageReference filepath=mSorage.child("Audio").child(p.getId()+".3gp");
-        Uri uri= Uri.fromFile(new File(fileName));
+        final StorageReference filepath = mSorage.child("Audio").child(p.getId() + ".3gp");
+        Uri uri = Uri.fromFile(new File(fileName));
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -367,7 +359,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
                         p.setUrl(uri.toString());
                         bbdd.child(p.getId()).setValue(p);
-                        Intent i = new Intent(contexto,Main2Activity.class);
+                        Intent i = new Intent(contexto, Main2Activity.class);
                         startActivity(i);
                         finish();
 
@@ -377,8 +369,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
     }
-    private void snackbar(String mensaje){
-        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),mensaje , Snackbar.LENGTH_LONG);
+
+    private void snackbar(String mensaje) {
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), mensaje, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 

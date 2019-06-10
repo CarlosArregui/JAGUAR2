@@ -39,40 +39,41 @@ public class HomeFragment extends Fragment {
     String current_mail;
     String current_user;
     SharedPref sharedpref;
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.home, container, false);
 
     }
+
     @Override
     public void onActivityCreated(Bundle state) {
 
         super.onActivityCreated(state);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        current_mail= user.getEmail();
-
+        current_mail = user.getEmail();
 
 
         rv = getView().findViewById(R.id.recycler_home);
         rv.setLayoutManager(new LinearLayoutManager(contexto));
         sharedpref = new SharedPref(rv.getContext());
-        if(sharedpref.loadNightModeState()==true) {
+        if (sharedpref.loadNightModeState() == true) {
             rv.getContext().setTheme(R.style.darkTtheme);
-        }else   rv.getContext().setTheme(R.style.AppThemes);
+        } else rv.getContext().setTheme(R.style.AppThemes);
         puntos = new ArrayList<>();
 
         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("usuarios");
-        Query q=bbdd.orderByChild("correo").equalTo(current_mail);
+        Query q = bbdd.orderByChild("correo").equalTo(current_mail);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot d: dataSnapshot.getChildren()) {
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
 
-                    current_user =d.getKey();
+                    current_user = d.getKey();
 
                     FirebaseDatabase firebase = FirebaseDatabase.getInstance();
                     DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
-                    Query q=bbdd.orderByChild("creador").equalTo(current_user);
+                    Query q = bbdd.orderByChild("creador").equalTo(current_user);
                     q.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         //saca datos y los catualiza en la vista
@@ -94,10 +95,9 @@ public class HomeFragment extends Fragment {
                     });
 
 
-
-
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

@@ -30,18 +30,19 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
     SharedPref sharedpref;
     private static InterfazClickRV itemListener;
     private View.OnClickListener listener;
+
     public AdaptadorRvUsuarios(List<Usuario> lista_usuarios) {
-        this.lista_usuarios_recy=lista_usuarios;
+        this.lista_usuarios_recy = lista_usuarios;
     }
 
 
     @Override
     public AdaptadorRvUsuarios.ListaUsuariosHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_user,viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_vista_user, viewGroup, false);
         sharedpref = new SharedPref(v.getContext());
-        if(sharedpref.loadNightModeState()==true) {
+        if (sharedpref.loadNightModeState() == true) {
             v.getContext().setTheme(R.style.darkTtheme);
-        }else  v.getContext().setTheme(R.style.AppThemes);
+        } else v.getContext().setTheme(R.style.AppThemes);
         // viewGroup.setOnClickListener(this);
         AdaptadorRvUsuarios.ListaUsuariosHolder usuarios = new AdaptadorRvUsuarios.ListaUsuariosHolder(v);
 
@@ -51,15 +52,15 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
 
     @Override
     public void onBindViewHolder(@NonNull final AdaptadorRvUsuarios.ListaUsuariosHolder listaUsuariosHolder, int i) {
-        Usuario usuario =lista_usuarios_recy.get(i);
+        Usuario usuario = lista_usuarios_recy.get(i);
         listaUsuariosHolder.tv_usuario.setText(usuario.getNombre());
 
-        String user= usuario.getNombre();
-        final List <Punto>audios_list= new ArrayList<>();
+        String user = usuario.getNombre();
+        final List<Punto> audios_list = new ArrayList<>();
 
         FirebaseDatabase firebase = FirebaseDatabase.getInstance();
         DatabaseReference bbdd = FirebaseDatabase.getInstance().getReference("puntos");
-        Query q=bbdd.orderByChild("creador").equalTo(user);
+        Query q = bbdd.orderByChild("creador").equalTo(user);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             //saca datos y los catualiza en la vista
@@ -69,8 +70,8 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
                     Punto punto = snapshot.getValue(Punto.class);
                     audios_list.add(punto);
                 }
-              listaUsuariosHolder.tv_audios_creados.setText(Integer.toString(audios_list.size()));
-                Log.v("audios","creados"+Integer.toString(audios_list.size()));
+                listaUsuariosHolder.tv_audios_creados.setText(Integer.toString(audios_list.size()));
+                Log.v("audios", "creados" + Integer.toString(audios_list.size()));
             }
 
             @Override
@@ -95,19 +96,20 @@ public class AdaptadorRvUsuarios extends RecyclerView.Adapter<AdaptadorRvUsuario
     }
 
 
-    public static class ListaUsuariosHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ListaUsuariosHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tv_usuario, tv_audios_creados;
 
         int i;
 
         Button btn_abrir;
         ConstraintLayout const_lay_user;
+
         public ListaUsuariosHolder(@NonNull View itemView) {
             super(itemView);
-            tv_usuario=itemView.findViewById(R.id.tv_titulo);
-            tv_audios_creados=itemView.findViewById(R.id.tv_audios_creados);
+            tv_usuario = itemView.findViewById(R.id.tv_titulo);
+            tv_audios_creados = itemView.findViewById(R.id.tv_audios_creados);
 
-            const_lay_user=(ConstraintLayout)itemView.findViewById(R.id.const_lay_user);
+            const_lay_user = (ConstraintLayout) itemView.findViewById(R.id.const_lay_user);
             itemView.setOnClickListener(this);
         }
 

@@ -17,7 +17,7 @@ public class SliderActivity extends AppIntro {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        askForPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.GET_ACCOUNTS, Manifest.permission.RECORD_AUDIO, Manifest.permission.INTERNET }, 2);
+        askForPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.GET_ACCOUNTS, Manifest.permission.RECORD_AUDIO, Manifest.permission.INTERNET}, 2);
         SliderPage sliderPage = new SliderPage();
         sliderPage.setTitle(getString(R.string.whats_jaguar));
         sliderPage.setImageDrawable(R.drawable.jaguar);
@@ -35,6 +35,7 @@ public class SliderActivity extends AppIntro {
 
 
     }
+
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
